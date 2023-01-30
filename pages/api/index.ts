@@ -1,6 +1,7 @@
-import { ApolloServer } from 'apollo-server-micro'
-import { DateTimeResolver } from 'graphql-scalars'
-import { NextApiHandler } from 'next'
+import { ApolloServer } from 'apollo-server-micro';
+import { DateTimeResolver } from 'graphql-scalars';
+import cors from 'micro-cors';
+import { NextApiHandler } from 'next';
 import {
   asNexusMethod,
   makeSchema,
@@ -8,101 +9,98 @@ import {
   nullable,
   objectType,
   stringArg,
-} from 'nexus'
-import path from 'path'
-import cors from 'micro-cors'
-import prisma from '../../lib/prisma'
+} from 'nexus';
+import path from 'path';
 
-export const GQLDate = asNexusMethod(DateTimeResolver, 'date')
+import prisma from '../../lib/prisma';
+
+export const GQLDate = asNexusMethod(DateTimeResolver, 'date');
 
 const User = objectType({
   name: 'User',
   definition(t) {
-    t.int('id')
-    t.string('name')
-    t.string('email')
-    t.list.field('posts', {
-      type: 'Post',
+    t.string('id');
+    t.string('name');
+    t.string('email');
+    t.list.field('ratings', {
+      type: 'Rating',
       resolve: (parent) =>
         prisma.user
           .findUnique({
-            where: { id: Number(parent.id) },
+            where: { id: String(parent.id) },
           })
-          .posts(),
-    })
+          .ratings(),
+    });
   },
-})
+});
 
-const Post = objectType({
-  name: 'Post',
+const Item = objectType({
+  name: 'Item',
   definition(t) {
-    t.int('id')
-    t.string('title')
-    t.nullable.string('content')
-    t.boolean('published')
-    t.nullable.field('author', {
+    t.string('id');
+    t.string('title');
+    t.nullable.string('imageUrl');
+    t.list.field('ratings', {
+      type: 'Rating',
+      resolve: (parent) =>
+        prisma.item
+          .findUnique({
+            where: { id: String(parent.id) },
+          })
+          .ratings(),
+    });
+  },
+});
+
+const Rating = objectType({
+  name: 'Rating',
+  definition(t) {
+    t.string('id');
+    t.int('value');
+    t.field('user', {
       type: 'User',
       resolve: (parent) =>
-        prisma.post
+        prisma.rating
           .findUnique({
-            where: { id: Number(parent.id) },
+            where: { id: String(parent.id) },
           })
-          .author(),
-    })
+          .user(),
+    });
+    t.field('item', {
+      type: 'Item',
+      resolve: (parent) =>
+        prisma.rating
+          .findUnique({
+            where: { id: String(parent.id) },
+          })
+          .item(),
+    });
   },
-})
+});
 
 const Query = objectType({
   name: 'Query',
   definition(t) {
-    t.field('post', {
-      type: 'Post',
+    t.field('getItems', {
+      type: 'Item',
+      resolve: (_, args) => {
+        return prisma.item.findMany();
+      },
+    });
+
+    t.field('getItem', {
+      type: 'Item',
       args: {
-        postId: nonNull(stringArg()),
+        id: nonNull(stringArg()),
       },
       resolve: (_, args) => {
-        return prisma.post.findUnique({
-          where: { id: Number(args.postId) },
-        })
+        return prisma.item.findUnique({
+          where: { id: String(args.id) },
+        });
       },
-    })
-
-    t.list.field('feed', {
-      type: 'Post',
-      resolve: (_parent, _args) => {
-        return prisma.post.findMany({
-          where: { published: true },
-        })
-      },
-    })
-
-    t.list.field('drafts', {
-      type: 'Post',
-      resolve: (_parent, _args, ctx) => {
-        return prisma.post.findMany({
-          where: { published: false },
-        })
-      },
-    })
-
-    t.list.field('filterPosts', {
-      type: 'Post',
-      args: {
-        searchString: nullable(stringArg()),
-      },
-      resolve: (_, { searchString }, ctx) => {
-        return prisma.post.findMany({
-          where: {
-            OR: [
-              { title: { contains: searchString } },
-              { content: { contains: searchString } },
-            ],
-          },
-        })
-      },
-    })
+    });
   },
-})
+});
 
 const Mutation = objectType({
   name: 'Mutation',
@@ -119,97 +117,119 @@ const Mutation = objectType({
             name,
             email,
           },
-        })
+        });
       },
-    })
+    });
 
-    t.nullable.field('deletePost', {
-      type: 'Post',
+    t.field('createRating', {
+      type: 'Rating',
       args: {
-        postId: stringArg(),
+        value: nonNull(stringArg()),
+        userId: nonNull(stringArg()),
+        itemId: nonNull(stringArg()),
       },
-      resolve: (_, { postId }, ctx) => {
-        return prisma.post.delete({
-          where: { id: Number(postId) },
-        })
-      },
-    })
-
-    t.field('createDraft', {
-      type: 'Post',
-      args: {
-        title: nonNull(stringArg()),
-        content: stringArg(),
-        authorEmail: stringArg(),
-      },
-      resolve: (_, { title, content, authorEmail }, ctx) => {
-        return prisma.post.create({
+      resolve: (_, { value, userId, itemId }, ctx) => {
+        return prisma.rating.create({
           data: {
-            title,
-            content,
-            published: false,
-            author: {
-              connect: { email: authorEmail },
+            value: Number(value),
+            user: {
+              connect: { id: userId },
+            },
+            item: {
+              connect: { id: itemId },
             },
           },
-        })
+        });
       },
-    })
+    });
 
-    t.nullable.field('publish', {
-      type: 'Post',
-      args: {
-        postId: stringArg(),
-      },
-      resolve: (_, { postId }, ctx) => {
-        return prisma.post.update({
-          where: { id: Number(postId) },
-          data: { published: true },
-        })
-      },
-    })
+    // t.nullable.field('deletePost', {
+    //   type: 'Post',
+    //   args: {
+    //     postId: stringArg(),
+    //   },
+    //   resolve: (_, { postId }, ctx) => {
+    //     return prisma.post.delete({
+    //       where: { id: String(postId) },
+    //     })
+    //   },
+    // })
+
+    // t.field('createDraft', {
+    //   type: 'Post',
+    //   args: {
+    //     title: nonNull(stringArg()),
+    //     content: stringArg(),
+    //     authorEmail: stringArg(),
+    //   },
+    //   resolve: (_, { title, content, authorEmail }, ctx) => {
+    //     return prisma.post.create({
+    //       data: {
+    //         title,
+    //         content,
+    //         published: false,
+    //         author: {
+    //           connect: { email: authorEmail },
+    //         },
+    //       },
+    //     })
+    //   },
+    // })
+
+    // t.nullable.field('publish', {
+    //   type: 'Post',
+    //   args: {
+    //     postId: stringArg(),
+    //   },
+    //   resolve: (_, { postId }, ctx) => {
+    //     return prisma.post.update({
+    //       where: { id: String(postId) },
+    //       data: { published: true },
+    //     })
+    //   },
+    // })
   },
-})
+});
 
 export const schema = makeSchema({
-  types: [Query, Mutation, Post, User, GQLDate],
+  types: [Query, Mutation, Item, User, Rating, GQLDate],
   outputs: {
     typegen: path.join(process.cwd(), 'generated/nexus-typegen.ts'),
     schema: path.join(process.cwd(), 'generated/schema.graphql'),
   },
-})
+});
 
 export const config = {
   api: {
     bodyParser: false,
   },
-}
+};
 
-let apolloServerHandler: NextApiHandler
+let apolloServerHandler: NextApiHandler;
 
 async function getApolloServerHandler() {
-  const apolloServer = new ApolloServer({ schema })
-  
+  const apolloServer = new ApolloServer({ schema });
+
   if (!apolloServerHandler) {
-    await apolloServer.start()
+    await apolloServer.start();
 
     apolloServerHandler = apolloServer.createHandler({
       path: '/api',
-    })
+    });
   }
 
-  return apolloServerHandler
+  return apolloServerHandler;
 }
 
 const handler: NextApiHandler = async (req, res) => {
-  const apolloServerHandler = await getApolloServerHandler()
+  const apolloServerHandler = await getApolloServerHandler();
 
   if (req.method === 'OPTIONS') {
-    res.end()
-    return
+    res.end();
+    return;
   }
 
-  return apolloServerHandler(req, res)
-}
+  return apolloServerHandler(req, res);
+};
 
-export default cors()(handler)
+export default cors()(handler);

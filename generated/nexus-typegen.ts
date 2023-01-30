@@ -43,17 +43,20 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
-  Mutation: {};
-  Post: { // root type
-    content?: string | null; // String
-    id?: number | null; // Int
-    published?: boolean | null; // Boolean
+  Item: { // root type
+    id?: string | null; // String
+    imageUrl?: string | null; // String
     title?: string | null; // String
   }
+  Mutation: {};
   Query: {};
+  Rating: { // root type
+    id?: string | null; // String
+    value?: number | null; // Int
+  }
   User: { // root type
     email?: string | null; // String
-    id?: number | null; // Int
+    id?: string | null; // String
     name?: string | null; // String
   }
 }
@@ -69,73 +72,69 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
-  Mutation: { // field return type
-    createDraft: NexusGenRootTypes['Post'] | null; // Post
-    deletePost: NexusGenRootTypes['Post'] | null; // Post
-    publish: NexusGenRootTypes['Post'] | null; // Post
-    signupUser: NexusGenRootTypes['User'] | null; // User
-  }
-  Post: { // field return type
-    author: NexusGenRootTypes['User'] | null; // User
-    content: string | null; // String
-    id: number | null; // Int
-    published: boolean | null; // Boolean
+  Item: { // field return type
+    id: string | null; // String
+    imageUrl: string | null; // String
+    ratings: Array<NexusGenRootTypes['Rating'] | null> | null; // [Rating]
     title: string | null; // String
   }
+  Mutation: { // field return type
+    createRating: NexusGenRootTypes['Rating'] | null; // Rating
+    signupUser: NexusGenRootTypes['User'] | null; // User
+  }
   Query: { // field return type
-    drafts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-    feed: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-    filterPosts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
-    post: NexusGenRootTypes['Post'] | null; // Post
+    getItem: NexusGenRootTypes['Item'] | null; // Item
+    getItems: NexusGenRootTypes['Item'] | null; // Item
+  }
+  Rating: { // field return type
+    id: string | null; // String
+    item: NexusGenRootTypes['Item'] | null; // Item
+    user: NexusGenRootTypes['User'] | null; // User
+    value: number | null; // Int
   }
   User: { // field return type
     email: string | null; // String
-    id: number | null; // Int
+    id: string | null; // String
     name: string | null; // String
-    posts: Array<NexusGenRootTypes['Post'] | null> | null; // [Post]
+    ratings: Array<NexusGenRootTypes['Rating'] | null> | null; // [Rating]
   }
 }
 
 export interface NexusGenFieldTypeNames {
-  Mutation: { // field return type name
-    createDraft: 'Post'
-    deletePost: 'Post'
-    publish: 'Post'
-    signupUser: 'User'
-  }
-  Post: { // field return type name
-    author: 'User'
-    content: 'String'
-    id: 'Int'
-    published: 'Boolean'
+  Item: { // field return type name
+    id: 'String'
+    imageUrl: 'String'
+    ratings: 'Rating'
     title: 'String'
   }
+  Mutation: { // field return type name
+    createRating: 'Rating'
+    signupUser: 'User'
+  }
   Query: { // field return type name
-    drafts: 'Post'
-    feed: 'Post'
-    filterPosts: 'Post'
-    post: 'Post'
+    getItem: 'Item'
+    getItems: 'Item'
+  }
+  Rating: { // field return type name
+    id: 'String'
+    item: 'Item'
+    user: 'User'
+    value: 'Int'
   }
   User: { // field return type name
     email: 'String'
-    id: 'Int'
+    id: 'String'
     name: 'String'
-    posts: 'Post'
+    ratings: 'Rating'
   }
 }
 
 export interface NexusGenArgTypes {
   Mutation: {
-    createDraft: { // args
-      authorEmail?: string | null; // String
-      content?: string | null; // String
-      title: string; // String!
-    }
-    deletePost: { // args
-      postId?: string | null; // String
-    }
-    publish: { // args
-      postId?: string | null; // String
+    createRating: { // args
+      itemId: string; // String!
+      userId: string; // String!
+      value: string; // String!
     }
     signupUser: { // args
       email: string; // String!
@@ -143,11 +142,8 @@ export interface NexusGenArgTypes {
     }
   }
   Query: {
-    filterPosts: { // args
-      searchString?: string | null; // String
-    }
-    post: { // args
-      postId: string; // String!
+    getItem: { // args
+      id: string; // String!
     }
   }
 }
