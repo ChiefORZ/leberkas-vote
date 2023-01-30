@@ -1,0 +1,15 @@
+{
+  "extends": ["next", "plugin:prettier/recommended"],
+  "plugins": ["simple-import-sort"],
+  "root": true,
+  "rules": {
+    "react/no-unknown-property": [
+      2,
+      {
+        "ignore": ["tw"]
+      }
+    ],
+    "simple-import-sort/exports": 2,
+    "simple-import-sort/imports": 2
+  }
+}
