@@ -4,6 +4,7 @@ import cors from 'micro-cors';
 import { NextApiHandler } from 'next';
 import {
   asNexusMethod,
+  list,
   makeSchema,
   nonNull,
   nullable,
@@ -34,11 +35,12 @@ const User = objectType({
   },
 });
 
+// { id?: string; imageUrl?: string; title?: string; }
 const Item = objectType({
   name: 'Item',
   definition(t) {
     t.string('id');
-    t.string('title');
+    t.nullable.string('title');
     t.nullable.string('imageUrl');
     t.list.field('ratings', {
       type: 'Rating',
@@ -82,9 +84,10 @@ const Query = objectType({
   name: 'Query',
   definition(t) {
     t.field('getItems', {
-      type: 'Item',
+      type: list('Item'),
+      // @ts-ignore
       resolve: (_, args) => {
-        return prisma.item.findMany();
+        return prisma.item.findMany({ include: { ratings: true } });
       },
     });
 

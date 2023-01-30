@@ -20,7 +20,7 @@
   },
   "exclude": ["node_modules"],
   "extends": "./tsconfig.paths.json",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "types/**/*.ts"],
   "ts-node": {
     "compilerOptions": {
       "module": "commonjs"

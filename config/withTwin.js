@@ -13,7 +13,6 @@ module.exports = function withTwin(nextConfig) {
       const { dev, isServer } = options;
       config.module = config.module || {};
       config.module.rules = config.module.rules || [];
-      console.log('includedDirs ', includedDirs);
       config.module.rules.push({
         test: /\.(tsx|ts)$/,
         include: includedDirs,
