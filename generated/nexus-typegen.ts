@@ -84,7 +84,7 @@ export interface NexusGenFieldTypes {
   }
   Query: { // field return type
     getItem: NexusGenRootTypes['Item'] | null; // Item
-    getItems: NexusGenRootTypes['Item'] | null; // Item
+    getItems: Array<NexusGenRootTypes['Item'] | null> | null; // [Item]
   }
   Rating: { // field return type
     id: string | null; // String
