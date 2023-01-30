@@ -26,6 +26,12 @@ const GridViewWrapper = styled.div`
   overflow-y: auto;
 `;
 
+const Tile = styled.img`
+  display: block;
+  width: 100%;
+  object-fit: cover;
+`;
+
 const GridItem = styled.div`
   position: relative;
   display: flex;
@@ -33,6 +39,13 @@ const GridItem = styled.div`
   // horizontal center
   justify-content: center;
   overflow: hidden;
+
+  ${Tile} {
+    transition: transform 0.3s ease;
+  }
+  :hover ${Tile} {
+    transform: scale(1.05);
+  }
 `;
 
 const GridItemDetails = styled.div`
@@ -51,12 +64,6 @@ const GridItemDetails = styled.div`
 `;
 
 const GridItemTitle = styled.div``;
-
-const Tile = styled.img`
-  display: block;
-  width: 100%;
-  object-fit: cover;
-`;
 
 function GridView(props: GridViewProps) {
   const { items, user } = props;
@@ -89,7 +96,11 @@ function GridView(props: GridViewProps) {
     <div className="h-full overflow-auto">
       <GridViewWrapper>
         {items.map((item, index) => (
-          <GridItem key={item.id} style={{ '--aspect-ratio': 4 / 3 }}>
+          <GridItem
+            key={item.id}
+            style={{ '--aspect-ratio': 4 / 3 }}
+            className="rounded-md shadow-sm transition hover:shadow-md"
+          >
             <Tile src={item.imageUrl} />
             <GridItemDetails>
               <GridItemTitle>{item.name}</GridItemTitle>
