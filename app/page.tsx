@@ -4,6 +4,11 @@ import React from 'react';
 
 import GridView from '@/components/GridView';
 import Overlay from '@/components/GridView/Overlay';
+import {
+  TypographyH1,
+  TypographyH2,
+  TypographyLead,
+} from '@/components/Typography';
 import prisma from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/session';
 
@@ -14,26 +19,34 @@ const Page = async () => {
   const items = await await prisma.item.findMany({
     select: { id: true, name: true, imageUrl: true, ratings: true },
   });
-  const transformedItems = items.map((item) => ({
-    ...item,
-    // calculate the average rating
-    rating:
-      item.ratings.reduce((sum, rating) => sum + rating.value, 0) /
-      item.ratings.length,
-  }));
+  const transformedItems = items
+    .map((item) => ({
+      ...item,
+      // calculate the average rating
+      rating:
+        item.ratings.reduce((sum, rating) => sum + rating.value, 0) /
+        item.ratings.length,
+    }))
+    .sort(() => Math.random() - 0.5);
+
+  const renderVotesLeft = () => {
+    return user?.id ? (
+      <span>&nbsp;-&nbsp;{String(restStars)} verbleibend</span>
+    ) : null;
+  };
 
   return (
     <>
       <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
         <div className="flex h-[85vh] flex-col rounded-lg bg-white px-5 py-6 shadow sm:px-6">
           <div>
-            <h1 className="text-2xl font-bold text-gray-900">
+            <TypographyH2>
               Endlich wird über die wichtigen Sachen in Österreich abgstimmt!
-            </h1>
-            <h3>
-              Verteile deine {String(restStars)} Herzal an deine
-              Lieblingsgerichte
-            </h3>
+            </TypographyH2>
+            <TypographyLead>
+              Verteile deine Herzal an deine Lieblingsgerichte
+              {renderVotesLeft()}
+            </TypographyLead>
           </div>
           <div className="relative h-full overflow-hidden">
             <GridView items={transformedItems} />
