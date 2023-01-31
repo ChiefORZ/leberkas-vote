@@ -22,10 +22,9 @@ const Page = async () => {
   const transformedItems = items
     .map((item) => ({
       ...item,
-      // calculate the average rating
-      rating:
-        item.ratings.reduce((sum, rating) => sum + rating.value, 0) /
-        item.ratings.length,
+      avgRating:
+        item.ratings.reduce((acc, cur) => acc + cur.value, 0) /
+          item.ratings.length || 0,
     }))
     .sort(() => Math.random() - 0.5);
 
@@ -44,7 +43,7 @@ const Page = async () => {
               Endlich wird über die wichtigen Sachen in Österreich abgstimmt!
             </TypographyH2>
             <TypographyLead>
-              Verteile deine Herzal an deine Lieblingsgerichte
+              Verteil deine Herzal an deine Lieblingsgerichte
               {renderVotesLeft()}
             </TypographyLead>
           </div>
@@ -57,7 +56,7 @@ const Page = async () => {
                     href="/login"
                     className="inline-flex items-center justify-center rounded-md border border-transparent bg-white px-5 py-3 text-base font-medium text-gray-900 hover:bg-gray-50"
                   >
-                    To vote please login using your email&nbsp;
+                    Zum Abstimmen bitte mit E-Mail anmelden&nbsp;
                     <ArrowRightCircleIcon className="inline h-6 w-6" />
                   </Link>
                 </div>

@@ -10,7 +10,7 @@ interface GridViewProps {
     id: string;
     name: string;
     imageUrl: string;
-    rating: number;
+    avgRating: number;
   }[];
   user?: {
     id: string;
@@ -105,7 +105,7 @@ function GridView(props: GridViewProps) {
             <GridItemDetails>
               <GridItemTitle>{item.name}</GridItemTitle>
               <RatingOverlay
-                rating={item.rating}
+                rating={item.avgRating}
                 onRatingChange={handleOnRatingChange(index)}
               />
             </GridItemDetails>

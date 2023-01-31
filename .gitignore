@@ -4,3 +4,4 @@ src/generated/
 *.db
 *.sqlite
 .env*
+.DS_STORE

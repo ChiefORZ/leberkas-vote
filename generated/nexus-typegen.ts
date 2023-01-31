@@ -73,14 +73,13 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Item: { // field return type
+    avgRating: number | null; // Int
     id: string | null; // String
     imageUrl: string | null; // String
-    ratings: Array<NexusGenRootTypes['Rating'] | null> | null; // [Rating]
     title: string | null; // String
   }
   Mutation: { // field return type
     createRating: NexusGenRootTypes['Rating'] | null; // Rating
-    signupUser: NexusGenRootTypes['User'] | null; // User
   }
   Query: { // field return type
     getItem: NexusGenRootTypes['Item'] | null; // Item
@@ -102,14 +101,13 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   Item: { // field return type name
+    avgRating: 'Int'
     id: 'String'
     imageUrl: 'String'
-    ratings: 'Rating'
     title: 'String'
   }
   Mutation: { // field return type name
     createRating: 'Rating'
-    signupUser: 'User'
   }
   Query: { // field return type name
     getItem: 'Item'
@@ -135,10 +133,6 @@ export interface NexusGenArgTypes {
       itemId: string; // String!
       userId: string; // String!
       value: string; // String!
-    }
-    signupUser: { // args
-      email: string; // String!
-      name?: string | null; // String
     }
   }
   Query: {
