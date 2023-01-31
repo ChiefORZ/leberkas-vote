@@ -177,7 +177,7 @@
 //   const uploadImages = await Promise.all(
 //     params.map((param) => s3.upload(param).promise())
 //   );
-//   console.log('uploadImages ', uploadImages);
+//   console.info('uploadImages ', uploadImages);
 
 //   // const imageUrls = uploadImages.map((image) => image.Location);
 
@@ -192,7 +192,7 @@
 //   //   imageUrl: imageUrls[index],
 //   // }));
 
-//   // console.log(data);
+//   // console.info(data);
 // };
 
 // void main();
@@ -338,4 +338,4 @@
 //   imageUrl: `https://basil-images-dev.s3.eu-west-1.amazonaws.com/images/${item.id}.jpeg`,
 // }));
 
-// console.log(data);
+// console.info(data);

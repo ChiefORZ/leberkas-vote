@@ -1,17 +1,39 @@
 'use client';
-
+import { Magic } from 'magic-sdk';
+import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
+import { useForm } from 'react-hook-form';
+
+const magic =
+  typeof window !== 'undefined' &&
+  new Magic(process.env.NEXT_PUBLIC_MAGIC_PK || 'a');
 
 export default function LoginPage() {
+  // const router = useRouter();
+  const { register, handleSubmit } = useForm();
+
+  const onSubmit = async ({ email }) => {
+    if (!magic) throw new Error(`magic not defined`);
+
+    // login with Magic
+    const didToken = await magic.auth.loginWithMagicLink({ email });
+
+    // sign in with NextAuth
+    await signIn('credentials', {
+      didToken,
+      // callbackUrl: router.query['callbackUrl'] as string,
+    });
+  };
+
   return (
     <>
-      <form className="space-y-6" action="#" method="POST">
+      <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label
             htmlFor="email"
             className="block text-sm font-medium text-gray-700"
           >
-            Email address
+            E-Mail
           </label>
           <div className="mt-1">
             <input
@@ -20,17 +42,19 @@ export default function LoginPage() {
               type="email"
               autoComplete="email"
               required
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2 sm:text-sm"
+              {...register('email', { required: true })}
             />
           </div>
         </div>
 
         <div>
           <button
+            className="inline-flex w-full justify-center rounded-md border border-brand-300 bg-white py-2 px-4 text-sm font-medium text-brand-500 shadow-sm hover:bg-gray-50 focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
             type="submit"
-            className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            role="button"
           >
-            Sign in
+            Anmelden
           </button>
         </div>
       </form>
@@ -41,9 +65,7 @@ export default function LoginPage() {
             <div className="w-full border-t border-gray-300" />
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="bg-white px-2 text-gray-500">
-              Or continue with
-            </span>
+            <span className="bg-white px-2 text-gray-500">oder weiter mit</span>
           </div>
         </div>
 
@@ -51,7 +73,7 @@ export default function LoginPage() {
         <div className="mt-6">
           <div>
             <button
-              className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50"
+              className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50 focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
               role="button"
               onClick={() => signIn('google')}
             >

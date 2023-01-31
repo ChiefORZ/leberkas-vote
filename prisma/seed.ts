@@ -205,14 +205,14 @@ const itemData = [
 
 export async function main() {
   try {
-    console.log(`Start seeding ...`);
+    console.info(`Start seeding ...`);
     for (const u of itemData) {
       const item = await prisma.item.create({
         data: u,
       });
-      console.log(`Created item with id: ${item.id}`);
+      console.info(`Created item with id: ${item.id}`);
     }
-    console.log(`Seeding finished.`);
+    console.info(`Seeding finished.`);
   } catch (err) {
     console.error(err);
     process.exit(1);

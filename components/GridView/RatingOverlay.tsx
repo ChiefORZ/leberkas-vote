@@ -44,7 +44,6 @@ function RatingOverlay(props: RatingOverlayProps) {
         <HeartIcon
           className={classNames(
             'h-6 w-6',
-
             isHovering && i <= isHovering ? 'text-red-300' : 'text-gray-300'
           )}
         />

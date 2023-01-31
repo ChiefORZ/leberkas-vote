@@ -42,14 +42,19 @@ const Item = objectType({
     t.string('id');
     t.nullable.string('title');
     t.nullable.string('imageUrl');
-    t.list.field('ratings', {
-      type: 'Rating',
-      resolve: (parent) =>
-        prisma.item
+    t.int('avgRating', {
+      resolve: async (parent) => {
+        const ratings = await prisma.item
           .findUnique({
             where: { id: String(parent.id) },
           })
-          .ratings(),
+          .ratings();
+
+        const avg =
+          ratings.reduce((acc, curr) => acc + curr.value, 0) / ratings.length;
+
+        return Math.round(avg);
+      },
     });
   },
 });
@@ -108,22 +113,6 @@ const Query = objectType({
 const Mutation = objectType({
   name: 'Mutation',
   definition(t) {
-    t.field('signupUser', {
-      type: 'User',
-      args: {
-        name: stringArg(),
-        email: nonNull(stringArg()),
-      },
-      resolve: (_, { name, email }, ctx) => {
-        return prisma.user.create({
-          data: {
-            name,
-            email,
-          },
-        });
-      },
-    });
-
     t.field('createRating', {
       type: 'Rating',
       args: {
