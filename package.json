@@ -93,7 +93,7 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "scripts": {
-    "build": "next build",
+    "build": "pnpm -w run generate && next build",
     "dev": "next",
     "generate": "run-s generate:*",
     "generate:nexus": "ts-node --transpile-only -P nexus.tsconfig.json pages/api",
