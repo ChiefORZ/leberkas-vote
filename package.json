@@ -98,6 +98,7 @@
     "generate:nexus": "nx exec -- ts-node --transpile-only -P nexus.tsconfig.json pages/api",
     "generate:prisma": "prisma generate",
     "lint": "next lint --fix",
+    "prestart": "prisma generate",
     "start": "next start",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
   },
