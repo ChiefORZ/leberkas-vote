@@ -4,6 +4,7 @@ import cors from 'micro-cors';
 import { NextApiHandler } from 'next';
 import {
   asNexusMethod,
+  inputObjectType,
   list,
   makeSchema,
   nonNull,
@@ -20,10 +21,10 @@ export const GQLDate = asNexusMethod(DateTimeResolver, 'date');
 const User = objectType({
   name: 'User',
   definition(t) {
-    t.string('id');
-    t.string('name');
-    t.string('email');
-    t.list.field('ratings', {
+    t.nonNull.string('id');
+    t.nonNull.string('name');
+    t.nonNull.string('email');
+    t.nonNull.list.field('ratings', {
       type: 'Rating',
       resolve: (parent) =>
         prisma.user
@@ -35,14 +36,13 @@ const User = objectType({
   },
 });
 
-// { id?: string; imageUrl?: string; title?: string; }
 const Item = objectType({
   name: 'Item',
   definition(t) {
-    t.string('id');
+    t.nonNull.string('id');
     t.nullable.string('title');
     t.nullable.string('imageUrl');
-    t.int('avgRating', {
+    t.nonNull.int('avgRating', {
       resolve: async (parent) => {
         const ratings = await prisma.item
           .findUnique({
@@ -62,32 +62,56 @@ const Item = objectType({
 const Rating = objectType({
   name: 'Rating',
   definition(t) {
-    t.string('id');
-    t.int('value');
-    t.field('user', {
+    t.nonNull.int('value');
+    t.nonNull.string('userId');
+    t.nonNull.field('user', {
       type: 'User',
       resolve: (parent) =>
         prisma.rating
           .findUnique({
-            where: { id: String(parent.id) },
+            where: {
+              itemId_userId: { itemId: parent.itemId, userId: parent.userId },
+            },
           })
           .user(),
     });
-    t.field('item', {
+    t.nonNull.string('itemId');
+    t.nonNull.field('item', {
       type: 'Item',
       resolve: (parent) =>
         prisma.rating
           .findUnique({
-            where: { id: String(parent.id) },
+            where: {
+              itemId_userId: { itemId: parent.itemId, userId: parent.userId },
+            },
           })
           .item(),
     });
   },
 });
 
+const RatingInput = inputObjectType({
+  name: 'RatingInput',
+  definition(t) {
+    t.nonNull.string('itemId');
+    t.nonNull.string('userId');
+    t.nonNull.int('value');
+  },
+});
+
 const Query = objectType({
   name: 'Query',
   definition(t) {
+    t.field('getMe', {
+      type: 'User',
+      resolve: (_, args, ctx) => {
+        return prisma.user.findUnique({
+          where: { id: String(ctx.user?.id) },
+          include: { ratings: true },
+        });
+      },
+    });
+
     t.field('getItems', {
       type: list('Item'),
       // @ts-ignore
@@ -104,6 +128,7 @@ const Query = objectType({
       resolve: (_, args) => {
         return prisma.item.findUnique({
           where: { id: String(args.id) },
+          include: { ratings: true },
         });
       },
     });
@@ -113,73 +138,40 @@ const Query = objectType({
 const Mutation = objectType({
   name: 'Mutation',
   definition(t) {
-    t.field('createRating', {
-      type: 'Rating',
+    t.field('setRatings', {
+      type: list('Rating'),
       args: {
-        value: nonNull(stringArg()),
-        userId: nonNull(stringArg()),
-        itemId: nonNull(stringArg()),
+        ratings: nonNull(list(nonNull(RatingInput))),
       },
-      resolve: (_, { value, userId, itemId }, ctx) => {
-        return prisma.rating.create({
-          data: {
-            value: Number(value),
-            user: {
-              connect: { id: userId },
-            },
-            item: {
-              connect: { id: itemId },
-            },
-          },
-        });
+      // @ts-ignore
+      resolve: (_, { ratings }, ctx) => {
+        // execute promises serially
+        return prisma.$transaction(
+          ratings.map((rating) => {
+            return prisma.rating.upsert({
+              where: {
+                itemId_userId: {
+                  itemId: rating.itemId,
+                  userId: rating.userId,
+                },
+              },
+              create: {
+                value: rating.value,
+                user: {
+                  connect: { id: String(rating.userId) },
+                },
+                item: {
+                  connect: { id: String(rating.itemId) },
+                },
+              },
+              update: {
+                value: rating.value,
+              },
+            });
+          })
+        );
       },
     });
-
-    // t.nullable.field('deletePost', {
-    //   type: 'Post',
-    //   args: {
-    //     postId: stringArg(),
-    //   },
-    //   resolve: (_, { postId }, ctx) => {
-    //     return prisma.post.delete({
-    //       where: { id: String(postId) },
-    //     })
-    //   },
-    // })
-
-    // t.field('createDraft', {
-    //   type: 'Post',
-    //   args: {
-    //     title: nonNull(stringArg()),
-    //     content: stringArg(),
-    //     authorEmail: stringArg(),
-    //   },
-    //   resolve: (_, { title, content, authorEmail }, ctx) => {
-    //     return prisma.post.create({
-    //       data: {
-    //         title,
-    //         content,
-    //         published: false,
-    //         author: {
-    //           connect: { email: authorEmail },
-    //         },
-    //       },
-    //     })
-    //   },
-    // })
-
-    // t.nullable.field('publish', {
-    //   type: 'Post',
-    //   args: {
-    //     postId: stringArg(),
-    //   },
-    //   resolve: (_, { postId }, ctx) => {
-    //     return prisma.post.update({
-    //       where: { id: String(postId) },
-    //       data: { published: true },
-    //     })
-    //   },
-    // })
   },
 });
 

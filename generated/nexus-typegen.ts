@@ -28,6 +28,11 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  RatingInput: { // input type
+    itemId: string; // String!
+    userId: string; // String!
+    value: number; // Int!
+  }
 }
 
 export interface NexusGenEnums {
@@ -44,20 +49,21 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   Item: { // root type
-    id?: string | null; // String
+    id: string; // String!
     imageUrl?: string | null; // String
     title?: string | null; // String
   }
   Mutation: {};
   Query: {};
   Rating: { // root type
-    id?: string | null; // String
-    value?: number | null; // Int
+    itemId: string; // String!
+    userId: string; // String!
+    value: number; // Int!
   }
   User: { // root type
-    email?: string | null; // String
-    id?: string | null; // String
-    name?: string | null; // String
+    email: string; // String!
+    id: string; // String!
+    name: string; // String!
   }
 }
 
@@ -73,29 +79,31 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Item: { // field return type
-    avgRating: number | null; // Int
-    id: string | null; // String
+    avgRating: number; // Int!
+    id: string; // String!
     imageUrl: string | null; // String
     title: string | null; // String
   }
   Mutation: { // field return type
-    createRating: NexusGenRootTypes['Rating'] | null; // Rating
+    setRatings: Array<NexusGenRootTypes['Rating'] | null> | null; // [Rating]
   }
   Query: { // field return type
     getItem: NexusGenRootTypes['Item'] | null; // Item
     getItems: Array<NexusGenRootTypes['Item'] | null> | null; // [Item]
+    getMe: NexusGenRootTypes['User'] | null; // User
   }
   Rating: { // field return type
-    id: string | null; // String
-    item: NexusGenRootTypes['Item'] | null; // Item
-    user: NexusGenRootTypes['User'] | null; // User
-    value: number | null; // Int
+    item: NexusGenRootTypes['Item']; // Item!
+    itemId: string; // String!
+    user: NexusGenRootTypes['User']; // User!
+    userId: string; // String!
+    value: number; // Int!
   }
   User: { // field return type
-    email: string | null; // String
-    id: string | null; // String
-    name: string | null; // String
-    ratings: Array<NexusGenRootTypes['Rating'] | null> | null; // [Rating]
+    email: string; // String!
+    id: string; // String!
+    name: string; // String!
+    ratings: Array<NexusGenRootTypes['Rating'] | null>; // [Rating]!
   }
 }
 
@@ -107,16 +115,18 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
   }
   Mutation: { // field return type name
-    createRating: 'Rating'
+    setRatings: 'Rating'
   }
   Query: { // field return type name
     getItem: 'Item'
     getItems: 'Item'
+    getMe: 'User'
   }
   Rating: { // field return type name
-    id: 'String'
     item: 'Item'
+    itemId: 'String'
     user: 'User'
+    userId: 'String'
     value: 'Int'
   }
   User: { // field return type name
@@ -129,10 +139,8 @@ export interface NexusGenFieldTypeNames {
 
 export interface NexusGenArgTypes {
   Mutation: {
-    createRating: { // args
-      itemId: string; // String!
-      userId: string; // String!
-      value: string; // String!
+    setRatings: { // args
+      ratings: NexusGenInputs['RatingInput'][]; // [RatingInput!]!
     }
   }
   Query: {
@@ -150,7 +158,7 @@ export interface NexusGenTypeInterfaces {
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = keyof NexusGenInputs;
 
 export type NexusGenEnumNames = never;
 

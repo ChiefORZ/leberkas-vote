@@ -1,4 +1,5 @@
 import { ArrowRightCircleIcon } from '@heroicons/react/24/outline';
+import { NexusGenFieldTypes } from 'generated/nexus-typegen';
 import Link from 'next/link';
 import React from 'react';
 
@@ -14,8 +15,17 @@ import { getCurrentUser } from '@/lib/session';
 
 const restStars = 0;
 
+type User = NexusGenFieldTypes['User'];
+
 const Page = async () => {
-  const user = await getCurrentUser();
+  const userSession = await getCurrentUser();
+  let user: User | null = null;
+  if (userSession?.id) {
+    user = await prisma.user.findUnique({
+      where: { id: userSession?.id },
+      select: { id: true, email: true, name: true, ratings: true },
+    });
+  }
   const items = await await prisma.item.findMany({
     select: { id: true, name: true, imageUrl: true, ratings: true },
   });
@@ -48,7 +58,7 @@ const Page = async () => {
             </TypographyLead>
           </div>
           <div className="relative h-full overflow-hidden">
-            <GridView items={transformedItems} />
+            <GridView items={transformedItems} user={user} />
             {!user || !user.id ? (
               <Overlay>
                 <div className="inline-flex rounded-md shadow">

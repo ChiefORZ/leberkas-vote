@@ -1,9 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import { Rating } from '@prisma/client';
+import { NexusGenFieldTypes } from 'generated/nexus-typegen';
+import { gql, request } from 'graphql-request';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import RatingOverlay from '@/components/GridView/RatingOverlay';
+
+type User = NexusGenFieldTypes['User'];
 
 interface GridViewProps {
   items: {
@@ -12,10 +18,7 @@ interface GridViewProps {
     imageUrl: string;
     avgRating: number;
   }[];
-  user?: {
-    id: string;
-    email: string;
-  };
+  user?: User;
 }
 
 const GridViewWrapper = styled.div`
@@ -30,6 +33,7 @@ const Tile = styled.img`
   display: block;
   width: 100%;
   object-fit: cover;
+  user-select: none;
 `;
 
 const GridItem = styled.div`
@@ -65,35 +69,97 @@ const GridItemDetails = styled.div`
 
 const GridItemTitle = styled.div``;
 
+const FloatingActionButton = styled.button`
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(-25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: none;
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+
+  animation: bounce 1s normal forwards;
+  animation-iteration-count: 1;
+`;
+
+const SetRatingsMutation = gql`
+  mutation setRatings($ratings: [RatingInput!]!) {
+    setRatings(ratings: $ratings) {
+      itemId
+      userId
+      value
+    }
+  }
+`;
+
 function GridView(props: GridViewProps) {
   const { items, user } = props;
-  const [ratings, setRatings] = useState();
+  const defaultValue = useRef(
+    JSON.stringify(
+      (user?.ratings || []).sort((a, b) => a.itemId.localeCompare(b.itemId))
+    )
+  );
+  const [ratings, setRatings] = useState<Rating[]>(user?.ratings || []);
 
-  const handleOnRatingChange = (index: number) => async (rating: number) => {
+  const ratingsChanged =
+    JSON.stringify(ratings.sort((a, b) => a.itemId.localeCompare(b.itemId))) !==
+    defaultValue.current;
+
+  const handleOnRatingChange = async ({
+    itemId,
+    rating,
+  }: {
+    itemId: string;
+    rating: number;
+  }) => {
     if (!user || !user.id) return;
-    // make a graphql mutation to create a rating with window.fetch
-    await fetch('/api', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        query: `
-          mutation {
-            createRating(
-              value: "${rating}",
-              itemId: "${items[index].id}",
-              userId: "${user.id}",
-            ) {
-              id
-              value
-            }
-          }
-        `,
-      }),
+    setRatings((prevRatings) => {
+      const newRatings = [...prevRatings];
+      if (
+        newRatings.find((r) => r.itemId === itemId) &&
+        newRatings.find((r) => r.itemId === itemId)?.value === rating
+      ) {
+        // delete rating
+        newRatings.splice(
+          newRatings.findIndex((r) => r.itemId === itemId),
+          1
+        );
+      } else if (
+        newRatings.find((r) => r.itemId === itemId) &&
+        newRatings.find((r) => r.itemId === itemId)?.value !== rating
+      ) {
+        // update rating immutable
+        newRatings[newRatings.findIndex((r) => r.itemId === itemId)].value =
+          rating;
+      } else {
+        newRatings.push({ itemId, userId: user.id, value: rating });
+      }
+      return newRatings;
     });
   };
 
+  const handleSubmitForm = async () => {
+    try {
+      if (!user || !user.id) return;
+      // make a graphql mutation to create a rating with window.fetch
+
+      await request('/api', SetRatingsMutation, {
+        ratings,
+      });
+      // redirect to /results
+      window.location.href = '/results';
+    } catch (err) {
+      // TODO: show a toast message
+      console.error(err);
+    }
+  };
+
   return (
-    <div className="h-full overflow-auto">
+    <div className="relative h-full overflow-auto">
       <GridViewWrapper>
         {items.map((item, index) => (
           <GridItem
@@ -105,13 +171,23 @@ function GridView(props: GridViewProps) {
             <GridItemDetails>
               <GridItemTitle>{item.name}</GridItemTitle>
               <RatingOverlay
-                rating={item.avgRating}
-                onRatingChange={handleOnRatingChange(index)}
+                rating={ratings.find((r) => r.itemId === item.id)?.value}
+                onRatingChange={(value) =>
+                  handleOnRatingChange({ itemId: item.id, rating: value })
+                }
               />
             </GridItemDetails>
           </GridItem>
         ))}
       </GridViewWrapper>
+      {ratingsChanged ? (
+        <FloatingActionButton
+          onClick={handleSubmitForm}
+          className="z-90 fixed bottom-10 right-10 flex h-14 w-14 items-center justify-center rounded-full bg-brand-400 p-3 text-xl text-white drop-shadow-lg duration-300 hover:bg-brand-300 hover:drop-shadow-2xl"
+        >
+          <ArrowRightIcon />
+        </FloatingActionButton>
+      ) : null}
     </div>
   );
 }
