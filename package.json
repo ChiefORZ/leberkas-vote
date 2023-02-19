@@ -93,6 +93,7 @@
     "seed": "ts-node prisma/seed.ts"
   },
   "scripts": {
+    "prebuild": "prisma generate",
     "build": "nx exec -- next build",
     "dev": "next",
     "generate": "run-s generate:*",
