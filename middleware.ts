@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import { withAuth } from 'next-auth/middleware';
+const secret = process.env.NEXTAUTH_SECRET;
 
 const protectedPages = ['/results'];
 
 export default withAuth(
   async function middleware(req) {
-    const token = await getToken({ req });
+    const token = await getToken({ req, secret: secret });
     const isAuth = !!token;
     const isAuthPage = req.nextUrl.pathname.startsWith('/login');
 
@@ -17,9 +18,7 @@ export default withAuth(
       }
     }
 
-    console.log('middleware');
     if (isAuthPage) {
-      console.log('isAuthPage ', { isAuth, isAuthPage });
       if (isAuth) {
         return NextResponse.redirect(new URL('/', req.url));
       }
