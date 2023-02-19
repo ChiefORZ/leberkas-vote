@@ -4,6 +4,7 @@ const withTwin = require('./config/withTwin');
 const nextConfig = {
   images: {
     domains: [
+      'lh3.googleusercontent.com',
       'googleusercontent.com',
       'basil-images-dev.s3.eu-west-1.amazonaws.com',
     ],

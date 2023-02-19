@@ -137,6 +137,7 @@ function GridView(props: GridViewProps) {
             <Tile
               alt={item.name}
               className="block w-full select-none object-cover"
+              fill
               src={item.imageUrl}
             />
             <div className="absolute bottom-0 flex w-full flex-col justify-center bg-[rgba(255,255,255,0.9)] p-2 text-center leading-none">
