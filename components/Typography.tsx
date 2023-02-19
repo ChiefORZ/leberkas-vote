@@ -1,6 +1,6 @@
 export function TypographyH1({ children }: React.PropsWithChildren<unknown>) {
   return (
-    <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+    <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-3xl">
       {children}
     </h1>
   );
@@ -8,7 +8,7 @@ export function TypographyH1({ children }: React.PropsWithChildren<unknown>) {
 
 export function TypographyH2({ children }: React.PropsWithChildren<unknown>) {
   return (
-    <h2 className="mt-10 scroll-m-20 text-3xl font-semibold tracking-tight transition-colors first:mt-0 dark:border-b-slate-700">
+    <h2 className="mt-10 scroll-m-20 text-2xl font-semibold tracking-tight transition-colors first:mt-0 dark:border-b-slate-700">
       {children}
     </h2>
   );
@@ -46,7 +46,7 @@ export function TypographyBlockquote({
 
 export function TypographyLead({ children }: React.PropsWithChildren<unknown>) {
   return (
-    <p className="text-xl text-slate-700 dark:text-slate-400">{children}</p>
+    <p className="text-lg text-slate-700 dark:text-slate-400">{children}</p>
   );
 }
 

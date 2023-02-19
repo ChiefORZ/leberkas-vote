@@ -5,11 +5,7 @@ import React from 'react';
 
 import GridView from '@/components/GridView';
 import Overlay from '@/components/GridView/Overlay';
-import {
-  TypographyH1,
-  TypographyH2,
-  TypographyLead,
-} from '@/components/Typography';
+import { TypographyH2, TypographyLead } from '@/components/Typography';
 import prisma from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/session';
 
