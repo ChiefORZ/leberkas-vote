@@ -25,7 +25,10 @@ const RootLayoutClient = ({
           <div className="shrink-0">
             <Link href="/">
               <Image
-                className="block h-14"
+                className="relative block h-14"
+                width={350}
+                height={75}
+                // fill
                 src="./logo-with-text-on-primary.svg"
                 alt="Leberkas Vote Logo"
               />
@@ -41,6 +44,8 @@ const RootLayoutClient = ({
                   <span className="sr-only">Öffnen Sie das Benutzermenü</span>
                   <Image
                     className="h-8 w-8 rounded-full"
+                    height={32}
+                    width={32}
                     src={user.image}
                     alt="Profilbild"
                   />
