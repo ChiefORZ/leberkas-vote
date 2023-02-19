@@ -27,6 +27,9 @@ module.exports = {
           900: '#000000',
         },
       },
+      gridTemplateColumns: {
+        'my-grid': 'repeat(auto-fill, minmax(250px, 1fr))',
+      },
     },
   },
   plugins: [require('@tailwindcss/forms')],
