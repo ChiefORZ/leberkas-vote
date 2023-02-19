@@ -8,31 +8,39 @@ A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `dat
 scalar DateTime
 
 type Item {
-  avgRating: Int
-  id: String
+  avgRating: Int!
+  id: String!
   imageUrl: String
   title: String
 }
 
 type Mutation {
-  createRating(itemId: String!, userId: String!, value: String!): Rating
+  setRatings(ratings: [RatingInput!]!): [Rating]
 }
 
 type Query {
   getItem(id: String!): Item
   getItems: [Item]
+  getMe: User
 }
 
 type Rating {
-  id: String
-  item: Item
-  user: User
-  value: Int
+  item: Item!
+  itemId: String!
+  user: User!
+  userId: String!
+  value: Int!
+}
+
+input RatingInput {
+  itemId: String!
+  userId: String!
+  value: Int!
 }
 
 type User {
-  email: String
-  id: String
-  name: String
-  ratings: [Rating]
+  email: String!
+  id: String!
+  name: String!
+  ratings: [Rating]!
 }

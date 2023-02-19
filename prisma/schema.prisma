@@ -61,10 +61,10 @@ model VerificationToken {
 }
 
 model Rating {
-  id     String @id @default(cuid())
   itemId String
   item   Item   @relation(fields: [itemId], references: [id])
   userId String
   user   User   @relation(fields: [userId], references: [id])
   value  Int
+  @@unique([itemId, userId])
 }

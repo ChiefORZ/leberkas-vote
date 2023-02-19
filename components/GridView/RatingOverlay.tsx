@@ -5,13 +5,13 @@ import styled, { css } from 'styled-components';
 
 import { classNames } from '@/utils/index';
 
-const RatedHeart = styled<{ active?: boolean }>(HeartIconSolid)`
-  transition: 1s ease;
+const RatedHeart = styled<{ 'data-active'?: boolean }>(HeartIconSolid)`
+  transition: 0.5s ease-in;
   opacity: 100;
 
   clip-path: circle(0px at center);
-  ${({ active }) =>
-    active &&
+  ${(p) =>
+    p['data-active'] &&
     css`
       clip-path: circle(100% at center);
     `}
@@ -48,7 +48,7 @@ function RatingOverlay(props: RatingOverlayProps) {
           )}
         />
         <RatedHeart
-          active={i <= rating}
+          data-active={i <= rating}
           className={classNames(
             'h6 absolute top-0 left-0 w-6 text-red-500 opacity-0'
           )}
