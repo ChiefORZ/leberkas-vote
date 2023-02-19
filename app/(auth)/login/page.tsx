@@ -77,7 +77,7 @@ export default function LoginPage() {
               role="button"
               onClick={() => signIn('google')}
             >
-              <span className="sr-only">Sign in with Google</span>
+              <span className="sr-only">Login mit Google</span>
               <svg
                 width="20"
                 height="20"

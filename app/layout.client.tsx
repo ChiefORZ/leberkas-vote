@@ -1,6 +1,7 @@
 'use client';
 
 import { Menu, Transition } from '@headlessui/react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { signOut } from 'next-auth/react';
 import React, { Fragment } from 'react';
@@ -23,10 +24,10 @@ const RootLayoutClient = ({
         <div className="flex items-center px-2 lg:px-0">
           <div className="shrink-0">
             <Link href="/">
-              <img
+              <Image
                 className="block h-14"
                 src="./logo-with-text-on-primary.svg"
-                alt="Leberkas Vote"
+                alt="Leberkas Vote Logo"
               />
             </Link>
           </div>
@@ -38,10 +39,10 @@ const RootLayoutClient = ({
               <div>
                 <Menu.Button className="flex rounded-full bg-brand-400 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-400">
                   <span className="sr-only">Öffnen Sie das Benutzermenü</span>
-                  <img
+                  <Image
                     className="h-8 w-8 rounded-full"
                     src={user.image}
-                    alt="Profile image"
+                    alt="Profilbild"
                   />
                 </Menu.Button>
               </div>
