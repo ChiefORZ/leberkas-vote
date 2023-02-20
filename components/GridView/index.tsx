@@ -59,10 +59,14 @@ function GridView(props: GridViewProps) {
   const { handleOnRatingChange, handleSubmitForm, ratings, ratingsChanged } =
     useRatingContext();
   // always sort rated items to the top
+  // and when same rating, sort by name
   const sortedItems = items.sort((a, b) => {
     const aRating = ratings.find((r) => r.itemId === a.id)?.value;
     const bRating = ratings.find((r) => r.itemId === b.id)?.value;
     if (aRating && bRating) {
+      if (aRating === bRating) {
+        return a.name.localeCompare(b.name);
+      }
       return bRating - aRating;
     }
     if (aRating) {
