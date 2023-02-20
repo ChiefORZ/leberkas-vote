@@ -11,6 +11,7 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['var(--font-lexend)', ...fontFamily.sans],
+        'sans-alt': ['MADE Dillan Regular', ...fontFamily.sans],
       },
       colors: {
         brand: {
