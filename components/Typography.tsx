@@ -46,7 +46,7 @@ export function TypographyBlockquote({
 
 export function TypographyLead({ children }: React.PropsWithChildren<unknown>) {
   return (
-    <p className="text-lg text-slate-700 dark:text-slate-400">{children}</p>
+    <p className=" text-slate-700 dark:text-slate-400 lg:text-lg">{children}</p>
   );
 }
 

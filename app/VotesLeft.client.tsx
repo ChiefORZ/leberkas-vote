@@ -11,7 +11,8 @@ const VotesLeft = () => {
   const renderVotesLeft = () => {
     return user?.id ? (
       <span>
-        &nbsp;-&nbsp;<span className="text-brand-400">{String(restStars)}</span>
+        {' '}
+        -&nbsp;<span className="text-brand-400">{String(restStars)}</span>
         &nbsp;verbleibend
       </span>
     ) : null;
