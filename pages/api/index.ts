@@ -14,7 +14,7 @@ import {
 } from 'nexus';
 import path from 'path';
 
-import prisma from '../../lib/prisma';
+import prisma from '@/lib/prisma';
 
 export const GQLDate = asNexusMethod(DateTimeResolver, 'date');
 
