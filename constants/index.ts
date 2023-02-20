@@ -1,1 +1,1 @@
-export const numVotes = 100;
+export const numVotes = 60;

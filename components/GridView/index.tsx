@@ -1,14 +1,13 @@
 'use client';
 
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import { Rating } from '@prisma/client';
 import { NexusGenFieldTypes } from 'generated/nexus-typegen';
-import { gql, request } from 'graphql-request';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useRatingContext } from 'providers/RatingProvider';
 import styled from 'styled-components';
 
 import RatingOverlay from '@/components/GridView/RatingOverlay';
+import { useUserContext } from '@/providers/UserProvider';
 
 type User = NexusGenFieldTypes['User'];
 
@@ -19,7 +18,6 @@ interface GridViewProps {
     imageUrl: string;
     avgRating: number;
   }[];
-  user?: User;
 }
 const GridViewOuter = styled.div``;
 const GridViewWrapper = styled.div``;
@@ -53,77 +51,12 @@ const FloatingActionButton = styled.button`
   animation-iteration-count: 1;
 `;
 
-const SetRatingsMutation = gql`
-  mutation setRatings($ratings: [RatingInput!]!) {
-    setRatings(ratings: $ratings) {
-      itemId
-      userId
-      value
-    }
-  }
-`;
-
 function GridView(props: GridViewProps) {
-  const { items, user } = props;
-  const defaultValue = useRef(
-    JSON.stringify(
-      (user?.ratings || []).sort((a, b) => a.itemId.localeCompare(b.itemId))
-    )
-  );
-  const [ratings, setRatings] = useState<Rating[]>(user?.ratings || []);
+  const { items } = props;
+  const { user } = useUserContext();
 
-  const ratingsChanged =
-    JSON.stringify(ratings.sort((a, b) => a.itemId.localeCompare(b.itemId))) !==
-    defaultValue.current;
-
-  const handleOnRatingChange = async ({
-    itemId,
-    rating,
-  }: {
-    itemId: string;
-    rating: number;
-  }) => {
-    if (!user || !user.id) return;
-    setRatings((prevRatings) => {
-      const newRatings = [...prevRatings];
-      if (
-        newRatings.find((r) => r.itemId === itemId) &&
-        newRatings.find((r) => r.itemId === itemId)?.value === rating
-      ) {
-        // delete rating
-        newRatings.splice(
-          newRatings.findIndex((r) => r.itemId === itemId),
-          1
-        );
-      } else if (
-        newRatings.find((r) => r.itemId === itemId) &&
-        newRatings.find((r) => r.itemId === itemId)?.value !== rating
-      ) {
-        // update rating immutable
-        newRatings[newRatings.findIndex((r) => r.itemId === itemId)].value =
-          rating;
-      } else {
-        newRatings.push({ itemId, userId: user.id, value: rating });
-      }
-      return newRatings;
-    });
-  };
-
-  const handleSubmitForm = async () => {
-    try {
-      if (!user || !user.id) return;
-      // make a graphql mutation to create a rating with window.fetch
-
-      await request('/api', SetRatingsMutation, {
-        ratings,
-      });
-      // redirect to /results
-      window.location.href = '/results';
-    } catch (err) {
-      // TODO: show a toast message
-      console.error(err);
-    }
-  };
+  const { handleOnRatingChange, handleSubmitForm, ratings, ratingsChanged } =
+    useRatingContext();
 
   return (
     <div className="relative h-full overflow-auto">
