@@ -58,11 +58,26 @@ function GridView(props: GridViewProps) {
 
   const { handleOnRatingChange, handleSubmitForm, ratings, ratingsChanged } =
     useRatingContext();
+  // always sort rated items to the top
+  const sortedItems = items.sort((a, b) => {
+    const aRating = ratings.find((r) => r.itemId === a.id)?.value;
+    const bRating = ratings.find((r) => r.itemId === b.id)?.value;
+    if (aRating && bRating) {
+      return bRating - aRating;
+    }
+    if (aRating) {
+      return -1;
+    }
+    if (bRating) {
+      return 1;
+    }
+    return 0;
+  });
 
   return (
     <div className="relative h-full overflow-auto">
       <div className="grid grid-cols-my-grid gap-4 overflow-y-auto p-4">
-        {items.map((item) => (
+        {sortedItems.map((item) => (
           <GridItem
             key={item.id}
             style={{ '--aspect-ratio': 4 / 3 }}

@@ -95,12 +95,15 @@
   },
   "scripts": {
     "prebuild": "prisma generate",
-    "build": "nx exec -- next build",
+    "build": "pnpm run migrate:deploy && nx exec -- next build",
     "dev": "next",
     "generate": "run-s generate:*",
     "generate:nexus": "nx exec -- ts-node --transpile-only -P nexus.tsconfig.json pages/api",
     "generate:prisma": "prisma generate",
     "lint": "next lint --fix",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "migrate:status": "prisma migrate status",
     "prestart": "prisma generate",
     "start": "next start",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
