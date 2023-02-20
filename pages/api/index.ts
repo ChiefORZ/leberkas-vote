@@ -144,7 +144,20 @@ const Mutation = objectType({
         ratings: nonNull(list(nonNull(RatingInput))),
       },
       // @ts-ignore
-      resolve: (_, { ratings }, ctx) => {
+      resolve: async (_, { ratings }, ctx) => {
+        // delete my ratings that are in database, but not in input anymore
+        await prisma.rating.deleteMany({
+          where: {
+            itemId: {
+              notIn: ratings.map((rating) => rating.itemId),
+            },
+            AND: {
+              userId: {
+                in: ratings.map((rating) => rating.userId),
+              },
+            },
+          },
+        });
         // execute promises serially
         return prisma.$transaction(
           ratings.map((rating) => {
