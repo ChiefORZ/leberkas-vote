@@ -28,11 +28,11 @@ export default async function RootLayout({
       <body className="h-screen max-h-screen min-h-screen overflow-hidden">
         <div className="flex h-full flex-col">
           <div className="relative">
-            <div className="before:content-{''} absolute top-0 w-full before:z-0 before:block before:bg-brand-400 before:pb-48" />
+            {/* <div className="before:content-{''} absolute top-0 w-full before:z-0 before:block before:bg-brand-400 before:pb-48" /> */}
             <RootLayoutClient user={user} />
           </div>
 
-          <main className="z-10 mt-8">{children}</main>
+          <main className="z-10 mt-2">{children}</main>
         </div>
       </body>
     </html>

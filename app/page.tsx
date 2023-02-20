@@ -40,7 +40,7 @@ const Page = async () => {
     <UserContextProvider user={user}>
       <RatingContextProvider>
         <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-          <div className="flex h-[85vh] flex-col rounded-lg bg-white px-5 py-6 shadow sm:px-6">
+          <div className="border-styria flex h-[85vh] flex-col rounded-lg bg-white px-5 py-6 sm:px-6">
             <div>
               <TypographyH2>
                 Endlich wird über die wichtigen Sachen in Österreich abgstimmt!
