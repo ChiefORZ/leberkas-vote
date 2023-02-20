@@ -3,14 +3,13 @@ import { NexusGenFieldTypes } from 'generated/nexus-typegen';
 import Link from 'next/link';
 import { RatingContextProvider } from 'providers/RatingProvider';
 
+import VotesLeft from '@/app/VotesLeft.client';
 import GridView from '@/components/GridView';
 import Overlay from '@/components/GridView/Overlay';
 import { TypographyH2 } from '@/components/Typography';
 import prisma from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/session';
 import { UserContextProvider } from '@/providers/UserProvider';
-
-import VotesLeft from './VotesLeft.client';
 
 const restStars = 0;
 

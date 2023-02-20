@@ -1,15 +1,14 @@
 import './global.css';
 
-import { Inter as FontSans } from '@next/font/google';
+import { Lexend as FontLexend } from '@next/font/google';
 
+import RootLayoutClient from '@/app/layout.client';
 import { getCurrentUser } from '@/lib/session';
+import { classNames } from '@/utils/index';
 
-import { classNames } from '../utils';
-import RootLayoutClient from './layout.client';
-
-const fontSans = FontSans({
+const fontSans = FontLexend({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-lexend',
 });
 
 export default async function RootLayout({
