@@ -22,7 +22,13 @@ const Page = async () => {
     });
   }
   const items = await await prisma.item.findMany({
-    select: { id: true, name: true, imageUrl: true, ratings: true },
+    select: {
+      id: true,
+      name: true,
+      imageUrl: true,
+      imagePlaceholder: true,
+      ratings: true,
+    },
   });
   const transformedItems = items
     .map((item) => ({

@@ -1,8 +1,19 @@
 import { Prisma, PrismaClient } from '@prisma/client';
+import { getPlaiceholder } from 'plaiceholder';
 
 const prisma = new PrismaClient();
 
-const itemData = [
+const getBase64 = async (url: string) => {
+  const { base64 } = await getPlaiceholder(url);
+  return base64;
+};
+
+const itemData: {
+  id: string;
+  name: string;
+  imageUrl: string;
+  imagePlaceholder?: string;
+}[] = [
   {
     id: '1',
     name: 'Frittatensuppe',
@@ -204,11 +215,25 @@ const itemData = [
 ];
 
 export async function main() {
+  for (const item of itemData) {
+    item.imagePlaceholder = await getBase64(item.imageUrl);
+  }
   try {
     console.info(`Start seeding ...`);
     for (const u of itemData) {
-      const item = await prisma.item.create({
-        data: u,
+      const item = await prisma.item.upsert({
+        where: { id: u.id },
+        update: {
+          name: u.name,
+          imagePlaceholder: u?.imagePlaceholder,
+          imageUrl: u.imageUrl,
+        },
+        create: {
+          id: u.id,
+          name: u.name,
+          imagePlaceholder: u?.imagePlaceholder,
+          imageUrl: u.imageUrl,
+        },
       });
       console.info(`Created item with id: ${item.id}`);
     }

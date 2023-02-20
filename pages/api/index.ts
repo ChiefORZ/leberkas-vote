@@ -14,7 +14,7 @@ import {
 } from 'nexus';
 import path from 'path';
 
-import prisma from '@/lib/prisma';
+import prisma from '../../lib/prisma';
 
 export const GQLDate = asNexusMethod(DateTimeResolver, 'date');
 
@@ -42,6 +42,7 @@ const Item = objectType({
     t.nonNull.string('id');
     t.nullable.string('title');
     t.nullable.string('imageUrl');
+    t.nullable.string('imagePlaceholder');
     t.nonNull.int('avgRating', {
       resolve: async (parent) => {
         const ratings = await prisma.item
