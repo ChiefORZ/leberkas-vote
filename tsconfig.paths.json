@@ -3,12 +3,13 @@
     "baseUrl": ".",
     "paths": {
       "@/components/*": ["components/*"],
-      "@/ui/*": ["ui/*"],
+      "@/config/*": ["config/*"],
+      "@/constants/*": ["constants/*"],
       "@/hooks/*": ["hooks/*"],
       "@/lib/*": ["lib/*"],
-      "@/config/*": ["config/*"],
-      "@/styles/*": ["styles/*"],
+      "@/pages/*": ["pages/*"],
       "@/prisma/*": ["prisma/*"],
+      "@/providers/*": ["providers/*"],
       "@/utils/*": ["utils/*"]
     },
   }
