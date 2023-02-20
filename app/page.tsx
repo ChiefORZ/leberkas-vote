@@ -6,12 +6,9 @@ import { RatingContextProvider } from 'providers/RatingProvider';
 import VotesLeft from '@/app/VotesLeft.client';
 import GridView from '@/components/GridView';
 import Overlay from '@/components/GridView/Overlay';
-import { TypographyH2 } from '@/components/Typography';
 import prisma from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/session';
 import { UserContextProvider } from '@/providers/UserProvider';
-
-const restStars = 0;
 
 type User = NexusGenFieldTypes['User'];
 
@@ -42,9 +39,9 @@ const Page = async () => {
         <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
           <div className="border-styria flex h-[85vh] flex-col rounded-lg bg-white px-5 py-6 sm:px-6">
             <div>
-              <TypographyH2>
+              <h1 className="mt-10 scroll-m-20 font-sans-alt text-2xl font-thin transition-colors first:mt-0 dark:border-b-slate-700">
                 Endlich wird über die wichtigen Sachen in Österreich abgstimmt!
-              </TypographyH2>
+              </h1>
               <VotesLeft />
             </div>
             <div className="relative h-full overflow-hidden">

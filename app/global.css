@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'MADE Dillan Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: url("../public/made-dillan.otf");
+}
+
 [style*='--aspect-ratio'] > :first-child {
   width: 100%;
 }
