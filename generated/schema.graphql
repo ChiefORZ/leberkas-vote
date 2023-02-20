@@ -10,6 +10,7 @@ scalar DateTime
 type Item {
   avgRating: Int!
   id: String!
+  imagePlaceholder: String
   imageUrl: String
   title: String
 }

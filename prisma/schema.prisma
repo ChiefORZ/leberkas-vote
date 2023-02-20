@@ -11,6 +11,7 @@ model Item {
   id       String   @id @default(cuid())
   name     String
   imageUrl String?
+  imagePlaceholder String?
   ratings  Rating[]
 }
 

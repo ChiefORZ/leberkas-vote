@@ -50,6 +50,7 @@ export interface NexusGenScalars {
 export interface NexusGenObjects {
   Item: { // root type
     id: string; // String!
+    imagePlaceholder?: string | null; // String
     imageUrl?: string | null; // String
     title?: string | null; // String
   }
@@ -81,6 +82,7 @@ export interface NexusGenFieldTypes {
   Item: { // field return type
     avgRating: number; // Int!
     id: string; // String!
+    imagePlaceholder: string | null; // String
     imageUrl: string | null; // String
     title: string | null; // String
   }
@@ -111,6 +113,7 @@ export interface NexusGenFieldTypeNames {
   Item: { // field return type name
     avgRating: 'Int'
     id: 'String'
+    imagePlaceholder: 'String'
     imageUrl: 'String'
     title: 'String'
   }
