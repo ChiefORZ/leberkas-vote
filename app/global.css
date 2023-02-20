@@ -24,3 +24,7 @@
     height: 100%;
   }
 }
+
+.border-styria {
+  @apply border-2 border-brand-400;
+}

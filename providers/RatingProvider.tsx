@@ -101,7 +101,7 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
         ratings,
       });
       // redirect to /results
-      window.location.href = '/results';
+      // window.location.href = '/results';
     } catch (err) {
       // TODO: show a toast message
       console.error(err);

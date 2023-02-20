@@ -19,7 +19,7 @@ const RootLayoutClient = ({
   };
 }) => {
   return (
-    <div className="relative z-20 mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
+    <div className="relative z-20 mx-auto max-w-7xl py-2 px-2 sm:px-4 lg:px-8">
       <div className="relative flex h-16 items-center justify-between">
         <div className="flex items-center px-2 lg:px-0">
           <div className="shrink-0">
@@ -29,7 +29,7 @@ const RootLayoutClient = ({
                 width={350}
                 height={75}
                 // fill
-                src="./logo-with-text-on-primary.svg"
+                src="./logo-with-text.svg"
                 alt="Leberkas Vote Logo"
               />
             </Link>
