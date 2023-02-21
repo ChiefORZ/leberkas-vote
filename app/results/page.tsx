@@ -1,11 +1,13 @@
-import { NexusGenFieldTypes } from 'generated/nexus-typegen';
+import Image from 'next/image';
 
-import ListView from '@/components/ListView';
 import prisma from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/session';
 
-type User = NexusGenFieldTypes['User'];
-
+// display a ListView that displays items like a barchart
+// the items are sorted by avgRating
+// in the background of the bar item, the user can see the image of the item
+// where the percentage of the bar is the avgRating
+// the chart is not interactable
 const Page = async () => {
   const userSession = await getCurrentUser();
   const items = await await prisma.item.findMany({
@@ -27,6 +29,13 @@ const Page = async () => {
     // sort them by avgRating
     .sort((a, b) => b.avgRating - a.avgRating);
 
+  const maxRating = transformedItems.reduce((acc, cur) => {
+    if (cur.avgRating > acc) {
+      return cur.avgRating;
+    }
+    return acc;
+  }, 0);
+
   return (
     <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
       <div className="border-styria flex h-[85vh] flex-col rounded-lg bg-white px-5 py-6 sm:px-6">
@@ -36,7 +45,46 @@ const Page = async () => {
           </h1>
         </div>
         <div className="relative h-full overflow-hidden">
-          <ListView items={transformedItems} />
+          <div className="relative h-full overflow-auto">
+            <ul className="m-0 flex flex-col gap-4 p-0">
+              {transformedItems.map((item, index) => (
+                <li
+                  className="relative flex h-16 w-full items-end overflow-hidden rounded-2xl"
+                  key={item.id}
+                >
+                  <div className="absolute left-0 top-0 h-full w-full">
+                    <Image
+                      src={item.imageUrl}
+                      alt={item.name}
+                      fill
+                      style={{
+                        objectFit: 'cover',
+                      }}
+                    />
+                  </div>
+                  <div className="relative flex h-full w-full flex-row">
+                    <div
+                      style={{
+                        flex: `${(item.avgRating / maxRating) * 100}%`,
+                      }}
+                    />
+                    <div
+                      className="bg-[rgba(255,255,255,0.9)] backdrop-blur-[0.1rem]"
+                      style={{
+                        flex: `${(1 - item.avgRating / maxRating) * 100}%`,
+                      }}
+                    />
+                    <div className="absolute left-0 bottom-0 bg-[rgba(255,255,255,0.9)] p-2">
+                      <span className="font-bold">{`${index + 1}. `}</span>
+                      {`${item.name} (${Math.round(
+                        (item.avgRating / maxRating) * 100
+                      )}%)`}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </div>
     </div>
