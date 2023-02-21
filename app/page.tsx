@@ -5,7 +5,7 @@ import { RatingContextProvider } from 'providers/RatingProvider';
 
 import VotesLeft from '@/app/VotesLeft.client';
 import GridView from '@/components/GridView';
-import Overlay from '@/components/GridView/Overlay';
+import Overlay from '@/components/Overlay';
 import prisma from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/session';
 import { UserContextProvider } from '@/providers/UserProvider';
