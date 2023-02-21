@@ -1,8 +1,10 @@
 'use client';
 
 import { Menu, Transition } from '@headlessui/react';
+import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import React, { Fragment } from 'react';
 
@@ -18,6 +20,7 @@ const RootLayoutClient = ({
     image?: string;
   };
 }) => {
+  const pathname = usePathname();
   return (
     <div className="relative z-20 mx-auto max-w-7xl py-2 px-2 sm:px-4 lg:px-8">
       <div className="relative flex h-16 items-center justify-between">
@@ -36,6 +39,31 @@ const RootLayoutClient = ({
           </div>
         </div>
         <div className="flex items-center">
+          {/* Nav options to home and results that is only displayed on desktop and highlighting the active one */}
+          <div className="hidden lg:ml-6 lg:block">
+            <div className="flex">
+              <Link
+                href="/"
+                className={clsx(
+                  'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
+                  { 'border-brand-400 text-gray-900': pathname === '/' }
+                )}
+              >
+                Abstimmen
+              </Link>
+              <Link
+                href="/results"
+                className={clsx(
+                  'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
+                  {
+                    'border-brand-400 text-gray-900': pathname === '/results',
+                  }
+                )}
+              >
+                Ergebnis
+              </Link>
+            </div>
+          </div>
           {/* Profile dropdown */}
           {user ? (
             <Menu as="div" className="relative ml-3 shrink-0">
@@ -61,6 +89,16 @@ const RootLayoutClient = ({
                 leaveTo="transform opacity-0 scale-95"
               >
                 <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                  {/* display a link to /results when on mobile */}
+                  <Menu.Item>
+                    <Link
+                      aria-label="Ergebnis"
+                      className="inline-flex w-full  py-2 px-4 text-left text-sm text-gray-700 lg:hidden"
+                      href="/results"
+                    >
+                      Ergebnis
+                    </Link>
+                  </Menu.Item>
                   <Menu.Item>
                     <button
                       aria-label="Logout"

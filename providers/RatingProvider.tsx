@@ -21,6 +21,7 @@ interface IRatingContext {
     rating: number;
   }) => void;
   handleSubmitForm: () => void;
+  isSubmitting: boolean;
   ratings: Rating[];
   ratingsChanged: boolean;
   restStars: number;
@@ -40,6 +41,7 @@ const RatingContext = createContext<IRatingContext | null>(null);
 
 const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
   const { user } = useUserContext();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const defaultValue = useRef(
     JSON.stringify(
       (user?.ratings || []).sort((a, b) => a.itemId.localeCompare(b.itemId))
@@ -95,13 +97,14 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
   const handleSubmitForm = async () => {
     try {
       if (!user || !user.id) return;
+      // set loading state
+      setIsSubmitting(true);
       // make a graphql mutation to create a rating with window.fetch
-
       await request('/api', SetRatingsMutation, {
         ratings,
       });
       // redirect to /results
-      // window.location.href = '/results';
+      window.location.href = '/results';
     } catch (err) {
       // TODO: show a toast message
       console.error(err);
@@ -116,6 +119,7 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
         ratingsChanged,
         handleSubmitForm,
         restStars,
+        isSubmitting,
       }}
     >
       {children}

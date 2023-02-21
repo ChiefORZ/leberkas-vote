@@ -9,6 +9,8 @@ import styled from 'styled-components';
 import RatingOverlay from '@/components/GridView/RatingOverlay';
 import { useUserContext } from '@/providers/UserProvider';
 
+import { Spinner } from '../Spinner';
+
 type User = NexusGenFieldTypes['User'];
 
 interface GridViewProps {
@@ -56,8 +58,13 @@ function GridView(props: GridViewProps) {
   const { items } = props;
   const { user } = useUserContext();
 
-  const { handleOnRatingChange, handleSubmitForm, ratings, ratingsChanged } =
-    useRatingContext();
+  const {
+    handleOnRatingChange,
+    handleSubmitForm,
+    isSubmitting,
+    ratings,
+    ratingsChanged,
+  } = useRatingContext();
   // always sort rated items to the top
   // and when same rating, sort by name
   const sortedItems = items.sort((a, b) => {
@@ -112,7 +119,7 @@ function GridView(props: GridViewProps) {
           onClick={handleSubmitForm}
           className="z-90 fixed bottom-10 right-10 flex h-14 w-14 items-center justify-center rounded-full bg-brand-400 p-3 text-xl text-white drop-shadow-lg duration-300 hover:bg-brand-300 hover:drop-shadow-2xl"
         >
-          <ArrowRightIcon />
+          {isSubmitting ? <Spinner /> : <ArrowRightIcon />}
         </FloatingActionButton>
       ) : null}
     </div>
