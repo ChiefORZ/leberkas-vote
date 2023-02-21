@@ -46,7 +46,7 @@ const RootLayoutClient = ({
                 href="/"
                 className={clsx(
                   'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
-                  { 'border-brand-400 text-gray-900': pathname === '/' }
+                  { '!border-brand-400 text-gray-900': pathname === '/' }
                 )}
               >
                 Abstimmen
@@ -56,7 +56,7 @@ const RootLayoutClient = ({
                 className={clsx(
                   'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
                   {
-                    'border-brand-400 text-gray-900': pathname === '/results',
+                    '!border-brand-400 text-gray-900': pathname === '/results',
                   }
                 )}
               >
