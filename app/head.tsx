@@ -45,6 +45,8 @@ export default function Head() {
       <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#176E32" />
       <meta name="msapplication-TileColor" content="#176E32" />
       <meta name="theme-color" content="#ffffff"></meta>
+
+      <script async src="https://cdn.splitbee.io/sb.js"></script>
     </>
   );
 }
