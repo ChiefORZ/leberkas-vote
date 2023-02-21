@@ -1,15 +1,17 @@
 'use client';
-
+import { ArrowRightCircleIcon } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { NexusGenFieldTypes } from 'generated/nexus-typegen';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useRatingContext } from 'providers/RatingProvider';
+import React from 'react';
 import styled from 'styled-components';
 
 import RatingOverlay from '@/components/GridView/RatingOverlay';
+import Overlay from '@/components/Overlay';
+import { Spinner } from '@/components/Spinner';
 import { useUserContext } from '@/providers/UserProvider';
-
-import { Spinner } from '../Spinner';
 
 type User = NexusGenFieldTypes['User'];
 
@@ -58,6 +60,9 @@ function GridView(props: GridViewProps) {
   const { items } = props;
   const { user } = useUserContext();
 
+  const [triedToInteract, setTriedToInteract] = React.useState(false);
+  console.log('triedToInteract ', triedToInteract);
+
   const {
     handleOnRatingChange,
     handleSubmitForm,
@@ -65,6 +70,19 @@ function GridView(props: GridViewProps) {
     ratings,
     ratingsChanged,
   } = useRatingContext();
+
+  const interceptedHandleOnRatingChange = React.useCallback(
+    ({ itemId, rating }: { itemId: string; rating: number }) => {
+      if (!triedToInteract && (!user || !user.id)) {
+        setTriedToInteract(true);
+        return;
+      }
+      setTriedToInteract(true);
+      handleOnRatingChange({ itemId, rating });
+    },
+    [handleOnRatingChange, triedToInteract, user]
+  );
+
   // always sort rated items to the top
   // and when same rating, sort by name
   const sortedItems = items.sort((a, b) => {
@@ -86,43 +104,61 @@ function GridView(props: GridViewProps) {
   });
 
   return (
-    <div className="relative h-full overflow-auto">
-      <div className="grid grid-cols-my-grid gap-4 overflow-y-auto p-4">
-        {sortedItems.map((item) => (
-          <GridItem
-            key={item.id}
-            style={{ '--aspect-ratio': 4 / 3 }}
-            className="relative flex justify-center overflow-hidden rounded-md shadow-sm transition hover:shadow-md"
-          >
-            <Tile
-              alt={item.name}
-              className="block w-full select-none object-cover"
-              fill
-              placeholder="blur"
-              blurDataURL={item.imagePlaceholder}
-              src={item.imageUrl}
-            />
-            <div className="absolute bottom-0 flex w-full flex-col justify-center bg-[rgba(255,255,255,0.9)] p-2 text-center leading-none">
-              <div>{item.name}</div>
-              <RatingOverlay
-                rating={ratings.find((r) => r.itemId === item.id)?.value}
-                onRatingChange={(value) =>
-                  handleOnRatingChange({ itemId: item.id, rating: value })
-                }
+    <React.Fragment>
+      <div className="relative h-full overflow-auto">
+        <div className="grid grid-cols-my-grid gap-4 overflow-y-auto p-4">
+          {sortedItems.map((item) => (
+            <GridItem
+              key={item.id}
+              style={{ '--aspect-ratio': 4 / 3 }}
+              className="relative flex justify-center overflow-hidden rounded-md shadow-sm transition hover:shadow-md"
+            >
+              <Tile
+                alt={item.name}
+                className="block w-full select-none object-cover"
+                fill
+                placeholder="blur"
+                blurDataURL={item.imagePlaceholder}
+                src={item.imageUrl}
               />
-            </div>
-          </GridItem>
-        ))}
+              <div className="absolute bottom-0 flex w-full flex-col justify-center bg-[rgba(255,255,255,0.9)] p-2 text-center leading-none">
+                <div>{item.name}</div>
+                <RatingOverlay
+                  rating={ratings.find((r) => r.itemId === item.id)?.value}
+                  onRatingChange={(value) =>
+                    interceptedHandleOnRatingChange({
+                      itemId: item.id,
+                      rating: value,
+                    })
+                  }
+                />
+              </div>
+            </GridItem>
+          ))}
+        </div>
+        {ratingsChanged ? (
+          <FloatingActionButton
+            onClick={handleSubmitForm}
+            className="z-90 fixed bottom-10 right-10 flex h-14 w-14 items-center justify-center rounded-full bg-brand-400 p-3 text-xl text-white drop-shadow-lg duration-300 hover:bg-brand-300 hover:drop-shadow-2xl"
+          >
+            {isSubmitting ? <Spinner /> : <ArrowRightIcon />}
+          </FloatingActionButton>
+        ) : null}
       </div>
-      {ratingsChanged ? (
-        <FloatingActionButton
-          onClick={handleSubmitForm}
-          className="z-90 fixed bottom-10 right-10 flex h-14 w-14 items-center justify-center rounded-full bg-brand-400 p-3 text-xl text-white drop-shadow-lg duration-300 hover:bg-brand-300 hover:drop-shadow-2xl"
-        >
-          {isSubmitting ? <Spinner /> : <ArrowRightIcon />}
-        </FloatingActionButton>
+      {triedToInteract && (!user || !user.id) ? (
+        <Overlay>
+          <div className="inline-flex rounded-md shadow">
+            <Link
+              href="/login"
+              className="inline-flex items-center justify-center rounded-md border border-transparent bg-white px-5 py-3 text-base font-medium text-gray-900 hover:bg-gray-50"
+            >
+              Zum Abstimmen bitte mit E-Mail anmelden&nbsp;
+              <ArrowRightCircleIcon className="inline h-6 w-6" />
+            </Link>
+          </div>
+        </Overlay>
       ) : null}
-    </div>
+    </React.Fragment>
   );
 }
 

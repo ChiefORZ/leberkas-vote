@@ -5,7 +5,6 @@ import { RatingContextProvider } from 'providers/RatingProvider';
 
 import VotesLeft from '@/app/VotesLeft.client';
 import GridView from '@/components/GridView';
-import Overlay from '@/components/Overlay';
 import prisma from '@/lib/prisma';
 import { getCurrentUser } from '@/lib/session';
 import { UserContextProvider } from '@/providers/UserProvider';
@@ -52,19 +51,6 @@ const Page = async () => {
             </div>
             <div className="relative h-full overflow-hidden">
               <GridView items={transformedItems} />
-              {!user || !user.id ? (
-                <Overlay>
-                  <div className="inline-flex rounded-md shadow">
-                    <Link
-                      href="/login"
-                      className="inline-flex items-center justify-center rounded-md border border-transparent bg-white px-5 py-3 text-base font-medium text-gray-900 hover:bg-gray-50"
-                    >
-                      Zum Abstimmen bitte mit E-Mail anmelden&nbsp;
-                      <ArrowRightCircleIcon className="inline h-6 w-6" />
-                    </Link>
-                  </div>
-                </Overlay>
-              ) : null}
             </div>
           </div>
         </div>
