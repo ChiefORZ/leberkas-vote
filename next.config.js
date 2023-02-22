@@ -8,6 +8,7 @@ const nextConfig = {
       'googleusercontent.com',
       'basil-images-dev.s3.eu-west-1.amazonaws.com',
     ],
+    unoptimized: true,
   },
   experimental: {
     appDir: true,
