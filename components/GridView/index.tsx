@@ -1,6 +1,6 @@
 'use client';
 
-import autoAnimate from '@formkit/auto-animate'
+import autoAnimate from '@formkit/auto-animate';
 import { ArrowRightCircleIcon } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { NexusGenFieldTypes } from 'generated/nexus-typegen';
