@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@babel/core': ^7.21.0
   '@babel/plugin-syntax-typescript': ^7.20.0
+  '@formkit/auto-animate': 1.0.0-beta.6
   '@headlessui/react': ^1.7.11
   '@heroicons/react': ^2.0.16
   '@magic-sdk/admin': ^1.8.0
@@ -66,6 +67,7 @@ specifiers:
   webpack: ^5.75.0
 
 dependencies:
+  '@formkit/auto-animate': 1.0.0-beta.6
   '@headlessui/react': 1.7.11_biqbaboplfbrettd7655fr4n2y
   '@heroicons/react': 2.0.16_react@18.2.0
   '@magic-sdk/admin': 1.8.0
@@ -642,6 +644,10 @@ packages:
       '@ethersproject/properties': 5.7.0
       '@ethersproject/rlp': 5.7.0
       '@ethersproject/signing-key': 5.7.0
+    dev: false
+
+  /@formkit/auto-animate/1.0.0-beta.6:
+    resolution: {integrity: sha512-PVDhLAlr+B4Xb7e+1wozBUWmXa6BFU8xUPR/W/E+TsQhPS1qkAdAsJ25keEnFrcePSnXHrOsh3tiFbEToOzV9w==}
     dev: false
 
   /@graphql-tools/merge/8.3.18_graphql@16.6.0:

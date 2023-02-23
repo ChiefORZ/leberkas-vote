@@ -1,12 +1,13 @@
 'use client';
 
+import autoAnimate from '@formkit/auto-animate'
 import { ArrowRightCircleIcon } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { NexusGenFieldTypes } from 'generated/nexus-typegen';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRatingContext } from 'providers/RatingProvider';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import RatingOverlay from '@/components/GridView/RatingOverlay';
@@ -103,10 +104,20 @@ function GridView(props: GridViewProps) {
     return 0;
   });
 
+  /* autoAnimate */
+  const animationParent = useRef(null);
+
+  useEffect(() => {
+    animationParent.current && autoAnimate(animationParent.current);
+  }, [animationParent]);
+
   return (
     <React.Fragment>
       <div className="relative h-full overflow-auto">
-        <div className="grid grid-cols-my-grid gap-4 overflow-y-auto p-4">
+        <div
+          className="grid grid-cols-my-grid gap-4 overflow-y-auto p-4"
+          ref={animationParent}
+        >
           {sortedItems.map((item) => (
             <GridItem
               key={item.id}
