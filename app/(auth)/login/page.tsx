@@ -1,6 +1,6 @@
 'use client';
+
 import { Magic } from 'magic-sdk';
-import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 
@@ -9,7 +9,6 @@ const magic =
   new Magic(process.env.NEXT_PUBLIC_MAGIC_PK || 'a');
 
 export default function LoginPage() {
-  // const router = useRouter();
   const { register, handleSubmit } = useForm();
 
   const onSubmit = async ({ email }) => {
