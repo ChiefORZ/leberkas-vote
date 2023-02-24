@@ -69,7 +69,7 @@ const Page = async () => {
                       }}
                     />
                     <div
-                      className="bg-[rgba(255,255,255,0.9)] backdrop-blur-[0.1rem]"
+                      className="translate-z-0 bg-[rgba(255,255,255,0.9)] backdrop-blur-[0.1rem] backface-visible"
                       style={{
                         flex: `${(1 - item.avgRating / maxRating) * 100}%`,
                       }}

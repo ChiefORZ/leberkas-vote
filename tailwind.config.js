@@ -1,6 +1,26 @@
 const { fontFamily } = require('tailwindcss/defaultTheme');
+const plugin = require('tailwindcss/plugin')
+
 
 /** @type {import('tailwindcss').Config} */
+
+const backfaceVisibility = plugin(function ({ addUtilities }) {
+  addUtilities({
+    '.backface-visible': {
+      'backface-visibility': 'visible',
+      '-moz-backface-visibility': 'visible',
+      '-webkit-backface-visibility': 'visible',
+      '-ms-backface-visibility': 'visible',
+    },
+    '.backface-hidden': {
+      'backface-visibility': 'hidden',
+      '-moz-backface-visibility': 'hidden',
+      '-webkit-backface-visibility': 'hidden',
+      '-ms-backface-visibility': 'hidden',
+    },
+  });
+});
+
 module.exports = {
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
@@ -33,5 +53,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@tailwindcss/forms')],
+  plugins: [require('@tailwindcss/forms'), backfaceVisibility],
 };
