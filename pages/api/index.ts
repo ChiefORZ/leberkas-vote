@@ -1,4 +1,5 @@
-import { ApolloServer } from 'apollo-server-micro';
+import { ApolloServer } from '@apollo/server';
+import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { DateTimeResolver } from 'graphql-scalars';
 import cors from 'micro-cors';
 import { NextApiHandler } from 'next';
@@ -197,23 +198,13 @@ export const schema = makeSchema({
   },
 });
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
-
 let apolloServerHandler: NextApiHandler;
 
 async function getApolloServerHandler() {
   const apolloServer = new ApolloServer({ schema });
 
   if (!apolloServerHandler) {
-    await apolloServer.start();
-
-    apolloServerHandler = apolloServer.createHandler({
-      path: '/api',
-    });
+    apolloServerHandler = startServerAndCreateNextHandler(apolloServer);
   }
 
   return apolloServerHandler;

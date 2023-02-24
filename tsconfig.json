@@ -10,17 +10,26 @@
     "module": "esnext",
     "moduleResolution": "node",
     "noEmit": true,
-    "plugins": [{
-      "name": "next"
-    }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": false,
+    "strictNullChecks": false,
     "target": "ES2019"
   },
   "exclude": ["node_modules"],
   "extends": "./tsconfig.paths.json",
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "types/**/*.ts"
+  ],
   "ts-node": {
     "compilerOptions": {
       "module": "commonjs"
