@@ -72,6 +72,7 @@
     "prisma": "4.11.0",
     "ts-node": "10.9.1",
     "typescript": "4.9.5",
+    "vitest": "^0.29.2",
     "webpack": "^5.75.0"
   },
   "keywords": [],
@@ -107,6 +108,7 @@
     "migrate:status": "prisma migrate status",
     "prestart": "prisma generate",
     "start": "next start",
+    "test": "vitest --run --passWithNoTests",
     "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
   },
   "version": "1.0.0"
