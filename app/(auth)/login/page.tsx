@@ -3,6 +3,7 @@
 import { Magic } from 'magic-sdk';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
+import toast, { Toaster } from 'react-hot-toast';
 
 const magic =
   typeof window !== 'undefined' &&
@@ -11,22 +12,46 @@ const magic =
 export default function LoginPage() {
   const { register, handleSubmit } = useForm();
 
-  const onSubmit = async ({ email }) => {
-    if (!magic) throw new Error(`magic not defined`);
+  const displayError = (error: string) => {
+    toast.error(error);
+  };
 
-    // login with Magic
-    const didToken = await magic.auth.loginWithMagicLink({ email });
+  const handleLoginWithMagic = async ({ email }) => {
+    try {
+      if (!magic) throw new Error(`magic not defined`);
+      // login with Magic
+      const didToken = await magic.auth.loginWithMagicLink({ email });
 
-    // sign in with NextAuth
-    await signIn('credentials', {
-      didToken,
-      // callbackUrl: router.query['callbackUrl'] as string,
-    });
+      // sign in with NextAuth
+      await signIn('credentials', {
+        didToken,
+      });
+    } catch (e) {
+      if (typeof e === 'string') {
+        console.error(e.toUpperCase());
+      } else if (e instanceof Error) {
+        console.error(e.message);
+      }
+      displayError('Uje, da is was schief glaufen!');
+    }
+  };
+
+  const handleLoginWithGoogle = async () => {
+    try {
+      await signIn('google');
+    } catch (e) {
+      if (typeof e === 'string') {
+        console.error(e.toUpperCase());
+      } else if (e instanceof Error) {
+        console.error(e.message);
+      }
+      displayError('Uje, da is was schief glaufen!');
+    }
   };
 
   return (
     <>
-      <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+      <form className="space-y-6" onSubmit={handleSubmit(handleLoginWithMagic)}>
         <div>
           <label
             htmlFor="email"
@@ -74,7 +99,7 @@ export default function LoginPage() {
             <button
               className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white py-2 px-4 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50 focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
               role="button"
-              onClick={() => signIn('google')}
+              onClick={handleLoginWithGoogle}
             >
               <span className="sr-only">Login mit Google</span>
               <svg
@@ -91,6 +116,7 @@ export default function LoginPage() {
           </div>
         </div>
       </div>
+      <Toaster />
     </>
   );
 }

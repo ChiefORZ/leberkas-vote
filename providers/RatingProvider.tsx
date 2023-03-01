@@ -4,6 +4,7 @@ import { Rating } from '@prisma/client';
 import { NexusGenFieldTypes } from 'generated/nexus-typegen';
 import { gql, request } from 'graphql-request';
 import { createContext, useContext, useMemo, useRef, useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
 import { numVotes } from '@/constants/index';
 import { useUserContext } from '@/providers/UserProvider';
@@ -40,6 +41,9 @@ const SetRatingsMutation = gql`
 const RatingContext = createContext<IRatingContext | null>(null);
 
 const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
+  const displayError = (error: string) => {
+    toast.error(error);
+  };
   const { user } = useUserContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const defaultValue = useRef(
@@ -105,9 +109,13 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
       });
       // redirect to /results
       window.location.href = '/results';
-    } catch (err) {
-      // TODO: show a toast message
-      console.error(err);
+    } catch (e) {
+      if (typeof e === 'string') {
+        console.error(e.toUpperCase());
+      } else if (e instanceof Error) {
+        console.error(e.message);
+      }
+      displayError('Uje, da is was schief glaufen!');
     }
   };
 
@@ -123,6 +131,7 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
       }}
     >
       {children}
+      <Toaster />
     </RatingContext.Provider>
   );
 };
