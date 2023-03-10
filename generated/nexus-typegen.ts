@@ -88,6 +88,7 @@ export interface NexusGenFieldTypes {
   }
   Mutation: { // field return type
     setRatings: Array<NexusGenRootTypes['Rating'] | null> | null; // [Rating]
+    uploadItem: NexusGenRootTypes['Item'] | null; // Item
   }
   Query: { // field return type
     getItem: NexusGenRootTypes['Item'] | null; // Item
@@ -119,6 +120,7 @@ export interface NexusGenFieldTypeNames {
   }
   Mutation: { // field return type name
     setRatings: 'Rating'
+    uploadItem: 'Item'
   }
   Query: { // field return type name
     getItem: 'Item'
@@ -144,6 +146,11 @@ export interface NexusGenArgTypes {
   Mutation: {
     setRatings: { // args
       ratings: NexusGenInputs['RatingInput'][]; // [RatingInput!]!
+    }
+    uploadItem: { // args
+      imagePlaceholder: string; // String!
+      imageUrl: string; // String!
+      title: string; // String!
     }
   }
   Query: {

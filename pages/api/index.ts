@@ -3,6 +3,8 @@ import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import { DateTimeResolver } from 'graphql-scalars';
 import cors from 'micro-cors';
 import { NextApiHandler } from 'next';
+import { Session } from 'next-auth';
+import { getServerSession } from 'next-auth/next';
 import {
   asNexusMethod,
   inputObjectType,
@@ -15,6 +17,7 @@ import {
 } from 'nexus';
 import path from 'path';
 
+import { authOptions } from '../../lib/auth';
 import prisma from '../../lib/prisma';
 
 export const GQLDate = asNexusMethod(DateTimeResolver, 'date');
@@ -118,7 +121,10 @@ const Query = objectType({
       type: list('Item'),
       // @ts-ignore
       resolve: (_, args) => {
-        return prisma.item.findMany({ include: { ratings: true } });
+        return prisma.item.findMany({
+          include: { ratings: true },
+          where: { published: true },
+        });
       },
     });
 
@@ -140,13 +146,41 @@ const Query = objectType({
 const Mutation = objectType({
   name: 'Mutation',
   definition(t) {
+    t.field('uploadItem', {
+      type: 'Item',
+      args: {
+        title: nonNull(stringArg()),
+        imageUrl: nonNull(stringArg()),
+        imagePlaceholder: nonNull(stringArg()),
+      },
+      resolve: (_, args, ctx) => {
+        // dis-allow anonymous users
+        if (!ctx.user) {
+          throw new Error('Not authenticated');
+        }
+        return prisma.item.create({
+          data: {
+            name: args.title,
+            imageUrl: args.imageUrl,
+            imagePlaceholder: args.imagePlaceholder,
+            published: false,
+            uploader: {
+              connect: { id: String(ctx.user?.id) },
+            },
+          },
+        });
+      },
+    });
     t.field('setRatings', {
       type: list('Rating'),
       args: {
         ratings: nonNull(list(nonNull(RatingInput))),
       },
-      // @ts-ignore
       resolve: async (_, { ratings }, ctx) => {
+        // dis-allow anonymous users
+        if (!ctx.user) {
+          throw new Error('Not authenticated');
+        }
         // delete my ratings that are in database, but not in input anymore
         await prisma.rating.deleteMany({
           where: {
@@ -200,18 +234,33 @@ export const schema = makeSchema({
 
 let apolloServerHandler: NextApiHandler;
 
+type TUser = Session['user'];
+
+interface IApolloContext {
+  user: TUser | null;
+}
+
 async function getApolloServerHandler() {
-  const apolloServer = new ApolloServer({ schema });
+  const apolloServer = new ApolloServer<IApolloContext>({
+    schema,
+  });
 
   if (!apolloServerHandler) {
-    apolloServerHandler = startServerAndCreateNextHandler(apolloServer);
+    apolloServerHandler = startServerAndCreateNextHandler(apolloServer, {
+      context: async (req, res) => {
+        const session = await getServerSession(req, res, authOptions);
+        return {
+          user: session?.user,
+        };
+      },
+    });
   }
 
   return apolloServerHandler;
 }
 
 const handler: NextApiHandler = async (req, res) => {
-  const apolloServerHandler = await getApolloServerHandler();
+  apolloServerHandler = await getApolloServerHandler();
 
   if (req.method === 'OPTIONS') {
     res.end();
