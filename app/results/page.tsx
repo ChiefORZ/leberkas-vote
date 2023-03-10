@@ -18,6 +18,7 @@ const Page = async () => {
       imagePlaceholder: true,
       ratings: true,
     },
+    where: { published: true },
   });
   const transformedItems = items
     .map((item) => ({

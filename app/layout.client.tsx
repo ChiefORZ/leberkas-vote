@@ -8,8 +8,6 @@ import { usePathname, useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import React, { Fragment } from 'react';
 
-import { classNames } from '@/utils/index';
-
 const RootLayoutClient = ({
   user,
 }: {

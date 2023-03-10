@@ -10,6 +10,7 @@ import { useRatingContext } from 'providers/RatingProvider';
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
+import { UploadItemGridItem } from '@/app/UploadItem.client';
 import RatingOverlay from '@/components/GridView/RatingOverlay';
 import Overlay from '@/components/Overlay';
 import { Spinner } from '@/components/Spinner';
@@ -146,6 +147,7 @@ function GridView(props: GridViewProps) {
               </div>
             </GridItem>
           ))}
+          {user ? <UploadItemGridItem /> : null}
         </div>
         {ratingsChanged ? (
           <FloatingActionButton

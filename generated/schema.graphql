@@ -17,6 +17,7 @@ type Item {
 
 type Mutation {
   setRatings(ratings: [RatingInput!]!): [Rating]
+  uploadItem(imagePlaceholder: String!, imageUrl: String!, title: String!): Item
 }
 
 type Query {

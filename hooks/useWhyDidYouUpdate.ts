@@ -33,7 +33,7 @@ export function useWhyDidYouUpdate(name: string, props: GenericProps): void {
       });
 
       if (Object.keys(changes).length) {
-        console.log('[why-did-you-update]', name, changes);
+        console.info('[why-did-you-update]', name, changes);
       }
     }
 

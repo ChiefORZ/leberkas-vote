@@ -4,15 +4,20 @@ generator client {
 
 datasource db {
   provider = "postgres"
-  url = env("DATABASE_URL")
+  url      = env("DATABASE_URL")
 }
 
 model Item {
-  id       String   @id @default(cuid())
-  name     String
-  imageUrl String?
+  id               String   @id @default(cuid())
+  name             String
+  imageUrl         String?
   imagePlaceholder String?
-  ratings  Rating[]
+  uploaderId       String?
+  uploader         User?    @relation(fields: [uploaderId], references: [id])
+  published        Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @default(now()) @updatedAt
+  ratings          Rating[]
 }
 
 model Account {
@@ -51,6 +56,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   ratings       Rating[]
+  createdItems  Item[]
 }
 
 model VerificationToken {
@@ -67,5 +73,6 @@ model Rating {
   userId String
   user   User   @relation(fields: [userId], references: [id])
   value  Int
+
   @@unique([itemId, userId])
 }
