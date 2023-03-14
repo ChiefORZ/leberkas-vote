@@ -5,7 +5,7 @@ import type { NextAuthOptions } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 
-import prisma from '@/lib/prisma';
+import prisma from './prisma';
 
 const magic = new Magic(process.env.MAGIC_SK);
 
