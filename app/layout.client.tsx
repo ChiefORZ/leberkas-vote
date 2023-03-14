@@ -68,13 +68,22 @@ const RootLayoutClient = ({
               <div>
                 <Menu.Button className="flex rounded-full bg-brand-400 text-sm text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-brand-400">
                   <span className="sr-only">Öffnen Sie das Benutzermenü</span>
-                  <Image
-                    className="h-8 w-8 rounded-full"
-                    height={32}
-                    width={32}
-                    src={user.image}
-                    alt="Profilbild"
-                  />
+                  {user.image ? (
+                    <Image
+                      className="h-8 w-8 rounded-full"
+                      height={32}
+                      width={32}
+                      src={user.image}
+                      alt="Profilbild"
+                    />
+                  ) : (
+                    // display a Avatar with the first letter of the name if no image is provided
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-300">
+                      <span className="select-none text-sm font-medium text-white">
+                        {user.email?.charAt(0).toUpperCase()}
+                      </span>
+                    </div>
+                  )}
                 </Menu.Button>
               </div>
               <Transition
