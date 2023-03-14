@@ -107,6 +107,11 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
       await request('/api', SetRatingsMutation, {
         ratings,
       });
+      // @ts-ignore
+      window?.splitbee?.track('Vote', {
+        userId: user.id,
+        starsLeft: restStars,
+      });
       // redirect to /results
       window.location.href = '/results';
     } catch (e) {
