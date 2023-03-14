@@ -4,7 +4,7 @@ import { withAuth } from 'next-auth/middleware';
 
 const secret = process.env.NEXTAUTH_SECRET;
 
-const protectedPages = ['/results'];
+const protectedPages = ['/results', '/admin'];
 
 export default withAuth(
   async function middleware(req) {

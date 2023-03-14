@@ -100,6 +100,7 @@ export const authOptions: NextAuthOptions = {
           name: dbUser?.name,
           email: dbUser?.email,
           image: dbUser?.image,
+          role: dbUser?.role,
         };
         return jwtPayload;
       } catch (err) {
@@ -114,6 +115,7 @@ export const authOptions: NextAuthOptions = {
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.image = token.image;
+        session.user.role = token.role;
       }
       return session;
     },

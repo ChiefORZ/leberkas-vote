@@ -1,10 +1,10 @@
 import { Session } from 'next-auth';
-import { unstable_getServerSession } from 'next-auth/next';
+import { getServerSession } from 'next-auth/next';
 
 import { authOptions } from '@/lib/auth';
 
 export async function getSession(): Promise<Session> {
-  return await unstable_getServerSession(authOptions);
+  return await getServerSession(authOptions);
 }
 
 export async function getCurrentUser() {

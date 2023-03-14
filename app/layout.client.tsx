@@ -16,6 +16,7 @@ const RootLayoutClient = ({
     name?: string;
     email?: string;
     image?: string;
+    role?: string;
   };
 }) => {
   const pathname = usePathname();
@@ -60,6 +61,19 @@ const RootLayoutClient = ({
               >
                 Ergebnis
               </Link>
+              {user?.role === 'ADMIN' ? (
+                <Link
+                  href="/admin"
+                  className={clsx(
+                    'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
+                    {
+                      '!border-brand-400 text-gray-900': pathname === '/admin',
+                    }
+                  )}
+                >
+                  Admin
+                </Link>
+              ) : null}
             </div>
           </div>
           {/* Profile dropdown */}
@@ -106,6 +120,17 @@ const RootLayoutClient = ({
                       Ergebnis
                     </Link>
                   </Menu.Item>
+                  {user?.role === 'ADMIN' ? (
+                    <Menu.Item>
+                      <Link
+                        aria-label="Admin"
+                        className="inline-flex w-full  py-2 px-4 text-left text-sm text-gray-700 lg:hidden"
+                        href="/admin"
+                      >
+                        Admin
+                      </Link>
+                    </Menu.Item>
+                  ) : null}
                   <Menu.Item>
                     <button
                       aria-label="Logout"
