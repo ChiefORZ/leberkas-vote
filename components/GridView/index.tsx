@@ -147,7 +147,7 @@ function GridView(props: GridViewProps) {
               </div>
             </GridItem>
           ))}
-          {user ? <UploadItemGridItem /> : null}
+          {user ? <UploadItemGridItem user={user} /> : null}
         </div>
         {ratingsChanged ? (
           <FloatingActionButton
