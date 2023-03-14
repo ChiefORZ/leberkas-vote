@@ -43,6 +43,7 @@ export const authOptions: NextAuthOptions = {
           email: metadata.email,
           name: metadata.email.substring(0, metadata.email.indexOf('@')),
           image: '',
+          role: 'USER',
         };
       },
     }),
