@@ -10,13 +10,12 @@ import { useRatingContext } from 'providers/RatingProvider';
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
+import RatingOverlay from '@/app/RatingOverlay.client';
 import { UploadItemGridItem } from '@/app/UploadItem.client';
-import RatingOverlay from '@/components/GridView/RatingOverlay';
 import Overlay from '@/components/Overlay';
 import { Spinner } from '@/components/Spinner';
+import { useInteractionContext } from '@/providers/InteractionProvider';
 import { useUserContext } from '@/providers/UserProvider';
-
-type User = NexusGenFieldTypes['User'];
 
 interface GridViewProps {
   items: {
@@ -27,8 +26,6 @@ interface GridViewProps {
     avgRating: number;
   }[];
 }
-const GridViewOuter = styled.div``;
-const GridViewWrapper = styled.div``;
 const Tile = styled(Image)``;
 const GridItem = styled.div`
   ${Tile} {
@@ -38,9 +35,6 @@ const GridItem = styled.div`
     transform: scale(1.05);
   }
 `;
-const GridItemDetails = styled.div``;
-
-const GridItemTitle = styled.div``;
 
 const FloatingActionButton = styled.button`
   @keyframes bounce {
@@ -62,8 +56,8 @@ const FloatingActionButton = styled.button`
 function GridView(props: GridViewProps) {
   const { items } = props;
   const { user } = useUserContext();
-
-  const [triedToInteract, setTriedToInteract] = React.useState(false);
+  const { displayLoginOverlay, handleAllowedToInteract } =
+    useInteractionContext();
 
   const {
     handleOnRatingChange,
@@ -74,15 +68,12 @@ function GridView(props: GridViewProps) {
   } = useRatingContext();
 
   const interceptedHandleOnRatingChange = React.useCallback(
-    ({ itemId, rating }: { itemId: string; rating: number }) => {
-      if (!triedToInteract && (!user || !user.id)) {
-        setTriedToInteract(true);
-        return;
+    async ({ itemId, rating }: { itemId: string; rating: number }) => {
+      if (await handleAllowedToInteract()) {
+        handleOnRatingChange({ itemId, rating });
       }
-      setTriedToInteract(true);
-      handleOnRatingChange({ itemId, rating });
     },
-    [handleOnRatingChange, triedToInteract, user]
+    [handleOnRatingChange, handleAllowedToInteract]
   );
 
   // always sort rated items to the top
@@ -147,16 +138,7 @@ function GridView(props: GridViewProps) {
               </div>
             </GridItem>
           ))}
-          <UploadItemGridItem
-            onClick={async () => {
-              if (!triedToInteract && (!user || !user.id)) {
-                setTriedToInteract(true);
-                return false;
-              }
-              return true;
-            }}
-            user={user}
-          />
+          <UploadItemGridItem onClick={handleAllowedToInteract} user={user} />
         </div>
         {ratingsChanged ? (
           <FloatingActionButton
@@ -167,7 +149,7 @@ function GridView(props: GridViewProps) {
           </FloatingActionButton>
         ) : null}
       </div>
-      {triedToInteract && (!user || !user.id) ? (
+      {displayLoginOverlay ? (
         <Overlay>
           <div className="inline-flex rounded-md shadow">
             <Link

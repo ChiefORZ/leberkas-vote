@@ -16,6 +16,8 @@ type Item {
 }
 
 type Mutation {
+  deleteItem(id: ID!): Item
+  publishItem(id: ID!): Item
   setRatings(ratings: [RatingInput!]!): [Rating]
   uploadItem(imagePlaceholder: String!, imageUrl: String!, title: String!): Item
 }
@@ -45,4 +47,10 @@ type User {
   id: String!
   name: String!
   ratings: [Rating]!
+  role: UserRole!
+}
+
+enum UserRole {
+  ADMIN
+  USER
 }

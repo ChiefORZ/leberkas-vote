@@ -1,5 +1,6 @@
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
+import AWS from 'aws-sdk';
 import { DateTimeResolver } from 'graphql-scalars';
 import cors from 'micro-cors';
 import { NextApiHandler } from 'next';
@@ -7,6 +8,8 @@ import { Session } from 'next-auth';
 import { getServerSession } from 'next-auth/next';
 import {
   asNexusMethod,
+  enumType,
+  idArg,
   inputObjectType,
   list,
   makeSchema,
@@ -20,7 +23,30 @@ import path from 'path';
 import { authOptions } from '../../lib/auth';
 import prisma from '../../lib/prisma';
 
+AWS.config.update({
+  accessKeyId: process.env.S3_UPLOAD_KEY,
+  secretAccessKey: process.env.S3_UPLOAD_SECRET,
+  region: process.env.S3_UPLOAD_REGION,
+});
+const s3 = new AWS.S3();
+
 export const GQLDate = asNexusMethod(DateTimeResolver, 'date');
+
+const asyncS3Delete = (params) =>
+  new Promise((resolve, reject) => {
+    s3.deleteObject(params, (err, data) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(data);
+      }
+    });
+  });
+
+const UserRole = enumType({
+  name: 'UserRole',
+  members: ['USER', 'ADMIN'],
+});
 
 const User = objectType({
   name: 'User',
@@ -28,6 +54,7 @@ const User = objectType({
     t.nonNull.string('id');
     t.nonNull.string('name');
     t.nonNull.string('email');
+    t.nonNull.field('role', { type: UserRole });
     t.nonNull.list.field('ratings', {
       type: 'Rating',
       resolve: (parent) =>
@@ -171,6 +198,78 @@ const Mutation = objectType({
         });
       },
     });
+    t.field('deleteItem', {
+      type: 'Item',
+      args: {
+        id: nonNull(idArg()),
+      },
+      resolve: async (_, args, ctx) => {
+        // dis-allow anonymous users
+        if (!ctx.user) {
+          throw new Error('Not authenticated');
+        }
+        // dis-allow non-admin users
+        if (ctx.user?.role !== 'ADMIN') {
+          throw new Error('Not authorized');
+        }
+        // get item
+        const item = await prisma.item.findUnique({
+          where: { id: String(args.id) },
+        });
+        // dis-allow deleting items that are already published
+        if (item?.published) {
+          throw new Error('Item is already published');
+        }
+
+        // delete the image from aws
+        if (item?.imageUrl) {
+          const params = {
+            Bucket: process.env.S3_UPLOAD_BUCKET,
+            Key: item.imageUrl,
+          };
+          try {
+            await asyncS3Delete(params);
+          } catch (error) {
+            console.error(error);
+            throw new Error('Failed to delete image');
+          }
+        }
+
+        // delete item
+        return prisma.item.delete({
+          where: { id: String(args.id) },
+        });
+      },
+    });
+    t.field('publishItem', {
+      type: 'Item',
+      args: {
+        id: nonNull(idArg()),
+      },
+      resolve: async (_, args, ctx) => {
+        // dis-allow anonymous users
+        if (!ctx.user) {
+          throw new Error('Not authenticated');
+        }
+        // dis-allow non-admin users
+        if (ctx.user?.role !== 'ADMIN') {
+          throw new Error('Not authorized');
+        }
+        // get item
+        const item = await prisma.item.findUnique({
+          where: { id: String(args.id) },
+        });
+        // dis-allow publishing items that are already published
+        if (item?.published) {
+          throw new Error('Item is already published');
+        }
+        // publish item
+        return prisma.item.update({
+          where: { id: String(args.id) },
+          data: { published: true },
+        });
+      },
+    });
     t.field('setRatings', {
       type: list('Rating'),
       args: {
@@ -225,7 +324,7 @@ const Mutation = objectType({
 });
 
 export const schema = makeSchema({
-  types: [Query, Mutation, Item, User, Rating, GQLDate],
+  types: [Query, Mutation, Item, User, Rating, GQLDate, UserRole],
   outputs: {
     typegen: path.join(process.cwd(), 'generated/nexus-typegen.ts'),
     schema: path.join(process.cwd(), 'generated/schema.graphql'),

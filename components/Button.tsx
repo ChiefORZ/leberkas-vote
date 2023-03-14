@@ -1,6 +1,7 @@
 import { cva, VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 
+import { Spinner } from '@/components/Spinner';
 import { cn } from '@/lib/utils';
 
 const buttonVariants = cva(
@@ -13,7 +14,7 @@ const buttonVariants = cva(
         destructive:
           'bg-red-500 text-white hover:bg-red-600 dark:hover:bg-red-600',
         outline:
-          'bg-transparent border border-brand-200 hover:bg-brand-100 dark:border-brand-700 dark:text-brand-100',
+          'bg-transparent border border-brand-300 hover:bg-brand-200 dark:border-brand-700 dark:text-brand-100',
         subtle:
           'bg-brand-100 text-brand-900 hover:bg-brand-200 dark:bg-brand-700 dark:text-brand-100',
         ghost:
@@ -35,16 +36,20 @@ const buttonVariants = cva(
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {}
+    VariantProps<typeof buttonVariants> {
+  loading?: boolean;
+}
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, ...props }, ref) => {
+  ({ className, children, variant, loading, size, ...props }, ref) => {
     return (
       <button
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
         {...props}
-      />
+      >
+        {loading ? <Spinner /> : children}
+      </button>
     );
   }
 );
