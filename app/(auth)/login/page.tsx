@@ -22,6 +22,10 @@ export default function LoginPage() {
       // login with Magic
       const didToken = await magic.auth.loginWithMagicLink({ email });
 
+      // @ts-ignore
+      window?.splitbee?.track('SignIn', {
+        using: 'Magic',
+      });
       // sign in with NextAuth
       await signIn('credentials', {
         didToken,
@@ -38,6 +42,10 @@ export default function LoginPage() {
 
   const handleLoginWithGoogle = async () => {
     try {
+      // @ts-ignore
+      window?.splitbee?.track('SignIn', {
+        using: 'Google',
+      });
       await signIn('google');
     } catch (e) {
       if (typeof e === 'string') {
