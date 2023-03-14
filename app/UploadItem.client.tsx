@@ -6,6 +6,7 @@ import {
   PhotoIcon,
   XMarkIcon,
 } from '@heroicons/react/24/outline';
+import { NexusGenFieldTypes } from 'generated/nexus-typegen';
 import { gql, request } from 'graphql-request';
 import Image from 'next/image';
 import { useS3Upload } from 'next-s3-upload';
@@ -15,6 +16,8 @@ import styled from 'styled-components';
 
 import { Spinner } from '@/components/Spinner';
 import { classNames } from '@/utils/index';
+
+type TUser = NexusGenFieldTypes['User'];
 
 const Tile = styled.div``;
 const TileImage = styled(Image)``;
@@ -96,9 +99,11 @@ const UploadImageMutation = gql`
 export function UploadItemDialog({
   isOpen,
   setIsOpen,
+  user,
 }: {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+  user: TUser;
 }) {
   const displaySuccessMessage = (success: string) => {
     toast.success(success);
@@ -200,6 +205,10 @@ export function UploadItemDialog({
           imageUrl: imageUrl.value,
           imagePlaceholder: placeholder.base64,
         });
+        // @ts-ignore
+        window?.splitbee?.track('Submit Entry', {
+          userId: user.id,
+        });
         displaySuccessMessage('Danke für den Input!');
       } catch (err) {
         displayError('Oje, beim speichern is was schief glaufen!');
@@ -207,7 +216,7 @@ export function UploadItemDialog({
       }
       handleClose();
     },
-    [isUploading, imageUrl, title, handleClose]
+    [isUploading, imageUrl, title, handleClose, user]
   );
 
   return (
@@ -367,15 +376,28 @@ export function UploadItemDialog({
   );
 }
 
-export function UploadItemGridItem() {
+export function UploadItemGridItem({ user }: { user: TUser }) {
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
+
+  const handleToggleDialog = useCallback(
+    (nextIsOpen) => {
+      if (nextIsOpen) {
+        // @ts-ignore
+        window?.splitbee?.track('Toggle Submit Entry Modal', {
+          userId: user.id,
+        });
+      }
+      setDialogIsOpen(nextIsOpen);
+    },
+    [user]
+  );
   return (
     <>
       <GridItem
         key="upload-item"
         style={{ '--aspect-ratio': 4 / 3 }}
         className="relative flex cursor-pointer justify-center overflow-hidden rounded-md border-2 border-dashed border-gray-300 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2"
-        onClick={() => setDialogIsOpen(true)}
+        onClick={() => handleToggleDialog(true)}
       >
         <Tile className="flex w-full select-none flex-col items-center justify-center">
           <PhotoIcon
@@ -385,7 +407,11 @@ export function UploadItemGridItem() {
           <div>Heast, des hast vergessen!</div>
         </Tile>
       </GridItem>
-      <UploadItemDialog isOpen={dialogIsOpen} setIsOpen={setDialogIsOpen} />
+      <UploadItemDialog
+        isOpen={dialogIsOpen}
+        setIsOpen={handleToggleDialog}
+        user={user}
+      />
       <Toaster />
     </>
   );
