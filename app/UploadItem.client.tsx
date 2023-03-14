@@ -376,11 +376,18 @@ export function UploadItemDialog({
   );
 }
 
-export function UploadItemGridItem({ user }: { user: TUser }) {
+export function UploadItemGridItem({
+  user,
+  onClick,
+}: {
+  user?: TUser;
+  onClick?: () => Promise<boolean>;
+}) {
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
   const handleToggleDialog = useCallback(
-    (nextIsOpen) => {
+    async (nextIsOpen) => {
+      if (onClick && (await onClick()) === false) return;
       if (nextIsOpen) {
         // @ts-ignore
         window?.splitbee?.track('Toggle Submit Entry Modal', {
@@ -389,7 +396,7 @@ export function UploadItemGridItem({ user }: { user: TUser }) {
       }
       setDialogIsOpen(nextIsOpen);
     },
-    [user]
+    [onClick, user]
   );
   return (
     <>
