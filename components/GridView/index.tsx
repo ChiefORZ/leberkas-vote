@@ -147,7 +147,16 @@ function GridView(props: GridViewProps) {
               </div>
             </GridItem>
           ))}
-          {user ? <UploadItemGridItem user={user} /> : null}
+          <UploadItemGridItem
+            onClick={async () => {
+              if (!triedToInteract && (!user || !user.id)) {
+                setTriedToInteract(true);
+                return false;
+              }
+              return true;
+            }}
+            user={user}
+          />
         </div>
         {ratingsChanged ? (
           <FloatingActionButton
