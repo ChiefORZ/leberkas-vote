@@ -1,9 +1,15 @@
 'use client';
 
 import { Rating } from '@prisma/client';
-import { NexusGenFieldTypes } from 'generated/nexus-typegen';
 import { gql, request } from 'graphql-request';
-import { createContext, useContext, useMemo, useRef, useState } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 import { numVotes } from '@/constants/index';
@@ -123,6 +129,21 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
       displayError('Uje, da is was schief glaufen!');
     }
   };
+
+  useEffect(() => {
+    const onBeforeUnload = (ev) => {
+      ev.returnValue = 'Du hast deine Änderungen noch nicht gespeichert!';
+      return 'Du hast deine Änderungen noch nicht gespeichert!';
+    };
+
+    if (ratingsChanged) {
+      window.addEventListener('beforeunload', onBeforeUnload);
+
+      return () => {
+        window.removeEventListener('beforeunload', onBeforeUnload);
+      };
+    }
+  }, [ratingsChanged]);
 
   return (
     <RatingContext.Provider
