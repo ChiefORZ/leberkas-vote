@@ -57,6 +57,8 @@ model User {
   sessions      Session[]
   ratings       Rating[]
   createdItems  Item[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
 }
 
 model VerificationToken {
