@@ -10,9 +10,10 @@ import { getCurrentUser } from '@/lib/session';
 // the chart is not interactable
 const Page = async () => {
   const userSession = await getCurrentUser();
-  const ratingsCount = await prisma.rating.aggregate({
-    _sum: {
-      value: true,
+  const numPeopleVoted = await prisma.rating.groupBy({
+    by: ['userId'],
+    _count: {
+      userId: true,
     },
   });
   const items = await await prisma.item.findMany({
@@ -26,12 +27,14 @@ const Page = async () => {
     where: { published: true },
   });
   const transformedItems = items
-    .map((item) => ({
-      ...item,
-      avgRating:
-        item.ratings.reduce((acc, cur) => acc + cur.value, 0) /
-        ratingsCount._sum.value,
-    }))
+    .map((item) => {
+      const itemSum = item.ratings.reduce((acc, cur) => acc + cur.value, 0);
+      const avg = itemSum / numPeopleVoted.length;
+      return {
+        ...item,
+        avgRating: avg,
+      };
+    })
     // sort them by avgRating
     .sort((a, b) => b.avgRating - a.avgRating);
 
