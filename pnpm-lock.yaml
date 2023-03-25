@@ -65,7 +65,7 @@ specifiers:
   react-hot-toast: ^2.4.0
   react-is: ^18.2.0
   react-markdown: 8.0.6
-  sharp: ^0.31.3
+  sharp: ^0.32.0
   styled-components: ^5.3.6
   tailwind-merge: ^1.10.0
   tailwindcss: ^3.2.7
@@ -116,7 +116,7 @@ dependencies:
   react-hot-toast: 2.4.0_owo25xnefcwdq3zjgtohz6dbju
   react-is: 18.2.0
   react-markdown: 8.0.6_pmekkgnqduwlme35zpnqhenc34
-  sharp: 0.31.3
+  sharp: 0.32.0
   styled-components: 5.3.6_7i5myeigehqah43i5u7wbekgba
   tailwind-merge: 1.10.0
   tailwindcss: 3.2.7_aesdjsunmf4wiehhujt67my7tu
@@ -143,7 +143,7 @@ devDependencies:
   eslint-plugin-simple-import-sort: 10.0.0_eslint@8.34.0
   is-ci: 3.0.1
   nx: 15.8.8
-  plaiceholder: 2.5.0_sharp@0.31.3
+  plaiceholder: 2.5.0_sharp@0.32.0
   prettier: 2.8.4
   prettier-plugin-tailwindcss: 0.2.3_prettier@2.8.4
   prisma: 4.11.0
@@ -7445,8 +7445,8 @@ packages:
     resolution: {integrity: sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==}
     dev: true
 
-  /node-addon-api/5.1.0:
-    resolution: {integrity: sha512-eh0GgfEkpnoWDq+VY8OyvYhFEzBk6jIYbRKdIlyTiAXIVJ8PyBaKb0rp7oDtoddbdoHWhq8wwr+XZ81F1rpNdA==}
+  /node-addon-api/6.0.0:
+    resolution: {integrity: sha512-GyHvgPvUXBvAkXa0YvYnhilSB1A+FRYMpIVggKzPZqdaZfevZOuzfWzyvgzOwRLHBeo/MMswmJFsrNF4Nw1pmA==}
 
   /node-cache/5.1.2:
     resolution: {integrity: sha512-t1QzWwnk4sjLWaQAS8CHgOJ+RAfmHpxFWmc36IWTiWHQfs0w5JDMBS1b1ZxQteo0vVVuWJvIUKHDkkeK7vIGCg==}
@@ -7947,7 +7947,7 @@ packages:
       pathe: 1.1.0
     dev: true
 
-  /plaiceholder/2.5.0_sharp@0.31.3:
+  /plaiceholder/2.5.0_sharp@0.32.0:
     resolution: {integrity: sha512-rygdNSWuYzs1GxxGjq2FiJdJB1AUaKhUHP/M7PIrSjAAGuoJC5ACiJx+cZZ+hDmMalxsxOMw0Sbbx3LF8jemGg==}
     peerDependencies:
       sharp: '>= 0.30.6'
@@ -7957,7 +7957,7 @@ packages:
       image-size: 1.0.2
       node-cache: 5.1.2
       node-fetch: 2.6.7_encoding@0.1.13
-      sharp: 0.31.3
+      sharp: 0.32.0
     dev: true
 
   /postcss-import/14.1.0_postcss@8.4.21:
@@ -8054,6 +8054,7 @@ packages:
   /prebuild-install/7.1.1:
     resolution: {integrity: sha512-jAXscXWMcCK8GgCoHOfIr0ODh5ai8mj63L2nWrjuAgXE6tDyYGnx4/8o/rCgU+B4JSyZBKbeZqzhtwtC3ovxjw==}
     engines: {node: '>=10'}
+    hasBin: true
     dependencies:
       detect-libc: 2.0.1
       expand-template: 2.0.3
@@ -8698,14 +8699,14 @@ packages:
   /shallowequal/1.1.0:
     resolution: {integrity: sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==}
 
-  /sharp/0.31.3:
-    resolution: {integrity: sha512-XcR4+FCLBFKw1bdB+GEhnUNXNXvnt0tDo4WsBsraKymuo/IAuPuCBVAL2wIkUw2r/dwFW5Q5+g66Kwl2dgDFVg==}
+  /sharp/0.32.0:
+    resolution: {integrity: sha512-yLAypVcqj1toSAqRSwbs86nEzfyZVDYqjuUX8grhFpeij0DDNagKJXELS/auegDBRDg1XBtELdOGfo2X1cCpeA==}
     engines: {node: '>=14.15.0'}
     requiresBuild: true
     dependencies:
       color: 4.2.3
       detect-libc: 2.0.1
-      node-addon-api: 5.1.0
+      node-addon-api: 6.0.0
       prebuild-install: 7.1.1
       semver: 7.3.8
       simple-get: 4.0.1
