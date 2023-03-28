@@ -29,7 +29,7 @@
     "google": "link:@next/font/google",
     "graphql": "16.6.0",
     "graphql-request": "^5.1.0",
-    "graphql-scalars": "1.21.2",
+    "graphql-scalars": "1.21.3",
     "graphql-tag": "2.12.6",
     "magic-sdk": "^13.4.0",
     "micro": "10.0.1",
