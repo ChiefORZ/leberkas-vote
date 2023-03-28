@@ -83,6 +83,10 @@
     "vitest": "^0.29.2",
     "webpack": "^5.75.0"
   },
+  "engines": {
+    "node": ">=18",
+    "pnpm": ">=7"
+  },
   "keywords": [],
   "license": "MIT",
   "name": "@chieforz/leberkas-vote",
