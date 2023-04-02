@@ -120,7 +120,7 @@ dependencies:
     version: 18.2.0
   react-markdown:
     specifier: 8.0.6
-    version: 8.0.6(@types/react@18.0.31)(react@18.2.0)
+    version: 8.0.6(@types/react@18.0.32)(react@18.2.0)
   sharp:
     specifier: ^0.32.0
     version: 0.32.0
@@ -151,8 +151,8 @@ devDependencies:
     specifier: 18.15.11
     version: 18.15.11
   '@types/react':
-    specifier: 18.0.31
-    version: 18.0.31
+    specifier: 18.0.32
+    version: 18.0.32
   '@typescript-eslint/eslint-plugin':
     specifier: ^5.53.0
     version: 5.53.0(@typescript-eslint/parser@5.53.0)(eslint@8.34.0)(typescript@5.0.3)
@@ -3382,8 +3382,8 @@ packages:
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
     dev: false
 
-  /@types/react@18.0.31:
-    resolution: {integrity: sha512-EEG67of7DsvRDU6BLLI0p+k1GojDLz9+lZsnCpCRTa/lOokvyPBvp8S5x+A24hME3yyQuIipcP70KJ6H7Qupww==}
+  /@types/react@18.0.32:
+    resolution: {integrity: sha512-gYGXdtPQ9Cj0w2Fwqg5/ak6BcK3Z15YgjSqtyDizWUfx7mQ8drs0NBUzRRsAdoFVTO8kJ8L2TL8Skm7OFPnLUw==}
     dependencies:
       '@types/prop-types': 15.7.5
       '@types/scheduler': 0.16.2
@@ -8371,7 +8371,7 @@ packages:
   /react-is@18.2.0:
     resolution: {integrity: sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==}
 
-  /react-markdown@8.0.6(@types/react@18.0.31)(react@18.2.0):
+  /react-markdown@8.0.6(@types/react@18.0.32)(react@18.2.0):
     resolution: {integrity: sha512-KgPWsYgHuftdx510wwIzpwf+5js/iHqBR+fzxefv8Khk3mFbnioF1bmL2idHN3ler0LMQmICKeDrWnZrX9mtbQ==}
     peerDependencies:
       '@types/react': '>=16'
@@ -8379,7 +8379,7 @@ packages:
     dependencies:
       '@types/hast': 2.3.4
       '@types/prop-types': 15.7.5
-      '@types/react': 18.0.31
+      '@types/react': 18.0.32
       '@types/unist': 2.0.6
       comma-separated-tokens: 2.0.3
       hast-util-whitespace: 2.0.1
