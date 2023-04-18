@@ -28,7 +28,7 @@
     "express": "4.18.2",
     "google": "link:@next/font/google",
     "graphql": "16.6.0",
-    "graphql-request": "^5.1.0",
+    "graphql-request": "^6.0.0",
     "graphql-scalars": "1.21.3",
     "graphql-tag": "2.12.6",
     "magic-sdk": "^16.0.0",
