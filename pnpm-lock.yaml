@@ -77,8 +77,8 @@ dependencies:
     specifier: 2.12.6
     version: 2.12.6(graphql@16.6.0)
   magic-sdk:
-    specifier: ^16.0.0
-    version: 16.0.0
+    specifier: ^17.0.0
+    version: 17.0.0
   micro:
     specifier: 10.0.1
     version: 10.0.1
@@ -2776,22 +2776,22 @@ packages:
       - encoding
     dev: false
 
-  /@magic-sdk/commons@12.1.0(@magic-sdk/provider@16.1.0)(@magic-sdk/types@14.1.0):
-    resolution: {integrity: sha512-Hd8tVetqPkC6rg9Dr7OCCuonwjETK6gTs3Zf2H71dq17xQ2PnPDd+/dJNlthGgadZIbF8D8EucdTq1ufX9HGPQ==}
+  /@magic-sdk/commons@13.0.0(@magic-sdk/provider@17.0.0)(@magic-sdk/types@15.0.0):
+    resolution: {integrity: sha512-0jb+xPRhP5s/L7X2RXKHVXkYiektTPfD9EJ8VIwOkKoff+z4HZ7r4VRQ+NLaIk0HlFoDuwKz7RA2At2hP0IvFA==}
     peerDependencies:
       '@magic-sdk/provider': '>=4.3.0'
       '@magic-sdk/types': '>=3.1.1'
     dependencies:
-      '@magic-sdk/provider': 16.1.0(localforage@1.10.0)
-      '@magic-sdk/types': 14.1.0
+      '@magic-sdk/provider': 17.0.0(localforage@1.10.0)
+      '@magic-sdk/types': 15.0.0
     dev: false
 
-  /@magic-sdk/provider@16.1.0(localforage@1.10.0):
-    resolution: {integrity: sha512-YDe78UTgJNUcR5sQwRtVVpmT8kc5gbygtmBDuMKROx/7vyD0/8KZZIXIv64poL1j+tUd0rnKGD2tWDBi817kRg==}
+  /@magic-sdk/provider@17.0.0(localforage@1.10.0):
+    resolution: {integrity: sha512-Y6GaRc2fq8kIcg5ILJbTzMzrcltxvK+dm0gkyv+bhBU11a/wuMm+9bvBKRRMDP0y48yZ0VM3rrrJTSYg5Emzcw==}
     peerDependencies:
       localforage: ^1.7.4
     dependencies:
-      '@magic-sdk/types': 14.1.0
+      '@magic-sdk/types': 15.0.0
       eventemitter3: 4.0.7
       localforage: 1.10.0
       web3-core: 1.5.2
@@ -2799,8 +2799,8 @@ packages:
       - supports-color
     dev: false
 
-  /@magic-sdk/types@14.1.0:
-    resolution: {integrity: sha512-gLFWDYaXE8dXN9F02xu42poMMqN04tlJdyNWfINqYWMaGp07sEsYWdSnatONcur0LkGd2Vbrv1Lc8ADve2pZ7Q==}
+  /@magic-sdk/types@15.0.0:
+    resolution: {integrity: sha512-EXZrMKw8kZuAjwWVo6cknbQhkSsoHNV+iNLmBJg5ToGfjjKVPkJbIXHOgd4Qxm9bEL+5FjW5MtgmKMoFpUWQaA==}
     dev: false
 
   /@next-auth/prisma-adapter@1.0.5(@prisma/client@4.12.0)(next-auth@4.19.2):
@@ -6844,12 +6844,12 @@ packages:
     engines: {node: '>=12'}
     dev: false
 
-  /magic-sdk@16.0.0:
-    resolution: {integrity: sha512-6U3QWc2aZinPTQJTbkvry24wofj1italU2FYk2x9GrviZRiYvRlR/3+qtyXEQvEcrYvXahYkkjBLIVcgITGV1A==}
+  /magic-sdk@17.0.0:
+    resolution: {integrity: sha512-X3/GJLE/4A0aLz12xPD2nCbtw6nb8N6PTDseRJ4/YX3olpo4+c6CkSWR7NFgE19Fv0BxcGcxZl+3QskZdtlxIg==}
     dependencies:
-      '@magic-sdk/commons': 12.1.0(@magic-sdk/provider@16.1.0)(@magic-sdk/types@14.1.0)
-      '@magic-sdk/provider': 16.1.0(localforage@1.10.0)
-      '@magic-sdk/types': 14.1.0
+      '@magic-sdk/commons': 13.0.0(@magic-sdk/provider@17.0.0)(@magic-sdk/types@15.0.0)
+      '@magic-sdk/provider': 17.0.0(localforage@1.10.0)
+      '@magic-sdk/types': 15.0.0
       localforage: 1.10.0
     transitivePeerDependencies:
       - supports-color
