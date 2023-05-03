@@ -80,7 +80,7 @@
     "prisma": "4.13.0",
     "ts-node": "10.9.1",
     "typescript": "5.0.4",
-    "vitest": "^0.30.0",
+    "vitest": "^0.31.0",
     "webpack": "^5.75.0"
   },
   "engines": {
