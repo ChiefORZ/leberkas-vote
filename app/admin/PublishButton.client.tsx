@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import { Button } from '@/components/Button';
 
-const PublishItemMutation = gql`
+export const PublishItemMutation = gql`
   mutation publishItem($id: ID!) {
     publishItem(id: $id) {
       id
@@ -33,7 +33,7 @@ export const PublishButton = ({ item }) => {
       onClick={handlePublishItem}
       disabled={publishing || published}
     >
-      <CheckIcon className="h-4 w-4" />
+      <CheckIcon className="h-4 w-4" data-testid="check-icon" />
     </Button>
   );
 };

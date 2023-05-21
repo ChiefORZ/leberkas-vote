@@ -11,7 +11,7 @@ import { PublishButton } from './PublishButton.client';
 // the grid is not interactable
 const Page = async () => {
   const userSession = await getCurrentUser();
-  const items = await await prisma.item.findMany({
+  const items = await prisma.item.findMany({
     select: {
       id: true,
       name: true,

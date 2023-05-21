@@ -40,6 +40,7 @@ function RatingOverlay(props: RatingOverlayProps) {
         onMouseEnter={() => setIsHovering(i)}
         onMouseLeave={() => setIsHovering(undefined)}
         onClick={() => onRatingChange(i)}
+        data-testid={`grid-item-rating-${i}`}
       >
         <HeartIcon
           className={classNames(
