@@ -6,7 +6,7 @@ import { useState } from 'react';
 
 import { Button } from '@/components/Button';
 
-const DeleteItemMutation = gql`
+export const DeleteItemMutation = gql`
   mutation deleteItem($id: ID!) {
     deleteItem(id: $id) {
       id
@@ -33,7 +33,7 @@ export const DeleteButton = ({ item }) => {
       onClick={handleDeleteItem}
       disabled={deleting || deleted}
     >
-      <TrashIcon className="h-4 w-4" />
+      <TrashIcon className="h-4 w-4" data-testid="trash-icon" />
     </Button>
   );
 };

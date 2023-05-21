@@ -6,7 +6,6 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import { NexusGenFieldTypes } from 'generated/nexus-typegen';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRatingContext } from 'providers/RatingProvider';
 import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
@@ -15,6 +14,7 @@ import { UploadItemGridItem } from '@/app/UploadItem.client';
 import Overlay from '@/components/Overlay';
 import { Spinner } from '@/components/Spinner';
 import { useInteractionContext } from '@/providers/InteractionProvider';
+import { useRatingContext } from '@/providers/RatingProvider';
 import { useUserContext } from '@/providers/UserProvider';
 
 interface GridViewProps {
@@ -115,6 +115,7 @@ function GridView(props: GridViewProps) {
               key={item.id}
               style={{ '--aspect-ratio': 4 / 3 }}
               className="relative flex justify-center overflow-hidden rounded-md shadow-sm transition hover:shadow-md"
+              data-testid="grid-item"
             >
               <Tile
                 alt={item.name}

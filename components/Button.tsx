@@ -42,10 +42,19 @@ export interface ButtonProps
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, variant, loading, size, ...props }, ref) => {
+    const _onClick = React.useCallback(
+      (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        if (loading) return;
+        props.onClick?.(evt);
+      },
+      [loading, props]
+    );
     return (
       <button
         className={cn(buttonVariants({ variant, size, className }))}
+        disabled={loading}
         ref={ref}
+        onClick={_onClick}
         {...props}
       >
         {loading ? <Spinner /> : children}
