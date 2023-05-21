@@ -5,8 +5,8 @@ dependencies:
     specifier: ^4.4.0
     version: 4.4.0(graphql@16.6.0)
   '@as-integrations/next':
-    specifier: ^1.2.0
-    version: 1.2.0(@apollo/server@4.4.0)(next@13.4.3)
+    specifier: ^2.0.0
+    version: 2.0.0(@apollo/server@4.4.0)(next@13.4.3)
   '@aws-sdk/abort-controller':
     specifier: ^3.0.0
     version: 3.272.0
@@ -436,9 +436,9 @@ packages:
     engines: {node: '>=14'}
     dev: false
 
-  /@as-integrations/next@1.2.0(@apollo/server@4.4.0)(next@13.4.3):
-    resolution: {integrity: sha512-d79OM/YMv7OCe5w6ow0m4qaE21+P7CKnMegMxoGxu0qMsDCCwDsYot56ailuC+XkY3iPEDwvBfKJyA7zWkXdCA==}
-    engines: {node: '>=14'}
+  /@as-integrations/next@2.0.0(@apollo/server@4.4.0)(next@13.4.3):
+    resolution: {integrity: sha512-adE/V6C7LpNMmkBq9uC/H4fN3toNluEqJTq0dhkZ9y2Np6a/sdwA8DCA0WZqLUxzbdSln1AKmTKAv3liohqKwA==}
+    engines: {node: '>=16'}
     peerDependencies:
       '@apollo/server': ^4.0.0
       next: ^12.0.0 || ^13.0.0
