@@ -12,6 +12,8 @@
   "schedule": "every weekend",
   "packageRules": [
     {
+      "assignees": ["ChiefORZ"],
+      "automerge": true,
       "groupName": "all non-major dependencies",
       "matchUpdateTypes": ["patch", "minor"],
       "groupSlug": "all-minor-patch"
