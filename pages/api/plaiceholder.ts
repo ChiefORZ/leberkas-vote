@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getPlaiceholder, IGetPlaiceholderReturn } from 'plaiceholder';
+import { getPlaiceholder, GetPlaiceholderReturn } from 'plaiceholder';
 
 const plaiceholderApiRoute = async (
   req: NextApiRequest,
@@ -17,8 +17,12 @@ const plaiceholderApiRoute = async (
     ? parseInt(size[0], 10)
     : parseInt(size as string, 10);
 
+  const buffer = await fetch(_imageUrl).then(async (res) =>
+    Buffer.from(await res.arrayBuffer())
+  );
+
   if (method === 'GET' && imageUrl && strategy && size) {
-    const result: IGetPlaiceholderReturn = await getPlaiceholder(_imageUrl, {
+    const result: GetPlaiceholderReturn = await getPlaiceholder(buffer, {
       size: _size,
     });
 
