@@ -56,6 +56,8 @@
   "devDependencies": {
     "@babel/core": "^7.21.0",
     "@babel/plugin-syntax-typescript": "^7.20.0",
+    "@commitlint/cli": "^17.6.5",
+    "@commitlint/config-conventional": "^17.6.5",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
@@ -77,6 +79,7 @@
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
+    "husky": "^8.0.3",
     "is-ci": "^3.0.1",
     "jsdom": "^22.0.0",
     "nx": "16.2.2",
@@ -129,7 +132,9 @@
     "start": "next start",
     "test": "vitest --run --passWithNoTests",
     "test:dev": "vitest --passWithNoTests",
-    "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\""
+    "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
+    "postinstall": "is-ci || husky install",
+    "precommit": "true"
   },
   "version": "1.0.0"
 }
