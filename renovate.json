@@ -12,6 +12,10 @@
   "schedule": "every weekend",
   "packageRules": [
     {
+      "matchPackageNames": ["next"],
+      "enabled": false
+    },
+    {
       "assignees": ["ChiefORZ"],
       "automerge": true,
       "automergeType": "branch",
