@@ -9,21 +9,22 @@
     ":automergeDigest",
     ":automergeMinor"
   ],
-  "schedule": ["before 3am on Monday"],
-  "semanticCommits": "enabled",
   "packageRules": [
     {
-      "matchPackageNames": ["next"],
-      "enabled": false
+      "enabled": false,
+      "matchPackageNames": ["next"]
     },
     {
       "assignees": ["ChiefORZ"],
       "automerge": true,
-      "automergeType": "branch",
+      "automergeStrategy": "rebase",
+      "automergeType": "pr",
       "groupName": "all non-major dependencies",
-      "matchUpdateTypes": ["patch", "minor"],
-      "groupSlug": "all-minor-patch"
+      "groupSlug": "all-minor-patch",
+      "matchUpdateTypes": ["patch", "minor"]
     }
   ],
-  "platformAutomerge": true
+  "platformAutomerge": true,
+  "schedule": ["before 3am on Monday"],
+  "semanticCommits": "enabled"
 }
