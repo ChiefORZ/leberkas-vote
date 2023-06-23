@@ -1,5 +1,3 @@
-const withTwin = require('./config/withTwin');
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
