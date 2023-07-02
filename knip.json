@@ -20,7 +20,12 @@
     "src/types/next-auth.d.ts"
   ],
   "ignoreDependencies": [
-    "dotenv"
+    "@aws-sdk/abort-controller",
+    "@aws-sdk/client-s3",
+    "@aws-sdk/signature-v4-crt",
+    "aws-crt",
+    "dotenv",
+    "encoding"
   ],
   "project": ["src/**/*.ts", "src/**/*.tsx"]
 }
