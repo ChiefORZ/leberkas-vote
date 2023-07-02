@@ -290,6 +290,7 @@ function UploadItemDialog({
                               ? 'ring-2 ring-red-500 ring-offset-2'
                               : undefined
                           )}
+                          // @ts-ignore - aspect-ratio is a custom variable
                           style={{ '--aspect-ratio': 4 / 3 }}
                         >
                           {imageUrl.value ? (
@@ -410,6 +411,7 @@ export function UploadItemGridItem({
         className="relative flex cursor-pointer justify-center overflow-hidden rounded-md border-2 border-dashed border-gray-300 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2"
         key="upload-item"
         onClick={() => handleToggleDialog(true)}
+        // @ts-ignore - aspect-ratio is a custom variable
         style={{ '--aspect-ratio': 4 / 3 }}
       >
         <Tile className="flex w-full select-none flex-col items-center justify-center">

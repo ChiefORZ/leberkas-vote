@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client';
 
 import autoAnimate from '@formkit/auto-animate';
@@ -114,6 +115,7 @@ function GridView(props: GridViewProps) {
               className="relative flex justify-center overflow-hidden rounded-md shadow-sm transition hover:shadow-md"
               data-testid="grid-item"
               key={item.id}
+              // @ts-ignore - aspect-ratio is a custom variable
               style={{ '--aspect-ratio': 4 / 3 }}
             >
               <Tile

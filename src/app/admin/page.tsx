@@ -38,7 +38,7 @@ const Page = async () => {
                 <div
                   className="relative flex justify-center overflow-hidden rounded-md shadow-sm transition hover:shadow-md"
                   key={item.id}
-                  // @ts-ignore
+                  // @ts-ignore - aspect-ratio is a custom variable
                   style={{ '--aspect-ratio': 4 / 3 }}
                 >
                   <Image
