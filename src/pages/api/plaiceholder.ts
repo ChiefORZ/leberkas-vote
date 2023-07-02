@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
 import { NextApiRequest, NextApiResponse } from 'next';
 import { getPlaiceholder, GetPlaiceholderReturn } from 'plaiceholder';
@@ -17,8 +18,8 @@ const plaiceholderApiRoute = async (
     ? parseInt(size[0], 10)
     : parseInt(size as string, 10);
 
-  const buffer = await fetch(_imageUrl).then(async (res) =>
-    Buffer.from(await res.arrayBuffer())
+  const buffer = await fetch(_imageUrl).then(async (r) =>
+    Buffer.from(await r.arrayBuffer())
   );
 
   if (method === 'GET' && imageUrl && strategy && size) {

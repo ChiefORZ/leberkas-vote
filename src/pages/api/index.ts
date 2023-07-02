@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import AWS from 'aws-sdk';
@@ -14,7 +15,6 @@ import {
   list,
   makeSchema,
   nonNull,
-  nullable,
   objectType,
   stringArg,
 } from 'nexus';
@@ -25,8 +25,8 @@ import prisma from '@/lib/prisma';
 
 AWS.config.update({
   accessKeyId: process.env.S3_UPLOAD_KEY,
-  secretAccessKey: process.env.S3_UPLOAD_SECRET,
   region: process.env.S3_UPLOAD_REGION,
+  secretAccessKey: process.env.S3_UPLOAD_SECRET,
 });
 const s3 = new AWS.S3();
 
@@ -44,31 +44,30 @@ const asyncS3Delete = (params) =>
   });
 
 const UserRole = enumType({
-  name: 'UserRole',
   members: ['USER', 'ADMIN'],
+  name: 'UserRole',
 });
 
 const User = objectType({
-  name: 'User',
   definition(t) {
     t.nonNull.string('id');
     t.nonNull.string('name');
     t.nonNull.string('email');
     t.nonNull.field('role', { type: UserRole });
     t.nonNull.list.field('ratings', {
-      type: 'Rating',
       resolve: (parent) =>
         prisma.user
           .findUnique({
             where: { id: String(parent.id) },
           })
           .ratings(),
+      type: 'Rating',
     });
   },
+  name: 'User',
 });
 
 const Item = objectType({
-  name: 'Item',
   definition(t) {
     t.nonNull.string('id');
     t.nullable.string('title');
@@ -89,15 +88,14 @@ const Item = objectType({
       },
     });
   },
+  name: 'Item',
 });
 
 const Rating = objectType({
-  name: 'Rating',
   definition(t) {
     t.nonNull.int('value');
     t.nonNull.string('userId');
     t.nonNull.field('user', {
-      type: 'User',
       resolve: (parent) =>
         prisma.rating
           .findUnique({
@@ -106,10 +104,10 @@ const Rating = objectType({
             },
           })
           .user(),
+      type: 'User',
     });
     t.nonNull.string('itemId');
     t.nonNull.field('item', {
-      type: 'Item',
       resolve: (parent) =>
         prisma.rating
           .findUnique({
@@ -118,34 +116,34 @@ const Rating = objectType({
             },
           })
           .item(),
+      type: 'Item',
     });
   },
+  name: 'Rating',
 });
 
 const RatingInput = inputObjectType({
-  name: 'RatingInput',
   definition(t) {
     t.nonNull.string('itemId');
     t.nonNull.string('userId');
     t.nonNull.int('value');
   },
+  name: 'RatingInput',
 });
 
 const Query = objectType({
-  name: 'Query',
   definition(t) {
     t.field('getMe', {
-      type: 'User',
       resolve: (_, args, ctx) => {
         return prisma.user.findUnique({
-          where: { id: String(ctx.user?.id) },
           include: { ratings: true },
+          where: { id: String(ctx.user?.id) },
         });
       },
+      type: 'User',
     });
 
     t.field('getItems', {
-      type: list('Item'),
       // @ts-ignore
       resolve: (_, args) => {
         return prisma.item.findMany({
@@ -153,32 +151,33 @@ const Query = objectType({
           where: { published: true },
         });
       },
+
+      type: list('Item'),
     });
 
     t.field('getItem', {
-      type: 'Item',
       args: {
         id: nonNull(stringArg()),
       },
       resolve: (_, args) => {
         return prisma.item.findUnique({
-          where: { id: String(args.id) },
           include: { ratings: true },
+          where: { id: String(args.id) },
         });
       },
+      type: 'Item',
     });
   },
+  name: 'Query',
 });
 
 const Mutation = objectType({
-  name: 'Mutation',
   definition(t) {
     t.field('uploadItem', {
-      type: 'Item',
       args: {
-        title: nonNull(stringArg()),
-        imageUrl: nonNull(stringArg()),
         imagePlaceholder: nonNull(stringArg()),
+        imageUrl: nonNull(stringArg()),
+        title: nonNull(stringArg()),
       },
       resolve: (_, args, ctx) => {
         // dis-allow anonymous users
@@ -187,9 +186,9 @@ const Mutation = objectType({
         }
         return prisma.item.create({
           data: {
-            name: args.title,
-            imageUrl: args.imageUrl,
             imagePlaceholder: args.imagePlaceholder,
+            imageUrl: args.imageUrl,
+            name: args.title,
             published: false,
             uploader: {
               connect: { id: String(ctx.user?.id) },
@@ -197,9 +196,9 @@ const Mutation = objectType({
           },
         });
       },
+      type: 'Item',
     });
     t.field('deleteItem', {
-      type: 'Item',
       args: {
         id: nonNull(idArg()),
       },
@@ -240,9 +239,9 @@ const Mutation = objectType({
           where: { id: String(args.id) },
         });
       },
+      type: 'Item',
     });
     t.field('publishItem', {
-      type: 'Item',
       args: {
         id: nonNull(idArg()),
       },
@@ -265,13 +264,13 @@ const Mutation = objectType({
         }
         // publish item
         return prisma.item.update({
-          where: { id: String(args.id) },
           data: { published: true },
+          where: { id: String(args.id) },
         });
       },
+      type: 'Item',
     });
     t.field('setRatings', {
-      type: list('Rating'),
       args: {
         ratings: nonNull(list(nonNull(RatingInput))),
       },
@@ -283,13 +282,13 @@ const Mutation = objectType({
         // delete my ratings that are in database, but not in input anymore
         await prisma.rating.deleteMany({
           where: {
-            itemId: {
-              notIn: ratings.map((rating) => rating.itemId),
-            },
             AND: {
               userId: {
                 in: ratings.map((rating) => rating.userId),
               },
+            },
+            itemId: {
+              notIn: ratings.map((rating) => rating.itemId),
             },
           },
         });
@@ -297,38 +296,40 @@ const Mutation = objectType({
         return prisma.$transaction(
           ratings.map((rating) => {
             return prisma.rating.upsert({
+              create: {
+                item: {
+                  connect: { id: String(rating.itemId) },
+                },
+                user: {
+                  connect: { id: String(rating.userId) },
+                },
+                value: rating.value,
+              },
+              update: {
+                value: rating.value,
+              },
               where: {
                 itemId_userId: {
                   itemId: rating.itemId,
                   userId: rating.userId,
                 },
               },
-              create: {
-                value: rating.value,
-                user: {
-                  connect: { id: String(rating.userId) },
-                },
-                item: {
-                  connect: { id: String(rating.itemId) },
-                },
-              },
-              update: {
-                value: rating.value,
-              },
             });
           })
         );
       },
+      type: list('Rating'),
     });
   },
+  name: 'Mutation',
 });
 
 export const schema = makeSchema({
-  types: [Query, Mutation, Item, User, Rating, GQLDate, UserRole],
   outputs: {
-    typegen: path.join(process.cwd(), 'generated/nexus-typegen.ts'),
     schema: path.join(process.cwd(), 'generated/schema.graphql'),
+    typegen: path.join(process.cwd(), 'generated/nexus-typegen.ts'),
   },
+  types: [Query, Mutation, Item, User, Rating, GQLDate, UserRole],
 });
 
 let apolloServerHandler: NextApiHandler;

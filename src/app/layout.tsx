@@ -19,11 +19,11 @@ export default async function RootLayout({
   const user = await getCurrentUser();
   return (
     <html
-      lang="en"
       className={classNames(
         'h-screen max-h-screen min-h-screen bg-white font-sans text-slate-900 antialiased',
         fontSans.variable
       )}
+      lang="en"
     >
       <body className="h-screen max-h-screen min-h-screen overflow-hidden">
         <div className="flex h-full flex-col">

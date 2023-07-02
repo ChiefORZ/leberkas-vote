@@ -1,13 +1,11 @@
 import { NexusGenFieldTypes } from 'generated/nexus-typegen';
 import { createContext } from 'react';
-import { vi } from 'vitest';
 
 type TUser = NexusGenFieldTypes['User'];
 export const mockedUser: TUser = {
+  email: '',
   id: '1',
   name: 'Test User',
-  email: '',
-  role: 'USER',
   ratings: [
     {
       itemId: '1',
@@ -20,6 +18,7 @@ export const mockedUser: TUser = {
       value: 4,
     },
   ],
+  role: 'USER',
 };
 
 const UserContext = createContext({

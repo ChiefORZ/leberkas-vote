@@ -1,6 +1,6 @@
 'use client';
 
-import { TypographyH2, TypographyLead } from '@/components/Typography';
+import { TypographyLead } from '@/components/Typography';
 import { useRatingContext } from '@/providers/RatingProvider';
 import { useUserContext } from '@/providers/UserProvider';
 

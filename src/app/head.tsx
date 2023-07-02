@@ -3,48 +3,48 @@ export default function Head() {
     <>
       <title>Leberkas Vote</title>
       <meta charSet="utf-8" />
-      <meta name="viewport" content="width=device-width" />
+      <meta content="width=device-width" name="viewport" />
       <meta
-        name="description"
         content="Stimme für die beliebteste Speise Österreichs ab."
+        name="description"
       />
 
-      <meta property="og:title" content="Leberkas Vote" />
-      <meta property="og:type" content="website" />
-      <meta property="og:url" content="https://vote.schaffernak.digital" />
+      <meta content="Leberkas Vote" property="og:title" />
+      <meta content="website" property="og:type" />
+      <meta content="https://vote.schaffernak.digital" property="og:url" />
       <meta
+        content="https://vote.schaffernak.digital/og.jpg"
         property="og:image"
-        content="https://vote.schaffernak.digital/og.jpg"
       />
-      <meta name="twitter:title" content="Leberkas Vote" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content="https://vote.schaffernak.digital" />
+      <meta content="Leberkas Vote" name="twitter:title" />
+      <meta content="summary_large_image" name="twitter:card" />
+      <meta content="https://vote.schaffernak.digital" property="twitter:url" />
       <meta
-        name="twitter:image"
         content="https://vote.schaffernak.digital/og.jpg"
+        name="twitter:image"
       />
 
       <link
+        href="/apple-touch-icon.png"
         rel="apple-touch-icon"
         sizes="180x180"
-        href="/apple-touch-icon.png"
       />
       <link
-        rel="icon"
-        type="image/png"
-        sizes="32x32"
         href="/favicon-32x32.png"
+        rel="icon"
+        sizes="32x32"
+        type="image/png"
       />
       <link
-        rel="icon"
-        type="image/png"
-        sizes="16x16"
         href="/favicon-16x16.png"
+        rel="icon"
+        sizes="16x16"
+        type="image/png"
       />
-      <link rel="manifest" href="/site.webmanifest" />
-      <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#176E32" />
-      <meta name="msapplication-TileColor" content="#176E32" />
-      <meta name="theme-color" content="#ffffff"></meta>
+      <link href="/site.webmanifest" rel="manifest" />
+      <link color="#176E32" href="/safari-pinned-tab.svg" rel="mask-icon" />
+      <meta content="#176E32" name="msapplication-TileColor" />
+      <meta content="#ffffff" name="theme-color"></meta>
 
       <script async src="https://cdn.splitbee.io/sb.js"></script>
     </>

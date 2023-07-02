@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import GridView from '@/app/GridView.client';
 import { useInteractionContext } from '@/providers/InteractionProvider';
@@ -13,20 +14,20 @@ vi.mock('@/providers/RatingProvider');
 describe('GridView', () => {
   const items = [
     {
+      avgRating: 3,
       id: '1',
-      name: 'Item 1',
-      imageUrl: 'https://example.com/item1.jpg',
       imagePlaceholder:
         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFDQJcG9AAAAABJRU5ErkJggg==',
-      avgRating: 3,
+      imageUrl: 'https://example.com/item1.jpg',
+      name: 'Item 1',
     },
     {
+      avgRating: 4,
       id: '2',
-      name: 'Item 2',
-      imageUrl: 'https://example.com/item2.jpg',
       imagePlaceholder:
         'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+P+/HgAFDQJcG9AAAAABJRU5ErkJggg==',
-      avgRating: 4,
+      imageUrl: 'https://example.com/item2.jpg',
+      name: 'Item 2',
     },
   ];
 

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import Image from 'next/image';
 
 import { DeleteButton } from '@/app/admin/DeleteButton.client';
@@ -9,16 +10,17 @@ import { getCurrentUser } from '@/lib/session';
 // there is a button to publish the item
 // the grid is not interactable
 const Page = async () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const userSession = await getCurrentUser();
   const items = await prisma.item.findMany({
+    orderBy: { createdAt: 'desc' },
     select: {
       id: true,
-      name: true,
-      imageUrl: true,
       imagePlaceholder: true,
+      imageUrl: true,
+      name: true,
     },
     where: { published: false },
-    orderBy: { createdAt: 'desc' },
   });
 
   return (
@@ -34,17 +36,17 @@ const Page = async () => {
             <div className="grid grid-cols-my-grid gap-4 overflow-y-auto p-4">
               {items.map((item) => (
                 <div
+                  className="relative flex justify-center overflow-hidden rounded-md shadow-sm transition hover:shadow-md"
                   key={item.id}
                   // @ts-ignore
                   style={{ '--aspect-ratio': 4 / 3 }}
-                  className="relative flex justify-center overflow-hidden rounded-md shadow-sm transition hover:shadow-md"
                 >
                   <Image
                     alt={item.name}
+                    blurDataURL={item.imagePlaceholder}
                     className="block w-full select-none object-cover"
                     fill
                     placeholder="blur"
-                    blurDataURL={item.imagePlaceholder}
                     src={item.imageUrl}
                   />
                   <div className="absolute right-0 top-0">

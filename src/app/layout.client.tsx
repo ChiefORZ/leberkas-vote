@@ -4,7 +4,7 @@ import { Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import React, { Fragment } from 'react';
 
@@ -27,12 +27,11 @@ const RootLayoutClient = ({
           <div className="shrink-0">
             <Link href="/">
               <Image
-                className="relative block h-14"
-                width={350}
-                height={75}
-                // fill
-                src="./logo-with-text.svg"
                 alt="Leberkas Vote Logo"
+                className="relative block h-14"
+                height={75}
+                src="./logo-with-text.svg"
+                width={350}
               />
             </Link>
           </div>
@@ -42,34 +41,34 @@ const RootLayoutClient = ({
           <div className="hidden lg:ml-6 lg:block">
             <div className="flex">
               <Link
-                href="/"
                 className={clsx(
                   'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
                   { '!border-brand-400 text-gray-900': pathname === '/' }
                 )}
+                href="/"
               >
                 Abstimmen
               </Link>
               <Link
-                href="/results"
                 className={clsx(
                   'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
                   {
                     '!border-brand-400 text-gray-900': pathname === '/results',
                   }
                 )}
+                href="/results"
               >
                 Ergebnis
               </Link>
               {user?.role === 'ADMIN' ? (
                 <Link
-                  href="/admin"
                   className={clsx(
                     'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
                     {
                       '!border-brand-400 text-gray-900': pathname === '/admin',
                     }
                   )}
+                  href="/admin"
                 >
                   Admin
                 </Link>
@@ -84,11 +83,11 @@ const RootLayoutClient = ({
                   <span className="sr-only">Öffnen Sie das Benutzermenü</span>
                   {user.image ? (
                     <Image
+                      alt="Profilbild"
                       className="h-8 w-8 rounded-full"
                       height={32}
-                      width={32}
                       src={user.image}
-                      alt="Profilbild"
+                      width={32}
                     />
                   ) : (
                     // display a Avatar with the first letter of the name if no image is provided
@@ -145,8 +144,8 @@ const RootLayoutClient = ({
             </Menu>
           ) : (
             <Link
-              href="/login"
               className="inline-flex w-full items-center rounded-md border border-white bg-brand-400 px-4 py-2 text-sm font-medium text-white hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
+              href="/login"
             >
               {/* <a className="inline-flex items-center rounded-md border border-transparent bg-brand-400 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2"> */}
               Login

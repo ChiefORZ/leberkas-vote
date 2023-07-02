@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { Button } from '@/components/Button';
 
@@ -30,7 +30,7 @@ describe('Button', () => {
     const user = userEvent.setup();
     const handleClick = vi.fn();
     render(
-      <Button onClick={handleClick} loading>
+      <Button loading onClick={handleClick}>
         Click me
       </Button>
     );

@@ -23,11 +23,11 @@ export default function GlobalError({
 }) {
   return (
     <html
-      lang="en"
       className={classNames(
         'h-screen max-h-screen min-h-screen bg-white font-sans text-slate-900 antialiased',
         fontSans.variable
       )}
+      lang="en"
     >
       <body className="h-screen max-h-screen min-h-screen overflow-hidden">
         <div className="flex h-full flex-col">
@@ -38,12 +38,11 @@ export default function GlobalError({
                   <div className="shrink-0">
                     <Link href="/">
                       <Image
-                        className="relative block h-14"
-                        width={350}
-                        height={75}
-                        // fill
-                        src="./logo-with-text.svg"
                         alt="Leberkas Vote Logo"
+                        className="relative block h-14"
+                        height={75}
+                        src="./logo-with-text.svg"
+                        width={350}
                       />
                     </Link>
                   </div>
@@ -53,10 +52,10 @@ export default function GlobalError({
                   <div className="hidden lg:ml-6 lg:block">
                     <div className="flex">
                       <Link
-                        href="/"
                         className={clsx(
                           'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none'
                         )}
+                        href="/"
                       >
                         Abstimmen
                       </Link>
@@ -64,8 +63,8 @@ export default function GlobalError({
                   </div>
 
                   <Link
-                    href="/login"
                     className="inline-flex w-full items-center rounded-md border border-white bg-brand-400 px-4 py-2 text-sm font-medium text-white hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
+                    href="/login"
                   >
                     {/* <a className="inline-flex items-center rounded-md border border-transparent bg-brand-400 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2"> */}
                     Login
