@@ -1,7 +1,8 @@
-import { render, screen, waitFor } from '@testing-library/react';
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { gql, request } from 'graphql-request';
-import { afterEach, describe, expect, it, vi } from 'vitest';
+import { request } from 'graphql-request';
+import { describe, expect, it, vi } from 'vitest';
 
 import {
   PublishButton,

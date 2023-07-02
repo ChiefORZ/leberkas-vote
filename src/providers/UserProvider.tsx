@@ -1,7 +1,7 @@
 'use client';
 
 import { NexusGenFieldTypes } from 'generated/nexus-typegen';
-import { createContext, useContext, useRef, useState } from 'react';
+import { createContext, useContext } from 'react';
 
 type TUser = NexusGenFieldTypes['User'];
 

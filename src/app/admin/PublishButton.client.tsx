@@ -27,11 +27,11 @@ export const PublishButton = ({ item }) => {
 
   return (
     <Button
-      size="sm"
-      loading={publishing}
-      variant="default"
-      onClick={handlePublishItem}
       disabled={publishing || published}
+      loading={publishing}
+      onClick={handlePublishItem}
+      size="sm"
+      variant="default"
     >
       <CheckIcon className="h-4 w-4" data-testid="check-icon" />
     </Button>

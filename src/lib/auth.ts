@@ -13,75 +13,9 @@ export const authOptions: NextAuthOptions = {
   // huh any! I know.
   // This is a temporary fix for prisma client.
   // @see https://github.com/prisma/prisma/issues/16117
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   adapter: PrismaAdapter(prisma as any),
-  session: {
-    strategy: 'jwt',
-  },
-  pages: {
-    signIn: '/login',
-  },
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    }),
-    Credentials({
-      name: 'Magic Link',
-      credentials: {
-        didToken: { label: 'DID Token', type: 'text' },
-      },
-      async authorize({ didToken }, req) {
-        // validate magic DID token
-        magic.token.validate(didToken);
-
-        // fetch user metadata
-        const metadata = await magic.users.getMetadataByToken(didToken);
-
-        // return user info
-        return {
-          id: metadata.publicAddress,
-          email: metadata.email,
-          name: metadata.email.substring(0, metadata.email.indexOf('@')),
-          image: '',
-          role: 'USER',
-        };
-      },
-    }),
-  ],
   callbacks: {
-    async signIn(payload) {
-      const { user, account, profile, email, credentials } = payload;
-      try {
-        // check if user exists in db
-        const dbUser = await prisma.user.findFirst({
-          where: {
-            email: user.email,
-          },
-        });
-
-        if (!dbUser) {
-          // create user in db
-          await prisma.user.create({
-            data: {
-              name: user.name,
-              email: user.email,
-              image: user.image,
-              accounts: {
-                create: {
-                  type: account.type,
-                  provider: account.provider,
-                  providerAccountId: account.providerAccountId,
-                },
-              },
-            },
-          });
-        }
-        return true;
-      } catch (err) {
-        console.error('err ', err);
-        return false;
-      }
-    },
     async jwt(payload) {
       const { token, user } = payload;
       try {
@@ -97,10 +31,10 @@ export const authOptions: NextAuthOptions = {
           return token;
         }
         const jwtPayload = {
-          id: dbUser?.id,
-          name: dbUser?.name,
           email: dbUser?.email,
+          id: dbUser?.id,
           image: dbUser?.image,
+          name: dbUser?.name,
           role: dbUser?.role,
         };
         return jwtPayload;
@@ -120,5 +54,72 @@ export const authOptions: NextAuthOptions = {
       }
       return session;
     },
+    async signIn(payload) {
+      const { user, account } = payload;
+      try {
+        // check if user exists in db
+        const dbUser = await prisma.user.findFirst({
+          where: {
+            email: user.email,
+          },
+        });
+
+        if (!dbUser) {
+          // create user in db
+          await prisma.user.create({
+            data: {
+              accounts: {
+                create: {
+                  provider: account.provider,
+                  providerAccountId: account.providerAccountId,
+                  type: account.type,
+                },
+              },
+              email: user.email,
+              image: user.image,
+              name: user.name,
+            },
+          });
+        }
+        return true;
+      } catch (err) {
+        console.error('err ', err);
+        return false;
+      }
+    },
+  },
+  pages: {
+    signIn: '/login',
+  },
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+    Credentials({
+      async authorize({ didToken }, req) {
+        // validate magic DID token
+        magic.token.validate(didToken);
+
+        // fetch user metadata
+        const metadata = await magic.users.getMetadataByToken(didToken);
+
+        // return user info
+        return {
+          email: metadata.email,
+          id: metadata.publicAddress,
+          image: '',
+          name: metadata.email.substring(0, metadata.email.indexOf('@')),
+          role: 'USER',
+        };
+      },
+      credentials: {
+        didToken: { label: 'DID Token', type: 'text' },
+      },
+      name: 'Magic Link',
+    }),
+  ],
+  session: {
+    strategy: 'jwt',
   },
 };

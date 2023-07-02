@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client';
 
 import { Rating } from '@prisma/client';
@@ -115,8 +116,8 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
       });
       // @ts-ignore
       window?.splitbee?.track('Vote', {
-        userId: user.id,
         starsLeft: restStars,
+        userId: user.id,
       });
       // redirect to /results
       window.location.href = '/results';
@@ -148,12 +149,12 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
   return (
     <RatingContext.Provider
       value={{
-        ratings,
         handleOnRatingChange,
-        ratingsChanged,
         handleSubmitForm,
-        restStars,
         isSubmitting,
+        ratings,
+        ratingsChanged,
+        restStars,
       }}
     >
       {children}

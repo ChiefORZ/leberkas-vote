@@ -3,7 +3,6 @@
 import autoAnimate from '@formkit/auto-animate';
 import { ArrowRightCircleIcon } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
-import { NexusGenFieldTypes } from 'generated/nexus-typegen';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useRef } from 'react';
@@ -112,29 +111,29 @@ function GridView(props: GridViewProps) {
         >
           {sortedItems.map((item) => (
             <GridItem
-              key={item.id}
-              style={{ '--aspect-ratio': 4 / 3 }}
               className="relative flex justify-center overflow-hidden rounded-md shadow-sm transition hover:shadow-md"
               data-testid="grid-item"
+              key={item.id}
+              style={{ '--aspect-ratio': 4 / 3 }}
             >
               <Tile
                 alt={item.name}
+                blurDataURL={item.imagePlaceholder}
                 className="block w-full select-none object-cover"
                 fill
                 placeholder="blur"
-                blurDataURL={item.imagePlaceholder}
                 src={item.imageUrl}
               />
               <div className="absolute bottom-0 flex w-full flex-col justify-center bg-[rgba(255,255,255,0.9)] p-2 text-center leading-none">
                 <div>{item.name}</div>
                 <RatingOverlay
-                  rating={ratings.find((r) => r.itemId === item.id)?.value}
                   onRatingChange={(value) =>
                     interceptedHandleOnRatingChange({
                       itemId: item.id,
                       rating: value,
                     })
                   }
+                  rating={ratings.find((r) => r.itemId === item.id)?.value}
                 />
               </div>
             </GridItem>
@@ -143,8 +142,8 @@ function GridView(props: GridViewProps) {
         </div>
         {ratingsChanged ? (
           <FloatingActionButton
-            onClick={handleSubmitForm}
             className="z-90 fixed bottom-10 right-10 flex h-14 w-14 items-center justify-center rounded-full bg-brand-400 p-3 text-xl text-white drop-shadow-lg duration-300 hover:bg-brand-300 hover:drop-shadow-2xl"
+            onClick={handleSubmitForm}
           >
             {isSubmitting ? <Spinner /> : <ArrowRightIcon />}
           </FloatingActionButton>
@@ -154,8 +153,8 @@ function GridView(props: GridViewProps) {
         <Overlay>
           <div className="inline-flex rounded-md shadow">
             <Link
-              href="/login"
               className="inline-flex items-center justify-center rounded-md border border-transparent bg-white px-5 py-3 text-base font-medium text-gray-900 hover:bg-gray-50"
+              href="/login"
             >
               Zum Abstimmen bitte mit E-Mail anmelden&nbsp;
               <ArrowRightCircleIcon className="inline h-6 w-6" />

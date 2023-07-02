@@ -27,11 +27,11 @@ export const DeleteButton = ({ item }) => {
 
   return (
     <Button
-      size="sm"
-      loading={deleting}
-      variant="destructive"
-      onClick={handleDeleteItem}
       disabled={deleting || deleted}
+      loading={deleting}
+      onClick={handleDeleteItem}
+      size="sm"
+      variant="destructive"
     >
       <TrashIcon className="h-4 w-4" data-testid="trash-icon" />
     </Button>

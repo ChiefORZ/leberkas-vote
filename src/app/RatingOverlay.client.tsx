@@ -36,11 +36,11 @@ function RatingOverlay(props: RatingOverlayProps) {
       <div
         className="relative cursor-pointer"
         data-role="button"
+        data-testid={`grid-item-rating-${i}`}
         key={i}
+        onClick={() => onRatingChange(i)}
         onMouseEnter={() => setIsHovering(i)}
         onMouseLeave={() => setIsHovering(undefined)}
-        onClick={() => onRatingChange(i)}
-        data-testid={`grid-item-rating-${i}`}
       >
         <HeartIcon
           className={classNames(
@@ -49,10 +49,10 @@ function RatingOverlay(props: RatingOverlayProps) {
           )}
         />
         <RatedHeart
-          data-active={i <= rating}
           className={classNames(
             'h6 absolute left-0 top-0 w-6 text-red-500 opacity-0'
           )}
+          data-active={i <= rating}
         />
       </div>
     );

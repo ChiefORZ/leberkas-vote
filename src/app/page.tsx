@@ -1,6 +1,4 @@
-import { ArrowRightCircleIcon } from '@heroicons/react/24/outline';
 import { NexusGenFieldTypes } from 'generated/nexus-typegen';
-import Link from 'next/link';
 
 import GridView from '@/app/GridView.client';
 import VotesLeft from '@/app/VotesLeft.client';
@@ -17,16 +15,16 @@ const Page = async () => {
   let user: User | null = null;
   if (userSession?.id) {
     user = await prisma.user.findUnique({
+      select: { email: true, id: true, name: true, ratings: true, role: true },
       where: { id: userSession?.id },
-      select: { id: true, email: true, name: true, ratings: true, role: true },
     });
   }
   const items = await await prisma.item.findMany({
     select: {
       id: true,
-      name: true,
-      imageUrl: true,
       imagePlaceholder: true,
+      imageUrl: true,
+      name: true,
       ratings: true,
     },
     where: { published: true },

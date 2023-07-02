@@ -46,9 +46,9 @@ const InteractionContextProvider = ({
   const interactionContextValue = useMemo(
     () => ({
       displayLoginOverlay,
+      handleAllowedToInteract,
       hasInteracted,
       setHasInteracted,
-      handleAllowedToInteract,
     }),
     [displayLoginOverlay, handleAllowedToInteract, hasInteracted]
   );

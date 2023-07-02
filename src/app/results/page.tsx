@@ -9,19 +9,20 @@ import { getCurrentUser } from '@/lib/session';
 // where the percentage of the bar is the avgRating
 // the chart is not interactable
 const Page = async () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const userSession = await getCurrentUser();
   const numPeopleVoted = await prisma.rating.groupBy({
-    by: ['userId'],
     _count: {
       userId: true,
     },
+    by: ['userId'],
   });
   const items = await await prisma.item.findMany({
     select: {
       id: true,
-      name: true,
-      imageUrl: true,
       imagePlaceholder: true,
+      imageUrl: true,
+      name: true,
       ratings: true,
     },
     where: { published: true },
@@ -63,9 +64,9 @@ const Page = async () => {
                 >
                   <div className="absolute left-0 top-0 h-full w-full">
                     <Image
-                      src={item.imageUrl}
                       alt={item.name}
                       fill
+                      src={item.imageUrl}
                       style={{
                         objectFit: 'cover',
                       }}

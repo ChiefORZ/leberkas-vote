@@ -2,8 +2,6 @@
 
 import { useEffect } from 'react';
 
-import { Button } from '@/components/Button';
-
 export default function Error({
   error,
   reset,

@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-redundant-roles */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
@@ -36,6 +38,7 @@ function Input({
   label: string;
   type?: string;
   validation?: string;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,14 +52,11 @@ function Input({
         validation ? 'ring-red-300  focus-within:ring-red-500' : undefined
       )}
     >
-      <label htmlFor={name} className="block text-xs font-medium text-gray-900">
+      <label className="block text-xs font-medium text-gray-900" htmlFor={name}>
         {label}
       </label>
       <div className="relative">
         <input
-          type={type}
-          name={name}
-          id={name}
           className={classNames(
             'block w-full border-0 p-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6',
             validation
@@ -64,14 +64,17 @@ function Input({
               : undefined,
             className
           )}
+          id={name}
+          name={name}
           onChange={handleChange}
+          type={type}
           {...props}
         />
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
           {validation ? (
             <ExclamationCircleIcon
-              className="h-5 w-5 text-red-500"
               aria-hidden="true"
+              className="h-5 w-5 text-red-500"
             />
           ) : null}
         </div>
@@ -112,12 +115,12 @@ function UploadItemDialog({
     toast.error(error);
   };
   const [title, setTitle] = useState({
-    value: '',
     error: null,
+    value: '',
   });
   const [imageUrl, setImageUrl] = useState({
-    value: '',
     error: null,
+    value: '',
   });
   const { FileInput, openFileDialog, uploadToS3, resetFiles } = useS3Upload();
 
@@ -157,7 +160,7 @@ function UploadItemDialog({
 
       try {
         const { url } = await uploadToS3(file);
-        setImageUrl({ value: url, error: null });
+        setImageUrl({ error: null, value: url });
       } catch (err) {
         displayError('Oje, beim file upload is was schief glaufen!');
         console.error(err);
@@ -170,8 +173,8 @@ function UploadItemDialog({
   const handleClose = useCallback(() => {
     if (isUploading) return;
     setIsUploading(false);
-    setTitle({ value: '', error: null });
-    setImageUrl({ value: '', error: null });
+    setTitle({ error: null, value: '' });
+    setImageUrl({ error: null, value: '' });
     setIsOpen(false);
     resetFiles();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -204,9 +207,9 @@ function UploadItemDialog({
         ).json();
 
         await request('/api', UploadImageMutation, {
-          title: title.value,
-          imageUrl: imageUrl.value,
           imagePlaceholder: placeholder.base64,
+          imageUrl: imageUrl.value,
+          title: title.value,
         });
         // @ts-ignore
         window?.splitbee?.track('Submit Entry', {
@@ -223,7 +226,7 @@ function UploadItemDialog({
   );
 
   return (
-    <Transition.Root show={isOpen} as={Fragment}>
+    <Transition.Root as={Fragment} show={isOpen}>
       <Dialog as="div" className="relative z-40" onClose={handleClose}>
         <Transition.Child
           as={Fragment}
@@ -256,19 +259,19 @@ function UploadItemDialog({
                 <div>
                   <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
                     <button
-                      type="button"
                       className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
                       onClick={handleClose}
+                      type="button"
                     >
                       <span className="sr-only">Schließen</span>
-                      <XMarkIcon className="h-6 w-6" aria-hidden="true" />
+                      <XMarkIcon aria-hidden="true" className="h-6 w-6" />
                     </button>
                   </div>
                   <div className="sm:flex sm:items-start">
                     <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-brand-50 sm:mx-0 sm:h-10 sm:w-10">
                       <PhotoIcon
-                        className="h-6 w-6 text-brand-600"
                         aria-hidden="true"
+                        className="h-6 w-6 text-brand-600"
                       />
                     </div>
                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:min-w-[350px] sm:text-left">
@@ -281,19 +284,19 @@ function UploadItemDialog({
                       <div className="mt-4 grid grid-cols-my-grid gap-4 overflow-y-auto p-4">
                         <div
                           // @ts-ignore
-                          style={{ '--aspect-ratio': 4 / 3 }}
                           className={classNames(
                             'relative flex justify-center overflow-hidden rounded-md border-2 border-dashed border-gray-300',
                             imageUrl.error
                               ? 'ring-2 ring-red-500 ring-offset-2'
                               : undefined
                           )}
+                          style={{ '--aspect-ratio': 4 / 3 }}
                         >
                           {imageUrl.value ? (
                             <TileImage
                               className="block w-full select-none object-cover"
-                              src={imageUrl.value}
                               fill
+                              src={imageUrl.value}
                             />
                           ) : isUploading ? (
                             <div className="flex w-full select-none flex-col items-center justify-center pb-12 text-gray-400">
@@ -301,44 +304,44 @@ function UploadItemDialog({
                             </div>
                           ) : (
                             <button
-                              role="button"
-                              onClick={openFileDialog}
                               className="peer flex w-full select-none flex-col items-center justify-center pb-12 focus:bg-brand-100/10 focus:outline-none"
+                              onClick={openFileDialog}
+                              role="button"
                             >
                               <PhotoIcon
-                                className="mx-auto h-14 w-14 text-gray-400"
                                 aria-hidden="true"
+                                className="mx-auto h-14 w-14 text-gray-400"
                               />
                             </button>
                           )}
 
                           <div className="absolute bottom-0 flex w-full flex-col justify-center bg-[rgba(255,255,255,0.9)] p-2 text-center leading-none">
                             <Input
+                              aria-autocomplete="none"
+                              aria-label="Name"
+                              autoComplete="off"
                               className="bg-transparent"
                               label="Name"
                               name="name"
-                              aria-label="Name"
-                              aria-autocomplete="none"
-                              autoComplete="off"
-                              placeholder="Leberkas"
-                              validation={title.error}
-                              value={title.value}
-                              onClick={(evt) => evt.stopPropagation()}
                               onChange={(evt) => {
                                 evt.stopPropagation();
                                 setTitle({
-                                  value: evt.target.value,
                                   error: null,
+                                  value: evt.target.value,
                                 });
                               }}
+                              onClick={(evt) => evt.stopPropagation()}
+                              placeholder="Leberkas"
+                              validation={title.error}
+                              value={title.value}
                             />
                           </div>
                         </div>
                         <input
                           name="imageUrl"
-                          type="text"
                           readOnly
                           style={{ display: 'none' }}
+                          type="text"
                           value={imageUrl.value}
                         />
                         <FileInput
@@ -350,7 +353,6 @@ function UploadItemDialog({
                   </div>
                   <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                     <button
-                      type="submit"
                       className={classNames(
                         'inline-flex w-full justify-center rounded-md bg-brand-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-300 sm:ml-3 sm:w-auto',
                         isUploading || imageUrl.error || title.error
@@ -358,13 +360,14 @@ function UploadItemDialog({
                           : undefined
                       )}
                       onClick={handleSubmitForm}
+                      type="submit"
                     >
                       Abschicken
                     </button>
                     <button
-                      type="button"
                       className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
                       onClick={handleClose}
+                      type="button"
                     >
                       Abbrechen
                     </button>
@@ -404,15 +407,15 @@ export function UploadItemGridItem({
   return (
     <>
       <GridItem
-        key="upload-item"
-        style={{ '--aspect-ratio': 4 / 3 }}
         className="relative flex cursor-pointer justify-center overflow-hidden rounded-md border-2 border-dashed border-gray-300 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2"
+        key="upload-item"
         onClick={() => handleToggleDialog(true)}
+        style={{ '--aspect-ratio': 4 / 3 }}
       >
         <Tile className="flex w-full select-none flex-col items-center justify-center">
           <PhotoIcon
-            className="mx-auto h-14 w-14 text-gray-400"
             aria-hidden="true"
+            className="mx-auto h-14 w-14 text-gray-400"
           />
           <div>Heast, des hast vergessen!</div>
         </Tile>
