@@ -6,15 +6,15 @@ import path from 'path';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname),
+      '@': path.resolve(__dirname, 'src'),
     },
   },
-  plugins: [react()],
   test: {
-    globals: true,
     environment: 'jsdom',
+    globals: true,
     setupFiles: './tests/setup.ts',
   },
 });
