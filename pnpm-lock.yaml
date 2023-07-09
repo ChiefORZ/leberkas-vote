@@ -15,8 +15,8 @@ dependencies:
     specifier: ^3.357.0
     version: 3.357.0
   '@aws-sdk/client-s3':
-    specifier: ^3.363.0
-    version: 3.363.0(@aws-sdk/signature-v4-crt@3.363.0)(aws-crt@1.15.20)
+    specifier: ^3.367.0
+    version: 3.367.0(@aws-sdk/signature-v4-crt@3.363.0)(aws-crt@1.15.20)
   '@aws-sdk/signature-v4-crt':
     specifier: ^3.363.0
     version: 3.363.0
@@ -30,8 +30,8 @@ dependencies:
     specifier: ^2.0.18
     version: 2.0.18(react@18.2.0)
   '@magic-sdk/admin':
-    specifier: ^1.10.0
-    version: 1.10.0(encoding@0.1.13)
+    specifier: ^1.10.1
+    version: 1.10.1(encoding@0.1.13)
   '@next-auth/prisma-adapter':
     specifier: ^1.0.7
     version: 1.0.7(@prisma/client@4.16.2)(next-auth@4.22.1)
@@ -43,13 +43,13 @@ dependencies:
     version: 0.5.3(tailwindcss@3.3.2)
   autoprefixer:
     specifier: ^10.4.14
-    version: 10.4.14(postcss@8.4.24)
+    version: 10.4.14(postcss@8.4.25)
   aws-crt:
     specifier: ^1.15.20
     version: 1.15.20
   aws-sdk:
-    specifier: ^2.1411.0
-    version: 2.1411.0
+    specifier: ^2.1413.0
+    version: 2.1413.0
   class-variance-authority:
     specifier: ^0.6.1
     version: 0.6.1
@@ -66,8 +66,8 @@ dependencies:
     specifier: ^1.22.2
     version: 1.22.2(graphql@16.7.1)
   magic-sdk:
-    specifier: ^18.2.1
-    version: 18.2.1
+    specifier: ^18.4.1
+    version: 18.4.1
   micro-cors:
     specifier: ^0.1.1
     version: 0.1.1
@@ -87,8 +87,8 @@ dependencies:
     specifier: ^3.0.0
     version: 3.0.0(sharp@0.32.1)
   postcss:
-    specifier: ^8.4.24
-    version: 8.4.24
+    specifier: ^8.4.25
+    version: 8.4.25
   react:
     specifier: ^18.2.0
     version: 18.2.0
@@ -533,14 +533,21 @@ packages:
       tslib: 2.6.0
     dev: false
 
+  /@aws-sdk/chunked-blob-reader-native@3.310.0:
+    resolution: {integrity: sha512-RuhyUY9hCd6KWA2DMF/U6rilYLLRYrDY6e0lq3Of1yzSRFxi4bk9ZMCF0mxf/9ppsB5eudUjrOypYgm6Axt3zw==}
+    dependencies:
+      '@aws-sdk/util-base64': 3.310.0
+      tslib: 2.6.0
+    dev: false
+
   /@aws-sdk/chunked-blob-reader@3.310.0:
     resolution: {integrity: sha512-CrJS3exo4mWaLnWxfCH+w88Ou0IcAZSIkk4QbmxiHl/5Dq705OLoxf4385MVyExpqpeVJYOYQ2WaD8i/pQZ2fg==}
     dependencies:
       tslib: 2.6.0
     dev: false
 
-  /@aws-sdk/client-s3@3.363.0(@aws-sdk/signature-v4-crt@3.363.0)(aws-crt@1.15.20):
-    resolution: {integrity: sha512-LNnfg/t8wG5Fqj6l+PSV/t+IXDq9r3Kj9jEHn84513+p7bewXYSSreSpmLjG8OcKuMfHc9EJGNQ3DkMyFaLoWg==}
+  /@aws-sdk/client-s3@3.367.0(@aws-sdk/signature-v4-crt@3.363.0)(aws-crt@1.15.20):
+    resolution: {integrity: sha512-E9onOs03zHDo/ytjEooCbSbYNUvvvOc5dK7oNEQ9s5cpGjiY2ojQieMg7x+Uz7FbAslIEsABXliYe2Xib+N7Ug==}
     engines: {node: '>=14.0.0'}
     dependencies:
       '@aws-crypto/sha1-browser': 3.0.0
@@ -548,7 +555,7 @@ packages:
       '@aws-crypto/sha256-js': 3.0.0
       '@aws-sdk/client-sts': 3.363.0(aws-crt@1.15.20)
       '@aws-sdk/credential-provider-node': 3.363.0(aws-crt@1.15.20)
-      '@aws-sdk/hash-blob-browser': 3.357.0
+      '@aws-sdk/hash-blob-browser': 3.367.0
       '@aws-sdk/hash-stream-node': 3.357.0
       '@aws-sdk/md5-js': 3.357.0
       '@aws-sdk/middleware-bucket-endpoint': 3.363.0
@@ -812,10 +819,11 @@ packages:
       tslib: 2.6.0
     dev: false
 
-  /@aws-sdk/hash-blob-browser@3.357.0:
-    resolution: {integrity: sha512-RDd6UgrGHDmleTnXM9LRSSVa69euSAG2mlNhZMEDWk3OFseXVYqBDaqroVbQ01rM2UAe8MeBFchlV9OmxuVgvw==}
+  /@aws-sdk/hash-blob-browser@3.367.0:
+    resolution: {integrity: sha512-RhkpXceqQP5UF0eGvLVRSM/gJI8rUdgThAFLPlM5cYRPtIoeDddTTNk0BEf8GzetXTyzx3TEe1Z5tEjbb0pMuA==}
     dependencies:
       '@aws-sdk/chunked-blob-reader': 3.310.0
+      '@aws-sdk/chunked-blob-reader-native': 3.310.0
       '@aws-sdk/types': 3.357.0
       tslib: 2.6.0
     dev: false
@@ -836,13 +844,13 @@ packages:
       tslib: 2.6.0
     dev: false
 
-  /@aws-sdk/lib-storage@3.363.0(@aws-sdk/client-s3@3.363.0):
+  /@aws-sdk/lib-storage@3.363.0(@aws-sdk/client-s3@3.367.0):
     resolution: {integrity: sha512-gqc2D5GqpAVpW6sF4H4k2KZh8+bA1iBA+JiQNQ+hDkxWA0GPT6Cr2BdZ4LhAIfWlKii0wZ371VhH/Fyq/ITm3g==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@aws-sdk/client-s3': ^3.0.0
     dependencies:
-      '@aws-sdk/client-s3': 3.363.0(@aws-sdk/signature-v4-crt@3.363.0)(aws-crt@1.15.20)
+      '@aws-sdk/client-s3': 3.367.0(@aws-sdk/signature-v4-crt@3.363.0)(aws-crt@1.15.20)
       '@smithy/middleware-endpoint': 1.0.2
       '@smithy/smithy-client': 1.0.3
       buffer: 5.6.0
@@ -1061,6 +1069,14 @@ packages:
     resolution: {integrity: sha512-jL8509owp/xB9+Or0pvn3Fe+b94qfklc2yPowZZIFAkFcCSIdkIglz18cPDWnYAcy9JGewpMS1COXKIUhZkJsA==}
     engines: {node: '>=14.0.0'}
     dependencies:
+      tslib: 2.6.0
+    dev: false
+
+  /@aws-sdk/util-base64@3.310.0:
+    resolution: {integrity: sha512-v3+HBKQvqgdzcbL+pFswlx5HQsd9L6ZTlyPVL2LS9nNXnCcR3XgGz9jRskikRUuUvUXtkSG1J88GAOnJ/apTPg==}
+    engines: {node: '>=14.0.0'}
+    dependencies:
+      '@aws-sdk/util-buffer-from': 3.310.0
       tslib: 2.6.0
     dev: false
 
@@ -3695,8 +3711,8 @@ packages:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@magic-sdk/admin@1.10.0(encoding@0.1.13):
-    resolution: {integrity: sha512-byPp3DPpGyl+/71zN7lyKlLFEJuP944hI0NArHkJkCDsZBcSZ+6X3T9ipetnKz8MM2eCVTQB+HkYeNDd9lct2Q==}
+  /@magic-sdk/admin@1.10.1(encoding@0.1.13):
+    resolution: {integrity: sha512-Ju+HoXJPEkFOTf52TMAO4L0+CXPthlGSJIjV+D5xvvhcab3Ddm6ykMzApoF9i3p7K/MM06SmS+SMM9z6b4JRQg==}
     dependencies:
       '@types/atob': 2.1.2
       atob: 2.1.2
@@ -3706,22 +3722,22 @@ packages:
       - encoding
     dev: false
 
-  /@magic-sdk/commons@14.2.1(@magic-sdk/provider@18.2.1)(@magic-sdk/types@15.6.0):
-    resolution: {integrity: sha512-k2fUkjMxYgZdO/duka5i+ET4tVSdhuud82jcz/M+FAwxkS7De73d9s6frjYdBheejc6lNni+RgIeHsxmtky5zQ==}
+  /@magic-sdk/commons@14.4.1(@magic-sdk/provider@18.4.1)(@magic-sdk/types@15.6.1):
+    resolution: {integrity: sha512-95TKL37p4NW4C6krJk3iQr5wXZW8vCjuFgFoYqqMuutl8MenQ0BSvL1lwA74sR9DM3MsDqYaDvwE4dsT0EgzZA==}
     peerDependencies:
       '@magic-sdk/provider': '>=4.3.0'
       '@magic-sdk/types': '>=3.1.1'
     dependencies:
-      '@magic-sdk/provider': 18.2.1(localforage@1.10.0)
-      '@magic-sdk/types': 15.6.0
+      '@magic-sdk/provider': 18.4.1(localforage@1.10.0)
+      '@magic-sdk/types': 15.6.1
     dev: false
 
-  /@magic-sdk/provider@18.2.1(localforage@1.10.0):
-    resolution: {integrity: sha512-TSpaHHrKtlY27YXj6hVynuQ7hJjzflepibwsdCGsjQief+eTXiBYk3GY0wTj2f8aUmFXmm8qECVD9zsRSotM0Q==}
+  /@magic-sdk/provider@18.4.1(localforage@1.10.0):
+    resolution: {integrity: sha512-IWqvYmZ4KFse38eS0uPy8cu8zlSO/F5ipM0GNJ2iuakkiFocS6RPvgs70+CBrbWdL9aCSx/j6Ar9b9q4Jv7pcQ==}
     peerDependencies:
       localforage: ^1.7.4
     dependencies:
-      '@magic-sdk/types': 15.6.0
+      '@magic-sdk/types': 15.6.1
       eventemitter3: 4.0.7
       localforage: 1.10.0
       web3-core: 1.5.2
@@ -3729,8 +3745,8 @@ packages:
       - supports-color
     dev: false
 
-  /@magic-sdk/types@15.6.0:
-    resolution: {integrity: sha512-Ca2Qf/C/zi0CW/S7kTxwKCPd/BaaTRpp65gF2r+FdnNY0Ut7bu3ImfkJLo6qxa/f2HZtrewijBcekoxK5KtTdQ==}
+  /@magic-sdk/types@15.6.1:
+    resolution: {integrity: sha512-lYcUzRqp5NFE9VgXPFXmlC14Iq8+6AodikKHhi16XyPteMoO3dCwKevdFNw3uSX3/aPjMLh2LKJ0qwqsCPgocQ==}
     dev: false
 
   /@messageformat/core@3.2.0:
@@ -5562,7 +5578,7 @@ packages:
     hasBin: true
     dev: false
 
-  /autoprefixer@10.4.14(postcss@8.4.24):
+  /autoprefixer@10.4.14(postcss@8.4.25):
     resolution: {integrity: sha512-FQzyfOsTlwVzjHxKEqRIAdJx9niO6VCBCoEwax/VLSoQF29ggECcPuBqUMZ+u8jCZOPSy8b8/8KnuFbp0SaFZQ==}
     engines: {node: ^10 || ^12 || >=14}
     hasBin: true
@@ -5574,7 +5590,7 @@ packages:
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
-      postcss: 8.4.24
+      postcss: 8.4.25
       postcss-value-parser: 4.2.0
     dev: false
 
@@ -5602,8 +5618,8 @@ packages:
       - utf-8-validate
     dev: false
 
-  /aws-sdk@2.1411.0:
-    resolution: {integrity: sha512-853lbvI72rQqswidtNQ8+VCh2XiIWmP1g7oDMmDL330bpn8BPLTq+rgyKbax87gHt5W0jHGytrpFeVrYd9CgJg==}
+  /aws-sdk@2.1413.0:
+    resolution: {integrity: sha512-vKpjC7iRwOhgv7P0xw90mVGO//2rqVPJKyYIs7uxLzSV0JzriVD+yqktOu/Hz6/phOmAd1cMIeFgpEC9ynrppg==}
     engines: {node: '>= 10.0.0'}
     dependencies:
       buffer: 4.9.2
@@ -9529,12 +9545,12 @@ packages:
     hasBin: true
     dev: true
 
-  /magic-sdk@18.2.1:
-    resolution: {integrity: sha512-/lrYf46P2ovLyahFP7HHVE1NB+gETrBxgv6TojC0ABnDfYEdl6II2F47NvNi3/PKf3r+m9GBUlDWCqDGRBIKeg==}
+  /magic-sdk@18.4.1:
+    resolution: {integrity: sha512-2WAQbT1fomodSMt72SNDgiea1BNBa2RC6O+bAtnz6CHcrmaj7jjARLz7nuXpASK9E4MQWpnz9s2z3RQdbpIvDw==}
     dependencies:
-      '@magic-sdk/commons': 14.2.1(@magic-sdk/provider@18.2.1)(@magic-sdk/types@15.6.0)
-      '@magic-sdk/provider': 18.2.1(localforage@1.10.0)
-      '@magic-sdk/types': 15.6.0
+      '@magic-sdk/commons': 14.4.1(@magic-sdk/provider@18.4.1)(@magic-sdk/types@15.6.1)
+      '@magic-sdk/provider': 18.4.1(localforage@1.10.0)
+      '@magic-sdk/types': 15.6.1
       localforage: 1.10.0
     transitivePeerDependencies:
       - supports-color
@@ -9932,9 +9948,9 @@ packages:
       next: '>=9.4'
       react: '>=16'
     dependencies:
-      '@aws-sdk/client-s3': 3.363.0(@aws-sdk/signature-v4-crt@3.363.0)(aws-crt@1.15.20)
+      '@aws-sdk/client-s3': 3.367.0(@aws-sdk/signature-v4-crt@3.363.0)(aws-crt@1.15.20)
       '@aws-sdk/client-sts': 3.363.0(aws-crt@1.15.20)
-      '@aws-sdk/lib-storage': 3.363.0(@aws-sdk/client-s3@3.363.0)
+      '@aws-sdk/lib-storage': 3.363.0(@aws-sdk/client-s3@3.367.0)
       '@aws-sdk/s3-request-presigner': 3.363.0(@aws-sdk/signature-v4-crt@3.363.0)
       next: 13.4.7(@babel/core@7.22.7)(react-dom@18.2.0)(react@18.2.0)
       react: 18.2.0
@@ -10602,29 +10618,29 @@ packages:
       sharp: 0.32.1
     dev: false
 
-  /postcss-import@15.1.0(postcss@8.4.24):
+  /postcss-import@15.1.0(postcss@8.4.25):
     resolution: {integrity: sha512-hpr+J05B2FVYUAXHeK1YyI267J/dDDhMU6B6civm8hSY1jYJnBXxzKDKDswzJmtLHryrjhnDjqqp/49t8FALew==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       postcss: ^8.0.0
     dependencies:
-      postcss: 8.4.24
+      postcss: 8.4.25
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.2
     dev: false
 
-  /postcss-js@4.0.1(postcss@8.4.24):
+  /postcss-js@4.0.1(postcss@8.4.25):
     resolution: {integrity: sha512-dDLF8pEO191hJMtlHFPRa8xsizHaM82MLfNkUHdUtVEV3tgTp5oj+8qbEqYM57SLfc74KSbw//4SeJma2LRVIw==}
     engines: {node: ^12 || ^14 || >= 16}
     peerDependencies:
       postcss: ^8.4.21
     dependencies:
       camelcase-css: 2.0.1
-      postcss: 8.4.24
+      postcss: 8.4.25
     dev: false
 
-  /postcss-load-config@4.0.1(postcss@8.4.24)(ts-node@10.9.1):
+  /postcss-load-config@4.0.1(postcss@8.4.25)(ts-node@10.9.1):
     resolution: {integrity: sha512-vEJIc8RdiBRu3oRAI0ymerOn+7rPuMvRXslTvZUKZonDHFIczxztIyJ1urxM1x9JXEikvpWWTUUqal5j/8QgvA==}
     engines: {node: '>= 14'}
     peerDependencies:
@@ -10637,18 +10653,18 @@ packages:
         optional: true
     dependencies:
       lilconfig: 2.1.0
-      postcss: 8.4.24
+      postcss: 8.4.25
       ts-node: 10.9.1(@types/node@20.3.3)(typescript@5.1.6)
       yaml: 2.3.1
     dev: false
 
-  /postcss-nested@6.0.1(postcss@8.4.24):
+  /postcss-nested@6.0.1(postcss@8.4.25):
     resolution: {integrity: sha512-mEp4xPMi5bSWiMbsgoPfcP74lsWLHkQbZc3sY+jWYd65CUwXrUaTp0fmNpa01ZcETKlIgUdFN/MpS2xZtqL9dQ==}
     engines: {node: '>=12.0'}
     peerDependencies:
       postcss: ^8.2.14
     dependencies:
-      postcss: 8.4.24
+      postcss: 8.4.25
       postcss-selector-parser: 6.0.13
     dev: false
 
@@ -10673,8 +10689,8 @@ packages:
       source-map-js: 1.0.2
     dev: false
 
-  /postcss@8.4.24:
-    resolution: {integrity: sha512-M0RzbcI0sO/XJNucsGjvWU9ERWxb/ytp1w6dKtxTKgixdtQDq4rmx/g8W1hnaheq9jgwL/oyEdH5Bc4WwJKMqg==}
+  /postcss@8.4.25:
+    resolution: {integrity: sha512-7taJ/8t2av0Z+sQEvNzCkpDynl0tX3uJMCODi6nT3PfASC7dYCWV9aQ+uiCf+KBD4SEFcu+GvJdGdwzQ6OSjCw==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.6
@@ -12177,11 +12193,11 @@ packages:
       normalize-path: 3.0.0
       object-hash: 3.0.0
       picocolors: 1.0.0
-      postcss: 8.4.24
-      postcss-import: 15.1.0(postcss@8.4.24)
-      postcss-js: 4.0.1(postcss@8.4.24)
-      postcss-load-config: 4.0.1(postcss@8.4.24)(ts-node@10.9.1)
-      postcss-nested: 6.0.1(postcss@8.4.24)
+      postcss: 8.4.25
+      postcss-import: 15.1.0(postcss@8.4.25)
+      postcss-js: 4.0.1(postcss@8.4.25)
+      postcss-load-config: 4.0.1(postcss@8.4.25)(ts-node@10.9.1)
+      postcss-nested: 6.0.1(postcss@8.4.25)
       postcss-selector-parser: 6.0.13
       postcss-value-parser: 4.2.0
       resolve: 1.22.2
@@ -12820,7 +12836,7 @@ packages:
     dependencies:
       '@types/node': 20.3.3
       esbuild: 0.17.19
-      postcss: 8.4.24
+      postcss: 8.4.25
       rollup: 3.26.0
     optionalDependencies:
       fsevents: 2.3.2
@@ -12856,7 +12872,7 @@ packages:
     dependencies:
       '@types/node': 20.3.3
       esbuild: 0.18.11
-      postcss: 8.4.24
+      postcss: 8.4.25
       rollup: 3.26.1
     optionalDependencies:
       fsevents: 2.3.2
