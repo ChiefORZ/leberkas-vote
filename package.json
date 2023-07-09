@@ -29,6 +29,9 @@
     "src/**/*.{js,jsx,ts,tsx}": "eslint --fix"
   },
   "prettier": "@chieforz/prettier-config",
+  "eslintConfig": {
+    "extends": "@chieforz/eslint-config-tslint-react"
+  },
   "dependencies": {
     "@apollo/server": "^4.7.5",
     "@as-integrations/next": "^2.0.1",
@@ -68,8 +71,8 @@
     "tailwindcss": "^3.3.2"
   },
   "devDependencies": {
+    "@chieforz/eslint-config-tslint-react": "^1.1.1",
     "@chieforz/prettier-config": "^1.1.2",
-    "@chieforz/tslint-config-react": "^1.1.1",
     "@commitlint/cli": "^17.6.6",
     "@commitlint/config-conventional": "^17.6.6",
     "@testing-library/jest-dom": "^5.16.5",
