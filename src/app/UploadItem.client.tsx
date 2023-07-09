@@ -14,16 +14,11 @@ import Image from 'next/image';
 import { useS3Upload } from 'next-s3-upload';
 import { Fragment, useCallback, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import styled from 'styled-components';
 
 import { Spinner } from '@/components/Spinner';
 import { classNames } from '@/utils/index';
 
 type TUser = NexusGenFieldTypes['User'];
-
-const Tile = styled.div``;
-const TileImage = styled(Image)``;
-const GridItem = styled.div``;
 
 function Input({
   className = '',
@@ -294,7 +289,8 @@ function UploadItemDialog({
                           style={{ '--aspect-ratio': 4 / 3 }}
                         >
                           {imageUrl.value ? (
-                            <TileImage
+                            <Image
+                              alt="New Image"
                               className="block w-full select-none object-cover"
                               fill
                               src={imageUrl.value}
@@ -407,21 +403,21 @@ export function UploadItemGridItem({
   );
   return (
     <>
-      <GridItem
+      <div
         className="relative flex cursor-pointer justify-center overflow-hidden rounded-md border-2 border-dashed border-gray-300 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2"
         key="upload-item"
         onClick={() => handleToggleDialog(true)}
         // @ts-ignore - aspect-ratio is a custom variable
         style={{ '--aspect-ratio': 4 / 3 }}
       >
-        <Tile className="flex w-full select-none flex-col items-center justify-center">
+        <div className="flex w-full select-none flex-col items-center justify-center">
           <PhotoIcon
             aria-hidden="true"
             className="mx-auto h-14 w-14 text-gray-400"
           />
           <div>Heast, des hast vergessen!</div>
-        </Tile>
-      </GridItem>
+        </div>
+      </div>
       <UploadItemDialog
         isOpen={dialogIsOpen}
         setIsOpen={handleToggleDialog}

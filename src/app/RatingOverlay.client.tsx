@@ -1,21 +1,9 @@
 import { HeartIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import React from 'react';
-import styled, { css } from 'styled-components';
 
+import styles from '@/app/styles.module.scss';
 import { classNames } from '@/utils/index';
-
-const RatedHeart = styled<{ 'data-active'?: boolean }>(HeartIconSolid)`
-  transition: 0.5s ease-in;
-  opacity: 100;
-
-  clip-path: circle(0px at center);
-  ${(p) =>
-    p['data-active'] &&
-    css`
-      clip-path: circle(100% at center);
-    `}
-`;
 
 interface RatingOverlayProps {
   rating: number;
@@ -48,8 +36,9 @@ function RatingOverlay(props: RatingOverlayProps) {
             isHovering && i <= isHovering ? 'text-red-300' : 'text-gray-300'
           )}
         />
-        <RatedHeart
+        <HeartIconSolid
           className={classNames(
+            styles.ratedHeart,
             'h6 absolute left-0 top-0 w-6 text-red-500 opacity-0'
           )}
           data-active={i <= rating}

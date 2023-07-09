@@ -1,0 +1,36 @@
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.button {
+  animation: bounce 1s normal forwards;
+  animation-iteration-count: 1;
+}
+
+.gridItem {
+  .tile {
+    transition: transform 0.3s ease;
+  }
+  &:hover .tile {
+    transform: scale(1.05);
+  }
+}
+
+.ratedHeart {
+  transition: 0.5s ease-in;
+  opacity: 100;
+
+  clip-path: circle(0px at center);
+
+  &[data-active="true"] {
+    clip-path: circle(100% at center);
+  }
+}

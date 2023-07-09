@@ -137,14 +137,14 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
       return 'Du hast deine Änderungen noch nicht gespeichert!';
     };
 
-    if (ratingsChanged) {
+    if (ratingsChanged && !isSubmitting) {
       window.addEventListener('beforeunload', onBeforeUnload);
 
       return () => {
         window.removeEventListener('beforeunload', onBeforeUnload);
       };
     }
-  }, [ratingsChanged]);
+  }, [ratingsChanged, isSubmitting]);
 
   return (
     <RatingContext.Provider
