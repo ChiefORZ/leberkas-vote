@@ -30,8 +30,8 @@ dependencies:
     specifier: ^2.0.18
     version: 2.0.18(react@18.2.0)
   '@magic-sdk/admin':
-    specifier: ^1.10.1
-    version: 1.10.1(encoding@0.1.13)
+    specifier: ^2.0.0
+    version: 2.0.0(encoding@0.1.13)
   '@next-auth/prisma-adapter':
     specifier: ^1.0.7
     version: 1.0.7(@prisma/client@4.16.2)(next-auth@4.22.1)
@@ -3465,8 +3465,8 @@ packages:
       '@jridgewell/resolve-uri': 3.1.1
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  /@magic-sdk/admin@1.10.1(encoding@0.1.13):
-    resolution: {integrity: sha512-Ju+HoXJPEkFOTf52TMAO4L0+CXPthlGSJIjV+D5xvvhcab3Ddm6ykMzApoF9i3p7K/MM06SmS+SMM9z6b4JRQg==}
+  /@magic-sdk/admin@2.0.0(encoding@0.1.13):
+    resolution: {integrity: sha512-FWrm90lPjosay6oNLzkAfrX3JAi1vDhU3v+M6YR96RAd5IZj/5gNxJ8ZeKY2p/UNMZ0NLJ+WvYhqI56t7mtXBQ==}
     dependencies:
       '@types/atob': 2.1.2
       atob: 2.1.2
