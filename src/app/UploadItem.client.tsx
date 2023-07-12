@@ -17,6 +17,7 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import { Spinner } from '@/components/Spinner';
 import { classNames } from '@/utils/index';
+import { trackEvent } from '@/utils/splitbee';
 
 type TUser = NexusGenFieldTypes['User'];
 
@@ -206,8 +207,7 @@ function UploadItemDialog({
           imageUrl: imageUrl.value,
           title: title.value,
         });
-        // @ts-ignore
-        window?.splitbee?.track('Submit Entry', {
+        trackEvent('Submit Entry', {
           userId: user.id,
         });
         displaySuccessMessage('Danke für den Input!');
@@ -392,8 +392,7 @@ export function UploadItemGridItem({
     async (nextIsOpen) => {
       if (onClick && (await onClick()) === false) return;
       if (nextIsOpen) {
-        // @ts-ignore
-        window?.splitbee?.track('Toggle Submit Entry Modal', {
+        trackEvent('Toggle Submit Entry Modal', {
           userId: user.id,
         });
       }

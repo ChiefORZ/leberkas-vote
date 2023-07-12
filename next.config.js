@@ -15,6 +15,16 @@ const nextConfig = {
     // serverComponentsExternalPackages: ["@prisma/client"],
   },
   reactStrictMode: true,
+  rewrites: async () => [
+    {
+      source: '/bee.js',
+      destination: 'https://cdn.splitbee.io/sb.js',
+    },
+    {
+      source: '/_hive/:slug',
+      destination: 'https://hive.splitbee.io/:slug',
+    },
+  ],
   webpack: (config, { isServer, nextRuntime }) => {
     // Avoid AWS SDK Node.js require issue
     if (isServer && nextRuntime === 'nodejs')

@@ -1,6 +1,7 @@
 import './global.css';
 
 import { Lexend as FontLexend } from 'next/font/google';
+import { Metadata } from 'next';
 
 import RootLayoutClient from '@/app/layout.client';
 import { getCurrentUser } from '@/lib/session';
@@ -10,6 +11,31 @@ const fontSans = FontLexend({
   subsets: ['latin'],
   variable: '--font-lexend',
 });
+
+export const metadata: Metadata = {
+  charset: 'utf-8',
+  description: 'Stimme für die beliebteste Speise Österreichs ab.',
+  icons: {
+    apple: '/apple-touch-icon.png',
+    icon: '/favicon.ico',
+    other: '/favicon-32x32.png',
+    shortcut: '/favicon-16x16.png',
+  },
+  openGraph: {
+    images: [{ url: 'https://leberkas.vote/og.png' }],
+    title: 'Leberkas Vote',
+    type: 'website',
+    url: 'https://leberkas.vote',
+  },
+  title: 'Leberkas Vote',
+  twitter: {
+    card: 'summary_large_image',
+    images: [{ url: 'https://leberkas.vote/og.png' }],
+    title: 'Leberkas Vote',
+    url: 'https://leberkas.vote',
+  },
+  viewport: 'width=device-width',
+};
 
 export default async function RootLayout({
   children,

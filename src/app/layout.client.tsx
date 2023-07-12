@@ -6,7 +6,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { signOut } from 'next-auth/react';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
+
+import * as splitbee from '@/utils/splitbee';
 
 const RootLayoutClient = ({
   user,
@@ -19,6 +21,10 @@ const RootLayoutClient = ({
     role?: string;
   };
 }) => {
+  useEffect(() => {
+    splitbee.init();
+  }, []);
+
   const pathname = usePathname();
   return (
     <div className="relative z-20 mx-auto max-w-7xl px-2 py-2 sm:px-4 lg:px-8">
