@@ -13,16 +13,16 @@ const fontSans = FontLexend({
 });
 
 export const metadata: Metadata = {
-  charset: 'utf-8',
   description: 'Stimme für die beliebteste Speise Österreichs ab.',
   icons: {
     apple: '/apple-touch-icon.png',
     icon: '/favicon.ico',
-    other: '/favicon-32x32.png',
     shortcut: '/favicon-16x16.png',
   },
   openGraph: {
+    description: 'Stimme für die beliebteste Speise Österreichs ab.',
     images: [{ url: 'https://leberkas.vote/og.png' }],
+    siteName: 'Leberkas Vote',
     title: 'Leberkas Vote',
     type: 'website',
     url: 'https://leberkas.vote',
@@ -30,9 +30,10 @@ export const metadata: Metadata = {
   title: 'Leberkas Vote',
   twitter: {
     card: 'summary_large_image',
+    description: 'Stimme für die beliebteste Speise Österreichs ab.',
     images: [{ url: 'https://leberkas.vote/og.png' }],
+    site: 'https://leberkas.vote',
     title: 'Leberkas Vote',
-    url: 'https://leberkas.vote',
   },
   viewport: 'width=device-width',
 };
