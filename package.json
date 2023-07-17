@@ -50,7 +50,7 @@
     "aws-crt": "^1.15.20",
     "aws-sdk": "^2.1414.0",
     "class-variance-authority": "^0.6.1",
-    "clsx": "^1.2.1",
+    "clsx": "^2.0.0",
     "graphql": "^16.7.1",
     "graphql-request": "^6.1.0",
     "graphql-scalars": "^1.22.2",
