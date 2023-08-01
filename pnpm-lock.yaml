@@ -1,4 +1,4 @@
-lockfileVersion: '6.0'
+lockfileVersion: '6.1'
 
 settings:
   autoInstallPeers: true
@@ -69,8 +69,8 @@ dependencies:
     specifier: ^1.22.2
     version: 1.22.2(graphql@16.7.1)
   magic-sdk:
-    specifier: ^18.6.0
-    version: 18.6.0
+    specifier: ^19.0.0
+    version: 19.0.0
   micro-cors:
     specifier: ^0.1.1
     version: 0.1.1
@@ -3661,22 +3661,22 @@ packages:
       - encoding
     dev: false
 
-  /@magic-sdk/commons@14.6.0(@magic-sdk/provider@18.6.0)(@magic-sdk/types@15.8.0):
-    resolution: {integrity: sha512-xYSXDZQ2nhbydZCsphaaMpcl5glsvH+yLkKkQJfXPwaHpow68yFC6z+/lbbqQqvR6vNPdWN+7dbKbTJHI+CnUQ==}
+  /@magic-sdk/commons@15.0.0(@magic-sdk/provider@19.0.0)(@magic-sdk/types@16.0.0):
+    resolution: {integrity: sha512-67GeWjWUhafQBZQuOo+cWVssa+8zlii1k/GDDIK2zVn3dqqeVi5WRq2jq3W4E5KciBgh2/0NipC+W3nGyDg5+g==}
     peerDependencies:
-      '@magic-sdk/provider': '>=4.3.0'
-      '@magic-sdk/types': '>=3.1.1'
+      '@magic-sdk/provider': '>=18.6.0'
+      '@magic-sdk/types': '>=15.8.0'
     dependencies:
-      '@magic-sdk/provider': 18.6.0(localforage@1.10.0)
-      '@magic-sdk/types': 15.8.0
+      '@magic-sdk/provider': 19.0.0(localforage@1.10.0)
+      '@magic-sdk/types': 16.0.0
     dev: false
 
-  /@magic-sdk/provider@18.6.0(localforage@1.10.0):
-    resolution: {integrity: sha512-7Q2MpUrVRWCBAbsUihsldY+4vqXgHCzqLtK5fvbnCfLGGjmjWf15ALMFwBSUskk1WCq0TVRTxe1xWAiHZ2i0iw==}
+  /@magic-sdk/provider@19.0.0(localforage@1.10.0):
+    resolution: {integrity: sha512-8FEsw24el9kBzEVb1hAvO4IjZHHMkbhGvUKrh7vUWVK6Rl06gsObaWt9C+lhyqKYXPPlIUIFYpq9qbg5hXOeIw==}
     peerDependencies:
       localforage: ^1.7.4
     dependencies:
-      '@magic-sdk/types': 15.8.0
+      '@magic-sdk/types': 16.0.0
       eventemitter3: 4.0.7
       localforage: 1.10.0
       web3-core: 1.5.2
@@ -3684,8 +3684,8 @@ packages:
       - supports-color
     dev: false
 
-  /@magic-sdk/types@15.8.0:
-    resolution: {integrity: sha512-xLQsBAg2JXUn39dRfZW6Z3LUT50qz/3pg6R658oVBr4LbJd/L8iAR0zCRmjLLNXzfYm1RkJYZWuHaxjJgKlkSA==}
+  /@magic-sdk/types@16.0.0:
+    resolution: {integrity: sha512-9hOK1wyvHjr2sUVH5Iv+7wjjiu3j3wFrLW1H2DGXdsHYNjz2Nzc/fstOe4q2Mo0WpEmrXREYdc+j7fIPNKl50A==}
     dev: false
 
   /@messageformat/core@3.2.0:
@@ -10036,12 +10036,12 @@ packages:
     hasBin: true
     dev: true
 
-  /magic-sdk@18.6.0:
-    resolution: {integrity: sha512-6FdgZEKVEFZvrGlth2ZiipTEr7ihe0E4wbnPk1WlK3xIxFg3Gr5/Ca1PgWdkvNjKxjngySYykLXdCnwuNjt19w==}
+  /magic-sdk@19.0.0:
+    resolution: {integrity: sha512-8t3PdTZcnvit+E/H0GCQV7ME+UcB96aZCfRXaRAuccmVE4RcpYlVtVx+mlIZzuIc8Ouo6HNqbYQaJeN1j871EQ==}
     dependencies:
-      '@magic-sdk/commons': 14.6.0(@magic-sdk/provider@18.6.0)(@magic-sdk/types@15.8.0)
-      '@magic-sdk/provider': 18.6.0(localforage@1.10.0)
-      '@magic-sdk/types': 15.8.0
+      '@magic-sdk/commons': 15.0.0(@magic-sdk/provider@19.0.0)(@magic-sdk/types@16.0.0)
+      '@magic-sdk/provider': 19.0.0(localforage@1.10.0)
+      '@magic-sdk/types': 16.0.0
       localforage: 1.10.0
     transitivePeerDependencies:
       - supports-color
