@@ -6,11 +6,11 @@
   "license": "MIT",
   "author": "ChiefORZ <seb.schaffernak@gmail.com>",
   "scripts": {
-    "prebuild": "prisma generate",
+    "prebuild": "pnpm run generate",
     "build": "pnpm run migrate:deploy && nx exec -- next build",
     "dev": "next",
-    "generate": "run-s generate:*",
-    "generate:nexus": "nx exec -- ts-node --transpile-only -P nexus.tsconfig.json pages/api",
+    "generate": "run-s generate:prisma generate:nexus",
+    "generate:nexus": "nx exec -- tsx --tsconfig nexus.tsconfig.json ./src/pages/api",
     "generate:prisma": "prisma generate",
     "lint": "eslint './src/**/*.{js,jsx,ts,tsx}' --fix",
     "migrate:dev": "is-ci || prisma migrate dev",
@@ -21,7 +21,6 @@
     "test": "npm-run-all test:*",
     "test:knip": "knip",
     "test:unit": "vitest --run --passWithNoTests",
-    "ts-node": "ts-node --compiler-options \"{\\\"module\\\":\\\"commonjs\\\"}\"",
     "postinstall": "is-ci || husky install",
     "precommit": "lint-staged"
   },
@@ -97,7 +96,7 @@
     "prettier-plugin-tailwindcss": "^0.5.4",
     "prisma": "^5.3.1",
     "resize-observer-polyfill": "^1.5.1",
-    "ts-node": "^10.9.1",
+    "tsx": "^3.13.0",
     "typescript": "^5.2.2",
     "vitest": "^0.34.5",
     "webpack": "^5.88.2"
