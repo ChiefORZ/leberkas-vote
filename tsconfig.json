@@ -29,10 +29,5 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "src/types/**/*.ts"
-  ],
-  "ts-node": {
-    "compilerOptions": {
-      "module": "commonjs"
-    }
-  }
+  ]
 }
