@@ -1,12 +1,9 @@
 // next-auth.d.ts
 // eslint-disable-next-line import/extensions
-import { User as PrismaUser } from '.prisma/client';
+import { User as PrismaUser } from '@prisma/client';
 
 declare module 'next-auth' {
-  interface User extends PrismaUser {
-    id: string;
-    role: string;
-  }
+  type User = Pick<PrismaUser, 'id' | 'name' | 'email' | 'image' | 'role'>;
 
   interface Session {
     expires: string;
