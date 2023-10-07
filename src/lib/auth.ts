@@ -6,6 +6,7 @@ import Credentials from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 
 import prisma from '@/lib/prisma';
+import type { Role } from '@prisma/client';
 
 const magic = new Magic(process.env.MAGIC_SK);
 
@@ -50,7 +51,7 @@ export const authOptions: NextAuthOptions = {
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.image = token.image;
-        session.user.role = token.role;
+        session.user.role = token.role as Role;
       }
       return session;
     },
