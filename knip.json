@@ -31,7 +31,12 @@
     "is-ci",
     "lint-staged",
     "npm-run-all",
-    "tsx"
+    "tsx",
+    "prettier-plugin-packagejson",
+    "prettier-plugin-tailwindcss"
   ],
-  "project": ["src/**/*.ts", "src/**/*.tsx"]
+  "project": [
+    "src/**/*.ts",
+    "src/**/*.tsx"
+  ]
 }
