@@ -5,3 +5,7 @@ src/generated/
 *.sqlite
 .env*
 .DS_STORE
+
+#wireit
+.wireit
+.eslintcache

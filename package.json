@@ -6,23 +6,21 @@
   "license": "MIT",
   "author": "ChiefORZ <seb.schaffernak@gmail.com>",
   "scripts": {
-    "prebuild": "pnpm run generate",
-    "build": "pnpm run migrate:deploy && nx exec -- next build",
-    "dev": "next",
-    "generate": "run-s generate:prisma generate:nexus",
-    "generate:nexus": "nx exec -- tsx --tsconfig nexus.tsconfig.json ./src/pages/api",
-    "generate:prisma": "prisma generate",
-    "lint": "eslint './src/**/*.{js,jsx,ts,tsx}' --fix",
-    "migrate:dev": "is-ci || prisma migrate dev",
-    "migrate:deploy": "is-ci || prisma migrate deploy",
-    "migrate:status": "is-ci || prisma migrate status",
-    "prestart": "prisma generate",
-    "start": "next start",
-    "test": "npm-run-all test:*",
-    "test:knip": "knip",
-    "test:unit": "vitest --run --passWithNoTests",
-    "postinstall": "is-ci || husky install",
-    "precommit": "lint-staged"
+    "build": "wireit",
+    "dev": "wireit",
+    "generate": "wireit",
+    "generate:nexus": "wireit",
+    "generate:prisma": "wireit",
+    "lint": "wireit",
+    "migrate:dev": "wireit",
+    "migrate:deploy": "wireit",
+    "migrate:status": "wireit",
+    "start": "wireit",
+    "test": "wireit",
+    "test:knip": "wireit",
+    "test:unit": "wireit",
+    "postinstall": "wireit",
+    "precommit": "wireit"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": "eslint --fix"
@@ -92,31 +90,17 @@
     "knip": "^2.38.4",
     "lint-staged": "^15.0.2",
     "npm-run-all": "^4.1.5",
-    "nx": "^16.10.0",
     "prettier-plugin-tailwindcss": "^0.5.6",
     "prisma": "^5.5.2",
     "resize-observer-polyfill": "^1.5.1",
     "tsx": "^3.14.0",
     "typescript": "^5.2.2",
     "vitest": "^0.34.6",
-    "webpack": "^5.89.0"
+    "webpack": "^5.89.0",
+    "wireit": "^0.14.1"
   },
   "engines": {
     "node": ">=18.17"
-  },
-  "nx": {
-    "targets": {
-      "build": {
-        "outputs": [
-          "{projectRoot}/.next"
-        ]
-      },
-      "generate:nexus": {
-        "outputs": [
-          "{projectRoot}/generated"
-        ]
-      }
-    }
   },
   "pnpm": {
     "overrides": {
@@ -127,5 +111,126 @@
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
+  },
+  "wireit": {
+    "build": {
+      "command": "next build",
+      "dependencies": [
+        "generate",
+        "migrate:deploy"
+      ],
+      "files": [
+        "prisma/schema.prisma",
+        "src/**/*",
+        "tsconfig.json"
+      ],
+      "output": [
+        ".next/**"
+      ]
+    },
+    "dev": {
+      "command": "next",
+      "dependencies": [
+        "generate"
+      ],
+      "files": [
+        "src/**/*"
+      ],
+      "output": []
+    },
+    "generate": {
+      "command": "run-s generate:prisma generate:nexus",
+      "files": [
+        "prisma/schema.prisma",
+        "src/**/*"
+      ],
+      "output": []
+    },
+    "generate:nexus": {
+      "command": "tsx --tsconfig nexus.tsconfig.json ./src/pages/api",
+      "files": [
+        "src/pages/api/**/*",
+        "nexus.tsconfig.json"
+      ],
+      "output": [],
+      "[the script command was]": "tsx --tsconfig nexus.tsconfig.json ./src/pages/api"
+    },
+    "generate:prisma": {
+      "command": "prisma generate",
+      "files": [
+        "prisma/schema.prisma"
+      ],
+      "output": [
+        "node_modules/.prisma/client/**"
+      ]
+    },
+    "lint": {
+      "command": "eslint './src/**/*.{js,jsx,ts,tsx}' --fix",
+      "files": [
+        "src/**/*"
+      ],
+      "output": []
+    },
+    "migrate:dev": {
+      "command": "is-ci || prisma migrate dev",
+      "files": [
+        "prisma/migrations/**/*",
+        "prisma/schema.prisma"
+      ],
+      "output": [
+        "node_modules/.prisma/client/**"
+      ]
+    },
+    "migrate:deploy": {
+      "command": "is-ci || prisma migrate deploy",
+      "files": [
+        "prisma/migrations/**/*",
+        "prisma/schema.prisma"
+      ],
+      "output": [
+        "node_modules/.prisma/client/**"
+      ]
+    },
+    "migrate:status": {
+      "command": "is-ci || prisma migrate status",
+      "files": [
+        "prisma/migrations/**/*",
+        "prisma/schema.prisma"
+      ],
+      "output": []
+    },
+    "start": {
+      "command": "next start",
+      "dependencies": [
+        "generate:prisma"
+      ],
+      "files": [
+        ".next/**"
+      ],
+      "output": []
+    },
+    "test": {
+      "command": "npm-run-all test:*",
+      "files": [
+        "src/**/*"
+      ],
+      "output": []
+    },
+    "test:knip": {
+      "command": "knip"
+    },
+    "test:unit": {
+      "command": "vitest --run --passWithNoTests",
+      "files": [
+        "src/**/*"
+      ],
+      "output": []
+    },
+    "postinstall": {
+      "command": "is-ci || husky install"
+    },
+    "precommit": {
+      "command": "lint-staged"
+    }
   }
 }

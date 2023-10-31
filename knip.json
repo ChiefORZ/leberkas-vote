@@ -27,8 +27,13 @@
     "aws-crt",
     "dotenv",
     "encoding",
+    "husky",
+    "is-ci",
+    "lint-staged",
+    "npm-run-all",
     "prettier-plugin-packagejson",
-    "prettier-plugin-tailwindcss"
+    "prettier-plugin-tailwindcss",
+    "tsx"
   ],
   "project": ["src/**/*.ts", "src/**/*.tsx"]
 }
