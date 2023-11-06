@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@apollo/server": "^4.9.5",
-    "@as-integrations/next": "^2.0.2",
+    "@as-integrations/next": "^3.0.0",
     "@aws-sdk/abort-controller": "^3.370.0",
     "@aws-sdk/client-s3": "^3.441.0",
     "@aws-sdk/signature-v4-crt": "^3.438.0",
@@ -65,14 +65,14 @@
     "react-hot-toast": "^2.4.1",
     "sass": "^1.69.5",
     "sharp": "^0.32.6",
-    "tailwind-merge": "^1.14.0",
+    "tailwind-merge": "^2.0.0",
     "tailwindcss": "^3.3.5"
   },
   "devDependencies": {
     "@chieforz/eslint-config-tslint-react": "^1.1.10",
     "@chieforz/prettier-config": "^1.1.10",
-    "@commitlint/cli": "^17.8.1",
-    "@commitlint/config-conventional": "^17.8.1",
+    "@commitlint/cli": "^18.2.0",
+    "@commitlint/config-conventional": "^18.1.0",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.5.1",
