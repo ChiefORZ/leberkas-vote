@@ -23,7 +23,6 @@
     "@aws-sdk/abort-controller",
     "@aws-sdk/client-s3",
     "@aws-sdk/signature-v4-crt",
-    "@chieforz/prettier-config",
     "aws-crt",
     "dotenv",
     "encoding",
@@ -31,9 +30,7 @@
     "is-ci",
     "lint-staged",
     "npm-run-all",
-    "tsx",
-    "prettier-plugin-packagejson",
-    "prettier-plugin-tailwindcss"
+    "tsx"
   ],
   "project": [
     "src/**/*.ts",
