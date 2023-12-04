@@ -25,7 +25,7 @@ export default function GlobalError({
     <html
       className={classNames(
         'h-screen max-h-screen min-h-screen bg-white font-sans text-slate-900 antialiased',
-        fontSans.variable
+        fontSans.variable,
       )}
       lang="en"
     >
@@ -53,7 +53,7 @@ export default function GlobalError({
                     <div className="flex">
                       <Link
                         className={clsx(
-                          'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none'
+                          'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
                         )}
                         href="/"
                       >
@@ -84,9 +84,7 @@ export default function GlobalError({
                 <p className="mt-2 text-3xl font-extrabold leading-8 tracking-tight text-gray-900 sm:text-4xl">
                   Something went wrong!
                 </p>
-                <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                  {error.message}
-                </p>
+                <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">{error.message}</p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
                     <button

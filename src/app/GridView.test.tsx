@@ -42,9 +42,7 @@ describe('GridView', () => {
 
   it('sorts the items by rating and name', () => {
     render(<GridView items={items} />);
-    const itemNames = Array.from(screen.getAllByTestId('grid-item')).map(
-      (el) => el.textContent
-    );
+    const itemNames = Array.from(screen.getAllByTestId('grid-item')).map((el) => el.textContent);
     expect(itemNames).toEqual(['Item 2', 'Item 1']);
   });
 
@@ -53,21 +51,19 @@ describe('GridView', () => {
     const { handleOnRatingChange } = useRatingContext();
     const { handleAllowedToInteract } = useInteractionContext();
     // @ts-ignore because we are mocking
-    handleAllowedToInteract.mockReturnValue(
-      new Promise((resolve) => resolve(true))
-    );
+    handleAllowedToInteract.mockReturnValue(new Promise((resolve) => resolve(true)));
     render(<GridView items={items} />);
 
-    const ratingHandle = await within(
-      screen.getAllByTestId('grid-item').at(0)
-    ).findByTestId('grid-item-rating-1');
+    const ratingHandle = await within(screen.getAllByTestId('grid-item').at(0)).findByTestId(
+      'grid-item-rating-1',
+    );
     await user.click(ratingHandle);
 
     await waitFor(() =>
       expect(handleOnRatingChange).toHaveBeenCalledWith({
         itemId: '2',
         rating: 1,
-      })
+      }),
     );
   });
 });

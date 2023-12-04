@@ -1,7 +1,7 @@
 import './global.css';
 
-import { Lexend as FontLexend } from 'next/font/google';
 import { Metadata } from 'next';
+import { Lexend as FontLexend } from 'next/font/google';
 
 import RootLayoutClient from '@/app/layout.client';
 import { getCurrentUser } from '@/lib/session';
@@ -48,7 +48,7 @@ export default async function RootLayout({
     <html
       className={classNames(
         'h-screen max-h-screen min-h-screen bg-white font-sans text-slate-900 antialiased',
-        fontSans.variable
+        fontSans.variable,
       )}
       lang="en"
     >

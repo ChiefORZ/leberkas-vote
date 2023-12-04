@@ -2,10 +2,10 @@
 
 import { Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
+import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { signOut } from 'next-auth/react';
 import React, { Fragment, useEffect } from 'react';
 
 import * as splitbee from '@/utils/splitbee';
@@ -49,7 +49,7 @@ const RootLayoutClient = ({
               <Link
                 className={clsx(
                   'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
-                  { '!border-brand-400 text-gray-900': pathname === '/' }
+                  { '!border-brand-400 text-gray-900': pathname === '/' },
                 )}
                 href="/"
               >
@@ -60,7 +60,7 @@ const RootLayoutClient = ({
                   'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
                   {
                     '!border-brand-400 text-gray-900': pathname === '/results',
-                  }
+                  },
                 )}
                 href="/results"
               >
@@ -72,7 +72,7 @@ const RootLayoutClient = ({
                     'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
                     {
                       '!border-brand-400 text-gray-900': pathname === '/admin',
-                    }
+                    },
                   )}
                   href="/admin"
                 >

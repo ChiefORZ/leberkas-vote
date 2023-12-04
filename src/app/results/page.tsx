@@ -86,9 +86,7 @@ const Page = async () => {
                     />
                     <div className="absolute bottom-0 left-0 bg-[rgba(255,255,255,0.9)] p-2">
                       <span className="font-bold">{`${index + 1}. `}</span>
-                      {`${item.name} (${Math.round(
-                        (item.avgRating / maxRating) * 100
-                      )}%)`}
+                      {`${item.name} (${Math.round((item.avgRating / maxRating) * 100)}%)`}
                     </div>
                   </div>
                 </li>

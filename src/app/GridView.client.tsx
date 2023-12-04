@@ -8,9 +8,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useRef } from 'react';
 
-import styles from '@/app/styles.module.scss';
 import RatingOverlay from '@/app/RatingOverlay.client';
 import { UploadItemGridItem } from '@/app/UploadItem.client';
+import styles from '@/app/styles.module.scss';
 import Overlay from '@/components/Overlay';
 import { Spinner } from '@/components/Spinner';
 import { useInteractionContext } from '@/providers/InteractionProvider';
@@ -31,16 +31,10 @@ interface GridViewProps {
 function GridView(props: GridViewProps) {
   const { items } = props;
   const { user } = useUserContext();
-  const { displayLoginOverlay, handleAllowedToInteract } =
-    useInteractionContext();
+  const { displayLoginOverlay, handleAllowedToInteract } = useInteractionContext();
 
-  const {
-    handleOnRatingChange,
-    handleSubmitForm,
-    isSubmitting,
-    ratings,
-    ratingsChanged,
-  } = useRatingContext();
+  const { handleOnRatingChange, handleSubmitForm, isSubmitting, ratings, ratingsChanged } =
+    useRatingContext();
 
   const interceptedHandleOnRatingChange = React.useCallback(
     async ({ itemId, rating }: { itemId: string; rating: number }) => {
@@ -48,7 +42,7 @@ function GridView(props: GridViewProps) {
         handleOnRatingChange({ itemId, rating });
       }
     },
-    [handleOnRatingChange, handleAllowedToInteract]
+    [handleOnRatingChange, handleAllowedToInteract],
   );
 
   // always sort rated items to the top
@@ -81,15 +75,12 @@ function GridView(props: GridViewProps) {
   return (
     <React.Fragment>
       <div className="relative h-full overflow-auto">
-        <div
-          className="grid grid-cols-my-grid gap-4 overflow-y-auto p-4"
-          ref={animationParent}
-        >
+        <div className="grid grid-cols-my-grid gap-4 overflow-y-auto p-4" ref={animationParent}>
           {sortedItems.map((item) => (
             <div
               className={clsx(
                 styles.gridItem,
-                'relative flex justify-center overflow-hidden rounded-md shadow-sm transition hover:shadow-md'
+                'relative flex justify-center overflow-hidden rounded-md shadow-sm transition hover:shadow-md',
               )}
               data-testid="grid-item"
               key={item.id}
@@ -99,10 +90,7 @@ function GridView(props: GridViewProps) {
               <Image
                 alt={item.name}
                 blurDataURL={item.imagePlaceholder}
-                className={clsx(
-                  styles.tile,
-                  'block w-full select-none object-cover'
-                )}
+                className={clsx(styles.tile, 'block w-full select-none object-cover')}
                 fill
                 placeholder="blur"
                 src={item.imageUrl}
@@ -127,7 +115,7 @@ function GridView(props: GridViewProps) {
           <button
             className={clsx(
               styles.button,
-              'z-90 fixed bottom-10 right-10 flex h-14 w-14 items-center justify-center rounded-full bg-brand-400 p-3 text-xl text-white drop-shadow-lg duration-300 hover:bg-brand-300 hover:drop-shadow-2xl'
+              'z-90 fixed bottom-10 right-10 flex h-14 w-14 items-center justify-center rounded-full bg-brand-400 p-3 text-xl text-white drop-shadow-lg duration-300 hover:bg-brand-300 hover:drop-shadow-2xl',
             )}
             onClick={handleSubmitForm}
           >

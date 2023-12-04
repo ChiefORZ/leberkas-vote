@@ -13,9 +13,7 @@ interface RatingOverlayProps {
 function RatingOverlay(props: RatingOverlayProps) {
   const { rating, onRatingChange } = props;
 
-  const [isHovering, setIsHovering] = React.useState<number | undefined>(
-    undefined
-  );
+  const [isHovering, setIsHovering] = React.useState<number | undefined>(undefined);
 
   // Create a list of star SVG icons for the ratings 0-5
   const ratingItems = [];
@@ -33,25 +31,21 @@ function RatingOverlay(props: RatingOverlayProps) {
         <HeartIcon
           className={classNames(
             'h-6 w-6',
-            isHovering && i <= isHovering ? 'text-red-300' : 'text-gray-300'
+            isHovering && i <= isHovering ? 'text-red-300' : 'text-gray-300',
           )}
         />
         <HeartIconSolid
           className={classNames(
             styles.ratedHeart,
-            'h6 absolute left-0 top-0 w-6 text-red-500 opacity-0'
+            'h6 absolute left-0 top-0 w-6 text-red-500 opacity-0',
           )}
           data-active={i <= rating}
         />
-      </div>
+      </div>,
     );
   }
 
-  return (
-    <div className="bg-grey-200 inline-flex justify-center text-center">
-      {ratingItems}
-    </div>
-  );
+  return <div className="bg-grey-200 inline-flex justify-center text-center">{ratingItems}</div>;
 }
 
 export default RatingOverlay;
