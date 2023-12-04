@@ -127,11 +127,11 @@ devDependencies:
     specifier: ^1.4.1
     version: 1.4.1
   '@chieforz/biome-config':
-    specifier: ^1.2.2
-    version: 1.2.2(@biomejs/biome@1.4.1)
+    specifier: ^1.2.3
+    version: 1.2.3(@biomejs/biome@1.4.1)
   '@chieforz/eslint-config-tslint-react':
-    specifier: ^1.2.2
-    version: 1.2.2(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.23.4)(eslint@8.55.0)(typescript@5.3.2)
+    specifier: ^1.2.3
+    version: 1.2.3(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.23.4)(eslint@8.55.0)(typescript@5.3.2)
   '@commitlint/cli':
     specifier: ^18.4.3
     version: 18.4.3(typescript@5.3.2)
@@ -3108,16 +3108,16 @@ packages:
     dev: true
     optional: true
 
-  /@chieforz/biome-config@1.2.2(@biomejs/biome@1.4.1):
-    resolution: {integrity: sha512-w2qfjAqsxgZf4nI41gNN4jN/+h4eRrnvvFfaDaPeA478oCv/DV4Ua0qSEiHDd9t2PYrn+yCQvaL66kgd9r4jQQ==}
+  /@chieforz/biome-config@1.2.3(@biomejs/biome@1.4.1):
+    resolution: {integrity: sha512-VIhF62N78V2P9FbOE+JNAGfE7jxpxxbO3NHXDAPnbOmyMylH1PCCV+gdDh+yIjSMqiCAYAtIZJo0mM7HCDE/0A==}
     peerDependencies:
       '@biomejs/biome': ^1.4.1
     dependencies:
       '@biomejs/biome': 1.4.1
     dev: true
 
-  /@chieforz/eslint-config-tslint-react@1.2.2(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.23.4)(eslint@8.55.0)(typescript@5.3.2):
-    resolution: {integrity: sha512-q6F40r3U1IETCAtDK7ovWprah5oqKTUDNawRu4e5S7lk1owgPXVmjmZcUPXmd+l7rZajSiMnS6zHxbK+pduTyw==}
+  /@chieforz/eslint-config-tslint-react@1.2.3(@babel/plugin-syntax-flow@7.23.3)(@babel/plugin-transform-react-jsx@7.23.4)(eslint@8.55.0)(typescript@5.3.2):
+    resolution: {integrity: sha512-MmwdVpdlqcsHrzet3DYcinNZ6SHMxb+O29EA/t2+ff8C4ecDZsWKgy5IlTxoTYwdF6Tz7+lL8bRZsZPx+KMXnw==}
     dependencies:
       '@typescript-eslint/eslint-plugin': 6.2.0(@typescript-eslint/parser@6.2.0)(eslint@8.55.0)(typescript@5.3.2)
       '@typescript-eslint/parser': 6.2.0(eslint@8.55.0)(typescript@5.3.2)
@@ -3130,7 +3130,6 @@ packages:
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.55.0)
       eslint-plugin-react: 7.33.2(eslint@8.55.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.55.0)
-      eslint-plugin-simple-import-sort: 10.0.0(eslint@8.55.0)
       eslint-plugin-sort-keys-fix: 1.1.2
       eslint-plugin-validate-jsx-nesting: 0.1.1(eslint@8.55.0)
     transitivePeerDependencies:
@@ -8055,14 +8054,6 @@ packages:
       resolve: 2.0.0-next.5
       semver: 6.3.1
       string.prototype.matchall: 4.0.10
-    dev: true
-
-  /eslint-plugin-simple-import-sort@10.0.0(eslint@8.55.0):
-    resolution: {integrity: sha512-AeTvO9UCMSNzIHRkg8S6c3RPy5YEwKWSQPx3DYghLedo2ZQxowPFLGDN1AZ2evfg6r6mjBSZSLxLFsWSu3acsw==}
-    peerDependencies:
-      eslint: '>=5.0.0'
-    dependencies:
-      eslint: 8.55.0
     dev: true
 
   /eslint-plugin-sort-keys-fix@1.1.2:

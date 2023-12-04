@@ -72,8 +72,8 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "^1.4.1",
-		"@chieforz/biome-config": "^1.2.2",
-		"@chieforz/eslint-config-tslint-react": "^1.2.2",
+		"@chieforz/biome-config": "^1.2.3",
+		"@chieforz/eslint-config-tslint-react": "^1.2.3",
 		"@commitlint/cli": "^18.4.3",
 		"@commitlint/config-conventional": "^18.4.3",
 		"@testing-library/jest-dom": "^6.1.5",
@@ -117,19 +117,34 @@
 	"wireit": {
 		"build": {
 			"command": "next build",
-			"dependencies": ["generate", "migrate:deploy"],
-			"files": ["prisma/schema.prisma", "src/**/*", "tsconfig.json"],
-			"output": [".next/**"]
+			"dependencies": [
+				"generate",
+				"migrate:deploy"
+			],
+			"files": [
+				"prisma/schema.prisma",
+				"src/**/*",
+				"tsconfig.json"
+			],
+			"output": [
+				".next/**"
+			]
 		},
 		"dev": {
 			"command": "next",
-			"dependencies": ["generate"],
-			"files": ["src/**/*"],
+			"dependencies": [
+				"generate"
+			],
+			"files": [
+				"src/**/*"
+			],
 			"output": []
 		},
 		"format:check": {
 			"command": "biome check ./src",
-			"files": ["src/**/*.{js,jsx,ts,tsx}"],
+			"files": [
+				"src/**/*.{js,jsx,ts,tsx}"
+			],
 			"output": []
 		},
 		"format:write": {
@@ -137,49 +152,80 @@
 		},
 		"generate": {
 			"command": "run-s generate:prisma generate:nexus",
-			"files": ["prisma/schema.prisma", "src/**/*"],
+			"files": [
+				"prisma/schema.prisma",
+				"src/**/*"
+			],
 			"output": []
 		},
 		"generate:nexus": {
 			"command": "tsx --tsconfig nexus.tsconfig.json ./src/pages/api",
-			"files": ["src/pages/api/**/*", "nexus.tsconfig.json"],
+			"files": [
+				"src/pages/api/**/*",
+				"nexus.tsconfig.json"
+			],
 			"output": [],
 			"[the script command was]": "tsx --tsconfig nexus.tsconfig.json ./src/pages/api"
 		},
 		"generate:prisma": {
 			"command": "prisma generate",
-			"files": ["prisma/schema.prisma"],
-			"output": ["node_modules/.prisma/client/**"]
+			"files": [
+				"prisma/schema.prisma"
+			],
+			"output": [
+				"node_modules/.prisma/client/**"
+			]
 		},
 		"lint": {
 			"command": "eslint './src/**/*.{js,jsx,ts,tsx}' --fix",
-			"files": ["src/**/*"],
+			"files": [
+				"src/**/*"
+			],
 			"output": []
 		},
 		"migrate:dev": {
 			"command": "is-ci || prisma migrate dev",
-			"files": ["prisma/migrations/**/*", "prisma/schema.prisma"],
-			"output": ["node_modules/.prisma/client/**"]
+			"files": [
+				"prisma/migrations/**/*",
+				"prisma/schema.prisma"
+			],
+			"output": [
+				"node_modules/.prisma/client/**"
+			]
 		},
 		"migrate:deploy": {
 			"command": "is-ci || prisma migrate deploy",
-			"files": ["prisma/migrations/**/*", "prisma/schema.prisma"],
-			"output": ["node_modules/.prisma/client/**"]
+			"files": [
+				"prisma/migrations/**/*",
+				"prisma/schema.prisma"
+			],
+			"output": [
+				"node_modules/.prisma/client/**"
+			]
 		},
 		"migrate:status": {
 			"command": "is-ci || prisma migrate status",
-			"files": ["prisma/migrations/**/*", "prisma/schema.prisma"],
+			"files": [
+				"prisma/migrations/**/*",
+				"prisma/schema.prisma"
+			],
 			"output": []
 		},
 		"start": {
 			"command": "next start",
-			"dependencies": ["generate:prisma"],
-			"files": [".next/**"],
+			"dependencies": [
+				"generate:prisma"
+			],
+			"files": [
+				".next/**"
+			],
 			"output": []
 		},
 		"test": {
 			"command": "npm-run-all test:*",
-			"files": ["src/**/*"],
+			"files": [
+				"src/**/*"
+			],
 			"output": []
 		},
 		"test:knip": {
@@ -187,7 +233,9 @@
 		},
 		"test:unit": {
 			"command": "vitest --run --passWithNoTests",
-			"files": ["src/**/*"],
+			"files": [
+				"src/**/*"
+			],
 			"output": []
 		},
 		"postinstall": {
