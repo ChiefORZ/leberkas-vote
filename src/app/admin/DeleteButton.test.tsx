@@ -4,10 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { request } from 'graphql-request';
 import { describe, expect, it, vi } from 'vitest';
 
-import {
-  DeleteButton,
-  DeleteItemMutation,
-} from '@/app/admin/DeleteButton.client';
+import { DeleteButton, DeleteItemMutation } from '@/app/admin/DeleteButton.client';
 
 vi.mock('graphql-request', async (importOriginal) => {
   const orig = await importOriginal();
@@ -32,7 +29,7 @@ describe('DeleteButton', () => {
     expect(screen.getByRole('button')).not.toHaveAttribute('disabled', '');
     expect(screen.getByRole('button')).toContainElement(
       // get the svg element inside the button
-      screen.getByTestId('trash-icon')
+      screen.getByTestId('trash-icon'),
     );
   });
 

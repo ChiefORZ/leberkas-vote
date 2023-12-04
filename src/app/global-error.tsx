@@ -25,7 +25,7 @@ export default function GlobalError({
     <html
       className={classNames(
         'h-screen max-h-screen min-h-screen bg-white font-sans text-slate-900 antialiased',
-        fontSans.variable
+        fontSans.variable,
       )}
       lang="en"
     >
@@ -53,7 +53,7 @@ export default function GlobalError({
                     <div className="flex">
                       <Link
                         className={clsx(
-                          'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none'
+                          'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
                         )}
                         href="/"
                       >
@@ -86,9 +86,7 @@ export default function GlobalError({
                       Hoppla!
                     </p>
 
-                    <p className="mt-4 text-gray-500">
-                      Irgendwas lauft ned rund.
-                    </p>
+                    <p className="mt-4 text-gray-500">Irgendwas lauft ned rund.</p>
 
                     <button
                       className="inline-flex items-center rounded-md border border-white bg-brand-400 px-4 py-2 text-sm font-medium text-white hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"

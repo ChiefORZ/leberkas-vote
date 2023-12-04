@@ -25,7 +25,6 @@
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx}": "eslint --fix"
   },
-  "prettier": "@chieforz/prettier-config",
   "eslintConfig": {
     "extends": "@chieforz/eslint-config-tslint-react"
   },
@@ -70,8 +69,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.4.1",
-    "@chieforz/biome-config": "^1.2.0",
-    "@chieforz/eslint-config-tslint-react": "^1.1.10",
+    "@chieforz/biome-config": "^1.2.2",
+    "@chieforz/eslint-config-tslint-react": "^1.2.2",
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@testing-library/jest-dom": "^6.1.5",

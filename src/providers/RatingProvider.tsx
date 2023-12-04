@@ -3,14 +3,7 @@
 
 import { Rating } from '@prisma/client';
 import { gql, request } from 'graphql-request';
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 import { numVotes } from '@/constants/index';
@@ -55,9 +48,7 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
   const { user } = useUserContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const defaultValue = useRef(
-    JSON.stringify(
-      (user?.ratings || []).sort((a, b) => a.itemId.localeCompare(b.itemId))
-    )
+    JSON.stringify((user?.ratings || []).sort((a, b) => a.itemId.localeCompare(b.itemId))),
   );
   const [ratings, setRatings] = useState<Rating[]>(user?.ratings || []);
 
@@ -89,15 +80,14 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
         // delete rating
         newRatings.splice(
           newRatings.findIndex((r) => r.itemId === itemId),
-          1
+          1,
         );
       } else if (
         newRatings.find((r) => r.itemId === itemId) &&
         newRatings.find((r) => r.itemId === itemId)?.value !== rating
       ) {
         // update rating immutable
-        newRatings[newRatings.findIndex((r) => r.itemId === itemId)].value =
-          rating;
+        newRatings[newRatings.findIndex((r) => r.itemId === itemId)].value = rating;
       } else {
         newRatings.push({ itemId, userId: user.id, value: rating });
       }

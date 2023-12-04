@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 /* eslint-disable no-underscore-dangle */
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getPlaiceholder, GetPlaiceholderReturn } from 'plaiceholder';
+import { GetPlaiceholderReturn, getPlaiceholder } from 'plaiceholder';
 
-const plaiceholderApiRoute = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
+const plaiceholderApiRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
     query: { imageUrl, strategy = 'base64', size = 10 },
     method,
@@ -14,13 +11,9 @@ const plaiceholderApiRoute = async (
 
   const _imageUrl = Array.isArray(imageUrl) ? imageUrl[0] : imageUrl;
   const _strategy = Array.isArray(strategy) ? strategy[0] : strategy;
-  const _size = Array.isArray(size)
-    ? parseInt(size[0], 10)
-    : parseInt(size as string, 10);
+  const _size = Array.isArray(size) ? parseInt(size[0], 10) : parseInt(size as string, 10);
 
-  const buffer = await fetch(_imageUrl).then(async (r) =>
-    Buffer.from(await r.arrayBuffer())
-  );
+  const buffer = await fetch(_imageUrl).then(async (r) => Buffer.from(await r.arrayBuffer()));
 
   if (method === 'GET' && imageUrl && strategy && size) {
     const result: GetPlaiceholderReturn = await getPlaiceholder(buffer, {

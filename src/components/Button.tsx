@@ -1,4 +1,4 @@
-import { cva, VariantProps } from 'class-variance-authority';
+import { VariantProps, cva } from 'class-variance-authority';
 import * as React from 'react';
 
 import { Spinner } from '@/components/Spinner';
@@ -18,10 +18,8 @@ const buttonVariants = cva(
         sm: 'h-9 px-2 rounded-md',
       },
       variant: {
-        default:
-          'bg-brand-900 text-white hover:bg-brand-700 dark:bg-brand-50 dark:text-brand-900',
-        destructive:
-          'bg-red-500 text-white hover:bg-red-600 dark:hover:bg-red-600',
+        default: 'bg-brand-900 text-white hover:bg-brand-700 dark:bg-brand-50 dark:text-brand-900',
+        destructive: 'bg-red-500 text-white hover:bg-red-600 dark:hover:bg-red-600',
         ghost:
           'bg-transparent hover:bg-brand-100 dark:hover:bg-brand-800 dark:text-brand-100 dark:hover:text-brand-100 data-[state=open]:bg-transparent dark:data-[state=open]:bg-transparent',
         link: 'bg-transparent underline-offset-4 hover:underline text-brand-900 dark:text-brand-100 hover:bg-transparent dark:hover:bg-transparent',
@@ -31,12 +29,12 @@ const buttonVariants = cva(
           'bg-brand-100 text-brand-900 hover:bg-brand-200 dark:bg-brand-700 dark:text-brand-100',
       },
     },
-  }
+  },
 );
 
 interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+  VariantProps<typeof buttonVariants> {
   loading?: boolean;
 }
 
@@ -48,7 +46,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         if (loading) return;
         props.onClick?.(evt);
       },
-      [loading, props]
+      [loading, props],
     );
     return (
       <button
@@ -61,6 +59,6 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {loading ? <Spinner /> : children}
       </button>
     );
-  }
+  },
 );
 Button.displayName = 'Button';

@@ -1,3 +1,4 @@
+import path from 'path';
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
@@ -18,7 +19,6 @@ import {
   objectType,
   stringArg,
 } from 'nexus';
-import path from 'path';
 
 import { authOptions } from '@/lib/auth';
 import prisma from '@/lib/prisma';
@@ -81,8 +81,7 @@ const Item = objectType({
           })
           .ratings();
 
-        const avg =
-          ratings.reduce((acc, curr) => acc + curr.value, 0) / ratings.length;
+        const avg = ratings.reduce((acc, curr) => acc + curr.value, 0) / ratings.length;
 
         return Math.round(avg);
       },
@@ -315,7 +314,7 @@ const Mutation = objectType({
                 },
               },
             });
-          })
+          }),
         );
       },
       type: list('Rating'),

@@ -8,9 +8,7 @@ import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 
-const magic =
-  typeof window !== 'undefined' &&
-  new Magic(process.env.NEXT_PUBLIC_MAGIC_PK || 'a');
+const magic = typeof window !== 'undefined' && new Magic(process.env.NEXT_PUBLIC_MAGIC_PK || 'a');
 
 export default function LoginPage() {
   const { register, handleSubmit } = useForm();
@@ -21,7 +19,7 @@ export default function LoginPage() {
 
   const handleLoginWithMagic = async ({ email }) => {
     try {
-      if (!magic) throw new Error(`magic not defined`);
+      if (!magic) throw new Error('magic not defined');
       // login with Magic
       const didToken = await magic.auth.loginWithMagicLink({ email });
 
@@ -62,10 +60,7 @@ export default function LoginPage() {
     <>
       <form className="space-y-6" onSubmit={handleSubmit(handleLoginWithMagic)}>
         <div>
-          <label
-            className="block text-sm font-medium text-gray-700"
-            htmlFor="email"
-          >
+          <label className="block text-sm font-medium text-gray-700" htmlFor="email">
             E-Mail
           </label>
           <div className="mt-1">
