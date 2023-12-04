@@ -32,11 +32,13 @@ const buttonVariants = cva(
   },
 );
 
+/* eslint-disable @typescript-eslint/indent */
 interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
   loading?: boolean;
 }
+/* eslint-enable @typescript-eslint/indent */
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, variant, loading, size, ...props }, ref) => {
