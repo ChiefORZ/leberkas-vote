@@ -136,20 +136,13 @@
       "command": "biome check --apply ./src"
     },
     "generate": {
-      "command": "run-s generate:prisma generate:nexus",
-      "files": ["prisma/schema.prisma", "src/**/*"],
-      "output": []
+      "command": "run-s generate:prisma generate:nexus"
     },
     "generate:nexus": {
-      "command": "tsx --tsconfig nexus.tsconfig.json ./src/pages/api",
-      "files": ["src/pages/api/**/*", "nexus.tsconfig.json"],
-      "output": [],
-      "[the script command was]": "tsx --tsconfig nexus.tsconfig.json ./src/pages/api"
+      "command": "tsx --tsconfig nexus.tsconfig.json ./src/pages/api"
     },
     "generate:prisma": {
-      "command": "prisma generate",
-      "files": ["prisma/schema.prisma"],
-      "output": ["node_modules/.prisma/client/**"]
+      "command": "prisma generate"
     },
     "lint": {
       "command": "eslint './src/**/*.{js,jsx,ts,tsx}' --fix",
