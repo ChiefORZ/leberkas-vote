@@ -72,8 +72,8 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^1.4.1",
-    "@chieforz/biome-config": "^1.2.3",
-    "@chieforz/eslint-config-tslint-react": "^1.2.3",
+    "@chieforz/biome-config": "^1.2.4",
+    "@chieforz/eslint-config-tslint-react": "^1.2.4",
     "@commitlint/cli": "^18.4.3",
     "@commitlint/config-conventional": "^18.4.3",
     "@testing-library/jest-dom": "^6.1.5",
