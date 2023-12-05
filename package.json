@@ -101,8 +101,9 @@
     "webpack": "^5.89.0",
     "wireit": "^0.14.1"
   },
+  "packageManager": "pnpm@8.10.5",
   "engines": {
-    "node": ">=18.17"
+    "node": "^20"
   },
   "pnpm": {
     "overrides": {
