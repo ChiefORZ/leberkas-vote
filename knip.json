@@ -1,37 +1,38 @@
 {
-	"entry": [
-		"**/__mocks__/**/*",
-		"next.config.js",
-		"src/middleware.ts",
-		"src/app/error.tsx",
-		"src/app/global-error.tsx",
-		"src/app/head.tsx",
-		"src/app/**/layout*.tsx",
-		"src/app/**/not-found*.tsx",
-		"src/app/**/page.tsx",
-		"src/hooks/useWhyDidYouUpdate.ts",
-		"src/pages/api/*",
-		"src/types/*"
-	],
-	"ignore": [
-		"src/components/Typography.tsx",
-		"src/lib/session.ts",
-		"src/providers/*",
-		"src/types/next-auth.d.ts"
-	],
-	"ignoreDependencies": [
-		"@aws-sdk/abort-controller",
-		"@aws-sdk/client-s3",
-		"@aws-sdk/signature-v4-crt",
-		"@chieforz/biome-config",
-		"aws-crt",
-		"dotenv",
-		"encoding",
-		"husky",
-		"is-ci",
-		"lint-staged",
-		"npm-run-all",
-		"tsx"
-	],
-	"project": ["src/**/*.ts", "src/**/*.tsx"]
+  "entry": [
+    "**/__mocks__/**/*",
+    "next.config.js",
+    "src/middleware.ts",
+    "src/app/error.tsx",
+    "src/app/global-error.tsx",
+    "src/app/head.tsx",
+    "src/app/**/layout*.tsx",
+    "src/app/**/not-found*.tsx",
+    "src/app/**/page.tsx",
+    "src/hooks/useWhyDidYouUpdate.ts",
+    "src/pages/api/*",
+    "src/types/*"
+  ],
+  "ignore": [
+    "src/components/Typography.tsx",
+    "src/lib/session.ts",
+    "src/providers/*",
+    "src/types/next-auth.d.ts"
+  ],
+  "ignoreDependencies": [
+    "@aws-sdk/abort-controller",
+    "@aws-sdk/client-s3",
+    "@aws-sdk/signature-v4-crt",
+    "@biomejs/biome",
+    "@chieforz/biome-config",
+    "aws-crt",
+    "dotenv",
+    "encoding",
+    "husky",
+    "is-ci",
+    "lint-staged",
+    "npm-run-all",
+    "tsx"
+  ],
+  "project": ["src/**/*.ts", "src/**/*.tsx"]
 }
