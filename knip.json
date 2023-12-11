@@ -21,6 +21,7 @@
     "src/types/next-auth.d.ts"
   ],
   "ignoreDependencies": [
+    "@biomejs/biome",
     "@aws-sdk/abort-controller",
     "@aws-sdk/client-s3",
     "@aws-sdk/signature-v4-crt",
