@@ -32,7 +32,7 @@
     "husky",
     "is-ci",
     "lint-staged",
-    "npm-run-all",
+    "npm-run-all2",
     "tsx"
   ],
   "project": ["src/**/*.ts", "src/**/*.tsx"]
