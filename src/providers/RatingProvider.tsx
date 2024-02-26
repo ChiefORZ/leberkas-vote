@@ -8,7 +8,6 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import { numVotes } from '@/constants/index';
 import { useUserContext } from '@/providers/UserProvider';
-import { trackEvent } from '@/utils/splitbee';
 
 interface IRatingContextProviderProps {
   children: React.ReactNode;

@@ -6,6 +6,7 @@ import { Lexend as FontLexend } from 'next/font/google';
 import RootLayoutClient from '@/app/layout.client';
 import { getCurrentUser } from '@/lib/session';
 import { classNames } from '@/utils/index';
+import Script from 'next/script';
 
 const fontSans = FontLexend({
   subsets: ['latin'],
@@ -62,6 +63,13 @@ export default async function RootLayout({
           <main className="z-10 mt-2">{children}</main>
         </div>
       </body>
+      {process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL && process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID ? (
+        <Script
+          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+          src={process.env.NEXT_PUBLIC_UMAMI_SCRIPT_URL}
+          strategy="lazyOnload"
+        />
+      ) : null}
     </html>
   );
 }

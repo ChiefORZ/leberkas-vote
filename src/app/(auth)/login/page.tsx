@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client';
 
-import { trackEvent } from '@/utils/splitbee';
 import { Magic } from 'magic-sdk';
 import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
@@ -23,9 +22,6 @@ export default function LoginPage() {
       // login with Magic
       const didToken = await magic.auth.loginWithMagicLink({ email });
 
-      trackEvent('SignIn', {
-        using: 'Magic',
-      });
       // sign in with NextAuth
       await signIn('credentials', {
         didToken,
@@ -42,9 +38,6 @@ export default function LoginPage() {
 
   const handleLoginWithGoogle = async () => {
     try {
-      trackEvent('SignIn', {
-        using: 'Google',
-      });
       await signIn('google');
     } catch (e) {
       if (typeof e === 'string') {

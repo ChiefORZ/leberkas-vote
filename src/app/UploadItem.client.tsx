@@ -13,7 +13,6 @@ import toast, { Toaster } from 'react-hot-toast';
 
 import { Spinner } from '@/components/Spinner';
 import { classNames } from '@/utils/index';
-import { trackEvent } from '@/utils/splitbee';
 
 type TUser = NexusGenFieldTypes['User'];
 
@@ -200,9 +199,6 @@ function UploadItemDialog({
           imageUrl: imageUrl.value,
           title: title.value,
         });
-        trackEvent('Submit Entry', {
-          userId: user.id,
-        });
         displaySuccessMessage('Danke für den Input!');
       } catch (err) {
         displayError('Oje, beim speichern is was schief glaufen!');
@@ -376,11 +372,6 @@ export function UploadItemGridItem({
   const handleToggleDialog = useCallback(
     async (nextIsOpen) => {
       if (onClick && (await onClick()) === false) return;
-      if (nextIsOpen) {
-        trackEvent('Toggle Submit Entry Modal', {
-          userId: user.id,
-        });
-      }
       setDialogIsOpen(nextIsOpen);
     },
     [onClick, user],
