@@ -1,0 +1,10 @@
+version = 1
+
+test_patterns = ["src/**/*.{ts,tsx}"]
+
+[[analyzers]]
+name = "javascript"
+
+  [analyzers.meta]
+  plugins = ["react"]
+  environment = ["vitest"]
