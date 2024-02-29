@@ -10,7 +10,7 @@ vi.mock('graphql-request', async (importOriginal) => {
   const orig = await importOriginal();
 
   return {
-    // @ts-ignore
+    // @ts-expect-error
     ...orig,
     request: vi.fn(),
   };

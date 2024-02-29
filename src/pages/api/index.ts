@@ -143,7 +143,7 @@ const Query = objectType({
     });
 
     t.field('getItems', {
-      // @ts-ignore
+      // @ts-expect-error
       resolve: (_, args) => {
         return prisma.item.findMany({
           include: { ratings: true },

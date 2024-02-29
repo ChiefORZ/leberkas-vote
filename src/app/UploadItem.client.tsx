@@ -264,12 +264,12 @@ function UploadItemDialog({
                       </Dialog.Title>
                       <div className="mt-4 grid grid-cols-my-grid gap-4 overflow-y-auto p-4">
                         <div
-                          // @ts-ignore
+                          // @ts-expect-error
                           className={classNames(
                             'relative flex justify-center overflow-hidden rounded-md border-2 border-dashed border-gray-300',
                             imageUrl.error ? 'ring-2 ring-red-500 ring-offset-2' : undefined,
                           )}
-                          // @ts-ignore - aspect-ratio is a custom variable
+                          // @ts-expect-error - aspect-ratio is a custom variable
                           style={{ '--aspect-ratio': 4 / 3 }}
                         >
                           {imageUrl.value ? (
@@ -382,7 +382,7 @@ export function UploadItemGridItem({
         className="relative flex cursor-pointer justify-center overflow-hidden rounded-md border-2 border-dashed border-gray-300 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2"
         key="upload-item"
         onClick={() => handleToggleDialog(true)}
-        // @ts-ignore - aspect-ratio is a custom variable
+        // @ts-expect-error - aspect-ratio is a custom variable
         style={{ '--aspect-ratio': 4 / 3 }}
       >
         <div className="flex w-full select-none flex-col items-center justify-center">
