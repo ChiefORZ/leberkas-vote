@@ -222,7 +222,7 @@ export async function main() {
     item.imagePlaceholder = await getBase64(item.imageUrl);
   }
   try {
-    console.info(`Start seeding ...`);
+    console.info("Start seeding ...");
     for (const u of itemData) {
       const item = await prisma.item.upsert({
         where: { id: u.id },
@@ -240,7 +240,7 @@ export async function main() {
       });
       console.info(`Created item with id: ${item.id}`);
     }
-    console.info(`Seeding finished.`);
+    console.info("Seeding finished.");
   } catch (err) {
     console.error(err);
     process.exit(1);
