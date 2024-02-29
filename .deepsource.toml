@@ -2,6 +2,8 @@ version = 1
 
 test_patterns = ["src/**/*.{ts,tsx}"]
 
+exclude_patterns = ["generated/**/*"]
+
 [[analyzers]]
 name = "javascript"
 
