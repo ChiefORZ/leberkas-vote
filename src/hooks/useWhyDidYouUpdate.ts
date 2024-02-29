@@ -16,7 +16,7 @@ export function useWhyDidYouUpdate(name: string, props: GenericProps): void {
   const previousProps = React.useRef<GenericProps>(props);
 
   React.useEffect(() => {
-    if (previousProps && previousProps.current) {
+    if (previousProps?.current) {
       // Get all keys from previous and current props
       const allKeys = Object.keys({ ...previousProps.current, ...props });
       // Use this object to keep track of changed props
