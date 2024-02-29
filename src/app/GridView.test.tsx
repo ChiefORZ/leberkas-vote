@@ -50,7 +50,7 @@ describe('GridView', () => {
     const user = userEvent.setup();
     const { handleOnRatingChange } = useRatingContext();
     const { handleAllowedToInteract } = useInteractionContext();
-    // @ts-ignore because we are mocking
+    // @ts-expect-error because we are mocking
     handleAllowedToInteract.mockReturnValue(new Promise((resolve) => resolve(true)));
     render(<GridView items={items} />);
 

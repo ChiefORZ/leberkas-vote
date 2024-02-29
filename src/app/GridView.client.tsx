@@ -84,7 +84,7 @@ function GridView(props: GridViewProps) {
               )}
               data-testid="grid-item"
               key={item.id}
-              // @ts-ignore - aspect-ratio is a custom variable
+              // @ts-expect-error - aspect-ratio is a custom variable
               style={{ '--aspect-ratio': 4 / 3 }}
             >
               <Image
