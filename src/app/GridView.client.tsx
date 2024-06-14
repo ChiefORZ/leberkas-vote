@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client';
 
 import autoAnimate from '@formkit/auto-animate';
@@ -69,7 +68,9 @@ function GridView(props: GridViewProps) {
   const animationParent = useRef(null);
 
   useEffect(() => {
-    animationParent.current && autoAnimate(animationParent.current);
+    if (animationParent.current) {
+      autoAnimate(animationParent.current);
+    }
   }, [animationParent]);
 
   return (

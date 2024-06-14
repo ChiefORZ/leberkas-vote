@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import Image from 'next/image';
 
 import { DeleteButton } from '@/app/admin/DeleteButton.client';

@@ -1,10 +1,8 @@
-/* eslint-disable jsx-a11y/no-redundant-roles */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client';
 
 import { Dialog, Transition } from '@headlessui/react';
 import { ExclamationCircleIcon, PhotoIcon, XMarkIcon } from '@heroicons/react/24/outline';
-import { NexusGenFieldTypes } from 'generated/nexus-typegen';
+import type { NexusGenFieldTypes } from 'generated/nexus-typegen';
 import { gql, request } from 'graphql-request';
 import { useS3Upload } from 'next-s3-upload';
 import Image from 'next/image';
@@ -33,7 +31,7 @@ function Input({
   [key: string]: any;
 }) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    props.onChange && props.onChange(e);
+    if (props.onChange) props.onChange(e);
   };
 
   return (
@@ -206,7 +204,7 @@ function UploadItemDialog({
       }
       handleClose();
     },
-    [isUploading, imageUrl, title, handleClose, user],
+    [isUploading, imageUrl, title, handleClose],
   );
 
   return (
@@ -264,7 +262,6 @@ function UploadItemDialog({
                       </Dialog.Title>
                       <div className="mt-4 grid grid-cols-my-grid gap-4 overflow-y-auto p-4">
                         <div
-                          // @ts-expect-error
                           className={classNames(
                             'relative flex justify-center overflow-hidden rounded-md border-2 border-dashed border-gray-300',
                             imageUrl.error ? 'ring-2 ring-red-500 ring-offset-2' : undefined,
@@ -374,7 +371,7 @@ export function UploadItemGridItem({
       if (onClick && (await onClick()) === false) return;
       setDialogIsOpen(nextIsOpen);
     },
-    [onClick, user],
+    [onClick],
   );
   return (
     <>

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-/* eslint-disable no-underscore-dangle */
+
 import { NextApiRequest, NextApiResponse } from 'next';
 import { GetPlaiceholderReturn, getPlaiceholder } from 'plaiceholder';
 
