@@ -32,10 +32,10 @@
     "@apollo/server": "^4.10.4",
     "@as-integrations/next": "^3.0.0",
     "@aws-sdk/abort-controller": "^3.374.0",
-    "@aws-sdk/client-s3": "^3.606.0",
-    "@aws-sdk/signature-v4-crt": "^3.598.0",
+    "@aws-sdk/client-s3": "^3.609.0",
+    "@aws-sdk/signature-v4-crt": "^3.609.0",
     "@formkit/auto-animate": "^1.0.0-pre-alpha.3",
-    "@headlessui/react": "^2.1.1",
+    "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.4",
     "@magic-sdk/admin": "^2.4.1",
     "@next-auth/prisma-adapter": "^1.0.7",
@@ -43,7 +43,7 @@
     "@tailwindcss/forms": "^0.5.7",
     "autoprefixer": "^10.4.19",
     "aws-crt": "^1.21.3",
-    "aws-sdk": "^2.1651.0",
+    "aws-sdk": "^2.1655.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "graphql": "^16.9.0",
@@ -59,11 +59,11 @@
     "postcss": "^8.4.39",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-hook-form": "^7.52.0",
+    "react-hook-form": "^7.52.1",
     "react-hot-toast": "^2.4.1",
     "sass": "^1.77.6",
     "sharp": "^0.33.4",
-    "tailwind-merge": "^2.3.0",
+    "tailwind-merge": "^2.4.0",
     "tailwindcss": "^3.4.4"
   },
   "devDependencies": {
@@ -76,7 +76,7 @@
     "@testing-library/react": "^16.0.0",
     "@testing-library/user-event": "^14.5.2",
     "@types/micro-cors": "^0.1.5",
-    "@types/node": "^20.14.9",
+    "@types/node": "^20.14.10",
     "@types/react": "^18.3.3",
     "@types/testing-library__jest-dom": "^6.0.0",
     "@vitejs/plugin-react": "^4.3.1",
@@ -86,13 +86,13 @@
     "husky": "^9.0.11",
     "is-ci": "^3.0.1",
     "jsdom": "^24.1.0",
-    "knip": "^5.23.2",
+    "knip": "^5.24.1",
     "lint-staged": "^15.2.7",
-    "npm-run-all2": "^6.2.0",
+    "npm-run-all2": "^6.2.2",
     "prisma": "^5.16.1",
     "resize-observer-polyfill": "^1.5.1",
-    "tsx": "^4.16.0",
-    "typescript": "^5.5.2",
+    "tsx": "^4.16.2",
+    "typescript": "^5.5.3",
     "vitest": "^1.6.0",
     "webpack": "^5.92.1",
     "wireit": "^0.14.4"
@@ -103,9 +103,9 @@
   },
   "pnpm": {
     "overrides": {
-      "@typescript-eslint/eslint-plugin": "7.14.1",
-      "@typescript-eslint/parser": "7.14.1",
-      "@typescript-eslint/utils": "7.14.1"
+      "@typescript-eslint/eslint-plugin": "7.15.0",
+      "@typescript-eslint/parser": "7.15.0",
+      "@typescript-eslint/utils": "7.15.0"
     }
   },
   "prisma": {
