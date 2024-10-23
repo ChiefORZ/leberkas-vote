@@ -88,7 +88,7 @@
     "jsdom": "^25.0.0",
     "knip": "^5.30.0",
     "lint-staged": "^15.2.10",
-    "npm-run-all2": "^6.2.2",
+    "npm-run-all2": "^7.0.1",
     "prisma": "^5.19.1",
     "resize-observer-polyfill": "^1.5.1",
     "tsx": "^4.19.0",
