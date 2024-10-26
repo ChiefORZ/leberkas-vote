@@ -38,7 +38,7 @@ describe('DeleteButton', () => {
     await user.click(screen.getByRole('button'));
 
     expect(screen.getByRole('button')).toBeDisabled();
-    expect(request).toHaveBeenCalledWith('/api', DeleteItemMutation, {
+    expect(request).toHaveBeenCalledWith('http://localhost:3000/api', DeleteItemMutation, {
       id: item.id,
     });
   });

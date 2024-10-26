@@ -1,34 +1,32 @@
 {
-	"$schema": "https://unpkg.com/knip@3/schema.json",
-	"entry": [
-		"**/__mocks__/**/*",
-		"next.config.js",
-		"src/middleware.ts",
-		"src/app/error.tsx",
-		"src/app/global-error.tsx",
-		"src/app/head.tsx",
-		"src/app/**/layout*.tsx",
-		"src/app/**/not-found*.tsx",
-		"src/app/**/page.tsx",
-		"src/hooks/useWhyDidYouUpdate.ts",
-		"src/pages/api/*",
-		"src/types/*"
-	],
-	"ignore": [
-		"src/components/Typography.tsx",
-		"src/lib/session.ts",
-		"src/providers/*",
-		"src/types/next-auth.d.ts"
-	],
-	"ignoreDependencies": [
-		"@aws-sdk/abort-controller",
-		"@aws-sdk/client-s3",
-		"@aws-sdk/signature-v4-crt",
-		"@chieforz/biome-config",
-		"@commitlint/cli",
-		"aws-crt",
-		"dotenv",
-		"encoding"
-	],
-	"project": ["src/**/*.ts", "src/**/*.tsx"]
+  "$schema": "https://unpkg.com/knip@3/schema.json",
+  "entry": [
+    "**/__mocks__/**/*",
+    "next.config.js",
+    "src/middleware.ts",
+    "src/app/error.tsx",
+    "src/app/global-error.tsx",
+    "src/app/head.tsx",
+    "src/app/**/layout*.tsx",
+    "src/app/**/not-found*.tsx",
+    "src/app/**/page.tsx",
+    "src/hooks/useWhyDidYouUpdate.ts",
+    "src/pages/api/*",
+    "src/types/*"
+  ],
+  "ignore": [
+    "src/components/Typography.tsx",
+    "src/lib/session.ts",
+    "src/providers/*",
+    "src/types/next-auth.d.ts"
+  ],
+  "ignoreDependencies": [
+    "@aws-sdk/abort-controller",
+    "@aws-sdk/client-s3",
+    "@aws-sdk/signature-v4-crt",
+    "aws-crt",
+    "dotenv",
+    "encoding"
+  ],
+  "project": ["src/**/*.ts", "src/**/*.tsx"]
 }
