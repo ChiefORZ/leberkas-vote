@@ -1,19 +1,7 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
-  },
-  "organizeImports": {
-    "enabled": true
-  },
-  "linter": {
-    "enabled": false
-  },
-  "files": {
-    "ignoreUnknown": true
-  },
+  "vcs": { "enabled": true, "clientKind": "git", "useIgnoreFile": true },
+  "files": { "ignoreUnknown": true },
   "formatter": {
     "enabled": true,
     "formatWithErrors": true,
@@ -22,18 +10,39 @@
     "lineWidth": 100,
     "ignore": ["**/.next", "**/.wireit", "**/build", "**/dist", "**/node_modules"]
   },
-  "javascript": {
-    "formatter": {
-      "enabled": true,
-      "quoteStyle": "single",
-      "arrowParentheses": "always",
-      "trailingCommas": "all",
-      "lineEnding": "lf"
+  "organizeImports": { "enabled": true },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
     }
   },
-  "json": {
+  "javascript": {
     "formatter": {
-      "enabled": true
-    }
-  }
+      "trailingCommas": "all",
+      "arrowParentheses": "always",
+      "enabled": true,
+      "lineEnding": "lf",
+      "quoteStyle": "single"
+    },
+    "globals": ["exports", "React"]
+  },
+  "json": { "formatter": { "enabled": true } },
+  "overrides": [
+    {
+      "include": ["**/*.ts", "**/*.tsx"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "error",
+            "noUnusedVariables": "error",
+            "useJsxKeyInIterable": "error"
+          },
+          "style": { "noImplicitBoolean": "off" },
+          "suspicious": { "noExplicitAny": "error" }
+        }
+      }
+    },
+    { "include": ["**/*.json"], "linter": { "rules": {} } }
+  ]
 }

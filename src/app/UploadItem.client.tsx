@@ -27,7 +27,7 @@ function Input({
   label: string;
   type?: string;
   validation?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   [key: string]: any;
 }) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,18 +88,11 @@ const UploadImageMutation = gql`
 function UploadItemDialog({
   isOpen,
   setIsOpen,
-  user,
 }: {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
   user: TUser;
 }) {
-  const displaySuccessMessage = (success: string) => {
-    toast.success(success);
-  };
-  const displayError = (error: string) => {
-    toast.error(error);
-  };
   const [title, setTitle] = useState({
     error: null,
     value: '',
@@ -148,7 +141,7 @@ function UploadItemDialog({
         const { url } = await uploadToS3(file);
         setImageUrl({ error: null, value: url });
       } catch (err) {
-        displayError('Oje, beim file upload is was schief glaufen!');
+        toast.error('Oje, beim file upload is was schief glaufen!');
         console.error(err);
       }
       setIsUploading(false);
@@ -163,49 +156,45 @@ function UploadItemDialog({
     setImageUrl({ error: null, value: '' });
     setIsOpen(false);
     resetFiles();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isUploading]);
+  }, [isUploading, resetFiles, setIsOpen]);
 
-  const handleSubmitForm = useCallback(
-    async (e) => {
-      if (isUploading || imageUrl.error || title.error) {
-        return;
-      }
-      if (!title.value) {
-        setTitle((prevTitle) => ({
-          ...prevTitle,
-          error: 'Bitte Namen eingeben',
-        }));
-      }
-      if (!imageUrl.value) {
-        setImageUrl((prevImageUrl) => ({
-          ...prevImageUrl,
-          error: 'Bitte ein Bild hochladen',
-        }));
-      }
-      if (!title.value || !imageUrl.value) {
-        return;
-      }
-      setIsUploading(true);
-      try {
-        const placeholder = await (
-          await fetch(`/api/plaiceholder?imageUrl=${imageUrl.value}`)
-        ).json();
+  const handleSubmitForm = useCallback(async () => {
+    if (isUploading || imageUrl.error || title.error) {
+      return;
+    }
+    if (!title.value) {
+      setTitle((prevTitle) => ({
+        ...prevTitle,
+        error: 'Bitte Namen eingeben',
+      }));
+    }
+    if (!imageUrl.value) {
+      setImageUrl((prevImageUrl) => ({
+        ...prevImageUrl,
+        error: 'Bitte ein Bild hochladen',
+      }));
+    }
+    if (!title.value || !imageUrl.value) {
+      return;
+    }
+    setIsUploading(true);
+    try {
+      const placeholder = await (
+        await fetch(`/api/plaiceholder?imageUrl=${imageUrl.value}`)
+      ).json();
 
-        await request('/api', UploadImageMutation, {
-          imagePlaceholder: placeholder.base64,
-          imageUrl: imageUrl.value,
-          title: title.value,
-        });
-        displaySuccessMessage('Danke für den Input!');
-      } catch (err) {
-        displayError('Oje, beim speichern is was schief glaufen!');
-        console.error(err);
-      }
-      handleClose();
-    },
-    [isUploading, imageUrl, title, handleClose],
-  );
+      await request(new URL('/api', window.location.origin).toString(), UploadImageMutation, {
+        imagePlaceholder: placeholder.base64,
+        imageUrl: imageUrl.value,
+        title: title.value,
+      });
+      toast.success('Danke für den Input!');
+    } catch (err) {
+      toast.error('Oje, beim speichern is was schief glaufen!');
+      console.error(err);
+    }
+    handleClose();
+  }, [isUploading, imageUrl, title, handleClose]);
 
   return (
     <Transition.Root as={Fragment} show={isOpen}>
@@ -284,7 +273,7 @@ function UploadItemDialog({
                             <button
                               className="peer flex w-full select-none flex-col items-center justify-center pb-12 focus:bg-brand-100/10 focus:outline-none"
                               onClick={openFileDialog}
-                              role="button"
+                              type="button"
                             >
                               <PhotoIcon
                                 aria-hidden="true"
@@ -375,6 +364,7 @@ export function UploadItemGridItem({
   );
   return (
     <>
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
       <div
         className="relative flex cursor-pointer justify-center overflow-hidden rounded-md border-2 border-dashed border-gray-300 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2"
         key="upload-item"

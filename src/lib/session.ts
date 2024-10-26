@@ -1,4 +1,4 @@
-import { Session } from 'next-auth';
+import type { Session } from 'next-auth';
 import { getServerSession } from 'next-auth/next';
 
 import { authOptions } from '@/lib/auth';

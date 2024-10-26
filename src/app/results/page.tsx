@@ -1,7 +1,6 @@
 import Image from 'next/image';
 
 import prisma from '@/lib/prisma';
-import { getCurrentUser } from '@/lib/session';
 
 // display a ListView that displays items like a barchart
 // the items are sorted by avgRating
@@ -9,8 +8,6 @@ import { getCurrentUser } from '@/lib/session';
 // where the percentage of the bar is the avgRating
 // the chart is not interactable
 const Page = async () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const userSession = await getCurrentUser();
   const numPeopleVoted = await prisma.rating.groupBy({
     _count: {
       userId: true,

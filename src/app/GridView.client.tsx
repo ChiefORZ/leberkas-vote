@@ -71,7 +71,7 @@ function GridView(props: GridViewProps) {
     if (animationParent.current) {
       autoAnimate(animationParent.current);
     }
-  }, [animationParent]);
+  }, []);
 
   return (
     <React.Fragment>
@@ -119,6 +119,7 @@ function GridView(props: GridViewProps) {
               'z-90 fixed bottom-10 right-10 flex h-14 w-14 items-center justify-center rounded-full bg-brand-400 p-3 text-xl text-white drop-shadow-lg duration-300 hover:bg-brand-300 hover:drop-shadow-2xl',
             )}
             onClick={handleSubmitForm}
+            type="button"
           >
             {isSubmitting ? <Spinner /> : <ArrowRightIcon />}
           </button>

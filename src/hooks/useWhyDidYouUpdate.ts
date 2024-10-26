@@ -1,12 +1,14 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 
 interface FromTo {
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   from: any;
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   to: any;
 }
 
 type Changes = Record<string, FromTo>;
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 type GenericProps = Record<string, any>;
 
 // TypeScript adaptation of https://usehooks.com/useWhyDidYouUpdate/
@@ -22,7 +24,7 @@ export function useWhyDidYouUpdate(name: string, props: GenericProps): void {
       // Use this object to keep track of changed props
       const changes: Changes = {};
       // Iterate through keys
-      allKeys.forEach((key) => {
+      for (const key of allKeys) {
         // If previous is different from current
         if (previousProps.current[key] !== props[key]) {
           // Add to changesObj
@@ -31,7 +33,7 @@ export function useWhyDidYouUpdate(name: string, props: GenericProps): void {
             to: props[key],
           };
         }
-      });
+      }
 
       if (Object.keys(changes).length) {
         console.info('[why-did-you-update]', name, changes);

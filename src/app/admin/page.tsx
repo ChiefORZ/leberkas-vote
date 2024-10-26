@@ -3,14 +3,11 @@ import Image from 'next/image';
 import { DeleteButton } from '@/app/admin/DeleteButton.client';
 import { PublishButton } from '@/app/admin/PublishButton.client';
 import prisma from '@/lib/prisma';
-import { getCurrentUser } from '@/lib/session';
 
 // display a grid that displays not yet published items
 // there is a button to publish the item
 // the grid is not interactable
 const Page = async () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const userSession = await getCurrentUser();
   const items = await prisma.item.findMany({
     orderBy: { createdAt: 'desc' },
     select: {

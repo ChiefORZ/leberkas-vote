@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 
 function Overlay({ children }: { children?: React.ReactNode }) {
   return (

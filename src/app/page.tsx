@@ -1,4 +1,4 @@
-import { NexusGenFieldTypes } from 'generated/nexus-typegen';
+import type { NexusGenFieldTypes } from 'generated/nexus-typegen';
 
 import GridView from '@/app/GridView.client';
 import VotesLeft from '@/app/VotesLeft.client';

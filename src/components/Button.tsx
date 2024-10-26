@@ -1,4 +1,4 @@
-import { VariantProps, cva } from 'class-variance-authority';
+import { type VariantProps, cva } from 'class-variance-authority';
 import * as React from 'react';
 
 import { Spinner } from '@/components/Spinner';
@@ -40,13 +40,12 @@ interface ButtonProps
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, children, variant, loading, size, ...props }, ref) => {
-    // eslint-disable-next-line @typescript-eslint/naming-convention
     const _onClick = React.useCallback(
       (evt: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         if (loading) return;
         props.onClick?.(evt);
       },
-      [loading, props],
+      [loading, props?.onClick],
     );
     return (
       <button

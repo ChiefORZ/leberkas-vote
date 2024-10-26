@@ -35,17 +35,15 @@ export default function GlobalError({
             <div className="relative z-20 mx-auto max-w-7xl px-2 py-2 sm:px-4 lg:px-8">
               <div className="relative flex h-16 items-center justify-between">
                 <div className="flex items-center px-2 lg:px-0">
-                  <div className="shrink-0">
-                    <Link href="/">
-                      <Image
-                        alt="Leberkas Vote Logo"
-                        className="relative block h-14"
-                        height={75}
-                        src="./logo-with-text.svg"
-                        width={350}
-                      />
-                    </Link>
-                  </div>
+                  <Link href="/">
+                    <Image
+                      alt="Leberkas Vote Logo"
+                      className="relative block h-14"
+                      height={75}
+                      src="./logo-with-text.svg"
+                      width={350}
+                    />
+                  </Link>
                 </div>
                 <div className="flex items-center">
                   {/* Nav options to home and results that is only displayed on desktop and highlighting the active one */}
@@ -84,7 +82,7 @@ export default function GlobalError({
                 <p className="mt-2 text-3xl font-extrabold leading-8 tracking-tight text-gray-900 sm:text-4xl">
                   Something went wrong!
                 </p>
-                <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">{error.message}</p>
+                <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">{error?.message}</p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
                     <button
@@ -93,6 +91,7 @@ export default function GlobalError({
                         // Attempt to recover by trying to re-render the segment
                         () => reset()
                       }
+                      type="button"
                     >
                       Try again
                     </button>

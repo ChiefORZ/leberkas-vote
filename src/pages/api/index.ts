@@ -1,12 +1,12 @@
-import path from 'path';
-/* eslint-disable @typescript-eslint/ban-ts-comment */
+import path from 'node:path';
+
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import AWS from 'aws-sdk';
 import { DateTimeResolver } from 'graphql-scalars';
 import cors from 'micro-cors';
-import { NextApiHandler } from 'next';
-import { Session } from 'next-auth';
+import type { NextApiHandler } from 'next';
+import type { Session } from 'next-auth';
 import { getServerSession } from 'next-auth/next';
 import {
   asNexusMethod,
@@ -133,7 +133,7 @@ const RatingInput = inputObjectType({
 const Query = objectType({
   definition(t) {
     t.field('getMe', {
-      resolve: (_, args, ctx) => {
+      resolve: (_, __, ctx) => {
         return prisma.user.findUnique({
           include: { ratings: true },
           where: { id: String(ctx.user?.id) },
@@ -143,8 +143,7 @@ const Query = objectType({
     });
 
     t.field('getItems', {
-      // @ts-expect-error
-      resolve: (_, args) => {
+      resolve: (_) => {
         return prisma.item.findMany({
           include: { ratings: true },
           where: { published: true },

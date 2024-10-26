@@ -48,7 +48,7 @@ jobs:
         run: pnpm run build
 
       - name: Format check
-        run: pnpm run format:check
+        run: pnpm run biome:check
 
       - name: Test
         run: pnpm run test

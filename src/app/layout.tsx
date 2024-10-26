@@ -1,6 +1,6 @@
 import './global.css';
 
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Lexend as FontLexend } from 'next/font/google';
 
 import RootLayoutClient from '@/app/layout.client';

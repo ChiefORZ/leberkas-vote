@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
   // huh any! I know.
   // This is a temporary fix for prisma client.
   // @see https://github.com/prisma/prisma/issues/16117
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   adapter: PrismaAdapter(prisma as any),
   callbacks: {
     async jwt(payload) {
@@ -98,7 +98,7 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
     Credentials({
-      async authorize({ didToken }, req) {
+      async authorize({ didToken }, _) {
         // validate magic DID token
         magic.token.validate(didToken);
 

@@ -15,7 +15,6 @@ const fontSans = FontLexend({
 });
 
 export default function GlobalError({
-  error,
   reset,
 }: {
   error: Error;
@@ -35,17 +34,15 @@ export default function GlobalError({
             <div className="relative z-20 mx-auto max-w-7xl px-2 py-2 sm:px-4 lg:px-8">
               <div className="relative flex h-16 items-center justify-between">
                 <div className="flex items-center px-2 lg:px-0">
-                  <div className="shrink-0">
-                    <Link href="/">
-                      <Image
-                        alt="Leberkas Vote Logo"
-                        className="relative block h-14"
-                        height={75}
-                        src="./logo-with-text.svg"
-                        width={350}
-                      />
-                    </Link>
-                  </div>
+                  <Link href="/">
+                    <Image
+                      alt="Leberkas Vote Logo"
+                      className="relative block h-14"
+                      height={75}
+                      src="./logo-with-text.svg"
+                      width={350}
+                    />
+                  </Link>
                 </div>
                 <div className="flex items-center">
                   {/* Nav options to home and results that is only displayed on desktop and highlighting the active one */}
@@ -91,6 +88,7 @@ export default function GlobalError({
                     <button
                       className="inline-flex items-center rounded-md border border-white bg-brand-400 px-4 py-2 text-sm font-medium text-white hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
                       onClick={() => reset()}
+                      type="button"
                     >
                       Nochmal probieren
                     </button>

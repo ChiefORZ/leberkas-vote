@@ -30,6 +30,7 @@ export default function ErrorPage({
             <button
               className="inline-flex items-center rounded-md border border-white bg-brand-400 px-4 py-2 text-sm font-medium text-white hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
               onClick={() => reset()}
+              type="button"
             >
               Nochmal probieren
             </button>

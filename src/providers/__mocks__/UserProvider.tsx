@@ -1,4 +1,4 @@
-import { NexusGenFieldTypes } from 'generated/nexus-typegen';
+import type { NexusGenFieldTypes } from 'generated/nexus-typegen';
 import { createContext } from 'react';
 
 type TUser = NexusGenFieldTypes['User'];

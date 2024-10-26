@@ -3,19 +3,19 @@ const plugin = require('tailwindcss/plugin');
 
 /** @type {import('tailwindcss').Config} */
 
-const backfaceVisibility = plugin(function ({ addUtilities }) {
+const backfaceVisibility = plugin(({ addUtilities }) => {
   addUtilities({
-    '.backface-visible': {
-      'backface-visibility': 'visible',
-      '-moz-backface-visibility': 'visible',
-      '-webkit-backface-visibility': 'visible',
-      '-ms-backface-visibility': 'visible',
-    },
     '.backface-hidden': {
-      'backface-visibility': 'hidden',
       '-moz-backface-visibility': 'hidden',
-      '-webkit-backface-visibility': 'hidden',
       '-ms-backface-visibility': 'hidden',
+      '-webkit-backface-visibility': 'hidden',
+      'backface-visibility': 'hidden',
+    },
+    '.backface-visible': {
+      '-moz-backface-visibility': 'visible',
+      '-ms-backface-visibility': 'visible',
+      '-webkit-backface-visibility': 'visible',
+      'backface-visibility': 'visible',
     },
   });
 });
@@ -26,31 +26,31 @@ module.exports = {
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
   ],
+  plugins: [require('@tailwindcss/forms'), backfaceVisibility],
   theme: {
     extend: {
-      fontFamily: {
-        sans: ['var(--font-lexend)', ...fontFamily.sans],
-        'sans-alt': ['MADE Dillan Regular', ...fontFamily.sans],
-      },
       colors: {
         brand: {
-          DEFAULT: '#176E32',
-          50: '#5FDE86',
           100: '#4EDA7A',
           200: '#2CD360',
           300: '#25B151',
           400: '#1E9041',
+          50: '#5FDE86',
           500: '#176E32',
           600: '#0D401D',
           700: '#041108',
+          DEFAULT: '#176E32',
           800: '#000000',
           900: '#000000',
         },
+      },
+      fontFamily: {
+        sans: ['var(--font-lexend)', ...fontFamily.sans],
+        'sans-alt': ['MADE Dillan Regular', ...fontFamily.sans],
       },
       gridTemplateColumns: {
         'my-grid': 'repeat(auto-fill, minmax(250px, 1fr))',
       },
     },
   },
-  plugins: [require('@tailwindcss/forms'), backfaceVisibility],
 };

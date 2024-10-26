@@ -1,8 +1,16 @@
 'use client';
 
-import { Rating } from '@prisma/client';
+import type { Rating } from '@prisma/client';
 import { gql, request } from 'graphql-request';
-import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 import { numVotes } from '@/constants/index';
@@ -40,9 +48,6 @@ const SetRatingsMutation = gql`
 const RatingContext = createContext<IRatingContext | null>(null);
 
 const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
-  const displayError = (error: string) => {
-    toast.error(error);
-  };
   const { user } = useUserContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const defaultValue = useRef(
@@ -54,12 +59,12 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
     JSON.stringify(ratings.sort((a, b) => a.itemId.localeCompare(b.itemId))) !==
     defaultValue.current;
 
-  const calcRestStars = (r: Rating[]) => {
+  const calcRestStars = useCallback((r: Rating[]) => {
     const sum = r.reduce((acc, curr) => acc + curr.value, 0);
     return numVotes - sum;
-  };
+  }, []);
 
-  const restStars = useMemo(() => calcRestStars(ratings), [ratings]);
+  const restStars = useMemo(() => calcRestStars(ratings), [calcRestStars, ratings]);
 
   const handleOnRatingChange = async ({
     itemId,
@@ -94,20 +99,17 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
     });
   };
 
-  const handleSubmitForm = async () => {
+  const handleSubmitForm = useCallback(async () => {
     try {
       if (!user || !user.id) return;
       // set loading state
       setIsSubmitting(true);
       // make a graphql mutation to create a rating with window.fetch
-      await request('/api', SetRatingsMutation, {
+      await request(new URL('/api', window.location.origin).toString(), SetRatingsMutation, {
         ratings,
       });
-      trackEvent('Vote', {
-        starsLeft: restStars,
-        userId: user.id,
-      });
       // redirect to /results
+      // eslint-disable-next-line react-compiler/react-compiler
       window.location.href = '/results';
     } catch (e) {
       if (typeof e === 'string') {
@@ -115,9 +117,9 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
       } else if (e instanceof Error) {
         console.error(e.message);
       }
-      displayError('Uje, da is was schief glaufen!');
+      toast.error('Uje, da is was schief glaufen!');
     }
-  };
+  }, [ratings, user]);
 
   useEffect(() => {
     const onBeforeUnload = (ev) => {

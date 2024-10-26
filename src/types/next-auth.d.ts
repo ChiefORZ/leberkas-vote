@@ -1,6 +1,6 @@
 // next-auth.d.ts
 
-import { User as PrismaUser } from '@prisma/client';
+import type { User as PrismaUser } from '@prisma/client';
 
 declare module 'next-auth' {
   type User = Pick<PrismaUser, 'id' | 'name' | 'email' | 'image' | 'role'>;
