@@ -31,7 +31,6 @@
   "dependencies": {
     "@apollo/server": "^4.11.0",
     "@as-integrations/next": "^3.1.0",
-    "@aws-sdk/abort-controller": "^3.374.0",
     "@aws-sdk/client-s3": "^3.679.0",
     "@aws-sdk/signature-v4-crt": "^3.679.0",
     "@formkit/auto-animate": "^1.0.0-pre-alpha.3",
@@ -110,33 +109,19 @@
   "wireit": {
     "build": {
       "command": "next build",
-      "dependencies": [
-        "generate"
-      ],
-      "files": [
-        "prisma/schema.prisma",
-        "src/**/*",
-        "tsconfig.json"
-      ],
-      "output": [
-        ".next/**"
-      ]
+      "dependencies": ["generate"],
+      "files": ["prisma/schema.prisma", "src/**/*", "tsconfig.json"],
+      "output": [".next/**"]
     },
     "dev": {
       "command": "next --turbo",
-      "dependencies": [
-        "generate"
-      ],
-      "files": [
-        "src/**/*"
-      ],
+      "dependencies": ["generate"],
+      "files": ["src/**/*"],
       "output": []
     },
     "biome:check": {
       "command": "biome check ./src",
-      "files": [
-        "src/**/*.{js,jsx,ts,tsx}"
-      ],
+      "files": ["src/**/*.{js,jsx,ts,tsx}"],
       "output": []
     },
     "biome:write": {
@@ -153,55 +138,33 @@
     },
     "lint": {
       "command": "eslint './src/**/*.{js,jsx,ts,tsx}' --fix",
-      "files": [
-        "src/**/*"
-      ],
+      "files": ["src/**/*"],
       "output": []
     },
     "migrate:dev": {
       "command": "is-ci || prisma migrate dev",
-      "files": [
-        "prisma/migrations/**/*",
-        "prisma/schema.prisma"
-      ],
-      "output": [
-        "node_modules/.prisma/client/**"
-      ]
+      "files": ["prisma/migrations/**/*", "prisma/schema.prisma"],
+      "output": ["node_modules/.prisma/client/**"]
     },
     "migrate:deploy": {
       "command": "is-ci || prisma migrate deploy",
-      "files": [
-        "prisma/migrations/**/*",
-        "prisma/schema.prisma"
-      ],
-      "output": [
-        "node_modules/.prisma/client/**"
-      ]
+      "files": ["prisma/migrations/**/*", "prisma/schema.prisma"],
+      "output": ["node_modules/.prisma/client/**"]
     },
     "migrate:status": {
       "command": "is-ci || prisma migrate status",
-      "files": [
-        "prisma/migrations/**/*",
-        "prisma/schema.prisma"
-      ],
+      "files": ["prisma/migrations/**/*", "prisma/schema.prisma"],
       "output": []
     },
     "start": {
       "command": "next start",
-      "dependencies": [
-        "generate:prisma",
-        "migrate:deploy"
-      ],
-      "files": [
-        ".next/**"
-      ],
+      "dependencies": ["generate:prisma", "migrate:deploy"],
+      "files": [".next/**"],
       "output": []
     },
     "test": {
       "command": "npm-run-all test:*",
-      "files": [
-        "src/**/*"
-      ],
+      "files": ["src/**/*"],
       "output": []
     },
     "test:knip": {
@@ -209,9 +172,7 @@
     },
     "test:unit": {
       "command": "vitest --run --passWithNoTests",
-      "files": [
-        "src/**/*"
-      ],
+      "files": ["src/**/*"],
       "output": []
     },
     "postinstall": {

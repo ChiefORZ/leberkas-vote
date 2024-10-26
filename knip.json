@@ -21,7 +21,6 @@
     "src/types/next-auth.d.ts"
   ],
   "ignoreDependencies": [
-    "@aws-sdk/abort-controller",
     "@aws-sdk/client-s3",
     "@aws-sdk/signature-v4-crt",
     "aws-crt",
