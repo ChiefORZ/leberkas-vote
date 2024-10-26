@@ -42,12 +42,12 @@ jobs:
         run: pnpm i --frozen-lockfile
 
       # Set up GitHub Actions caching for Wireit.
-      - uses: google/wireit@setup-github-actions-caching/v1
+      - uses: google/wireit@setup-github-actions-caching/v2
 
       - name: Build
         run: pnpm run build
 
-      - name: Format check
+      - name: Biome check
         run: pnpm run biome:check
 
       - name: Test
