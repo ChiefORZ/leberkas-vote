@@ -1,11 +1,13 @@
-# Start with the official Node.js image.
-FROM node:20-alpine AS deps
+FROM node:23-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
 # Set the working directory.
 WORKDIR /app
+
+# Start with the official Node.js image.
+FROM base AS deps
 
 # Copy package.json and pnpm-lock.yaml before other files
 # Utilise Docker cache to save re-installing dependencies if unchanged
@@ -16,12 +18,7 @@ COPY pnpm-lock.yaml ./
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
 # Build the Next.js app
-FROM node:20-alpine AS builder
-RUN corepack enable
-
-ENV NODE_ENV production
-
-WORKDIR /app
+FROM base AS builder
 
 # Copy all files
 COPY . .
@@ -33,12 +30,7 @@ COPY --from=deps /app/node_modules ./node_modules
 RUN pnpm run build
 
 # Only copy over the Next.js pieces we need
-FROM node:20-alpine AS runner
-RUN corepack enable
-
-ENV NODE_ENV production
-
-WORKDIR /app
+FROM base AS runner
 
 COPY --from=builder /app/.next/ ./.next/
 COPY --from=builder /app/next.config.ts ./next.config.ts

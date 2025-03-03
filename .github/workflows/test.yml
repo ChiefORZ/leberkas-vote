@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20]
+        node-version: [23]
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
@@ -21,7 +21,7 @@ jobs:
         uses: pnpm/action-setup@v2
         id: pnpm-install
         with:
-          version: ^8.6.0
+          version: ^10.5.2
           run_install: false
 
       - name: Get pnpm store directory
@@ -64,7 +64,7 @@ jobs:
 
       - name: Type check
         run: pnpm turbo type-check
-        
+
   todo-to-issue:
     needs: build-and-test
     if: github.ref == 'refs/heads/main'
