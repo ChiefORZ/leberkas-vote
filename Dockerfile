@@ -44,4 +44,4 @@ EXPOSE 3000
 ENV PORT 3000
 
 # Run pnpm start to launch the app
-CMD ["pnpm", "turbo", "start"]
+CMD ["pnpm", "run", "start"]
