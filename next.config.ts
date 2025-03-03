@@ -6,6 +6,9 @@ const nextConfig: NextConfig = {
     // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
+  experimental: {
+    turbo: {},
+  },
   images: {
     domains: [
       'lh3.googleusercontent.com',
@@ -20,19 +23,6 @@ const nextConfig: NextConfig = {
   },
   typescript: {
     ignoreBuildErrors: true,
-  },
-  webpack(config, { dev }) {
-    if (!dev) {
-      // https://formatjs.io/docs/guides/advanced-usage#react-intl-without-parser-40-smaller
-
-      config.resolve.alias['@formatjs/icu-messageformat-parser'] =
-        '@formatjs/icu-messageformat-parser/no-parser';
-    }
-    config.module.rules.push({
-      test: /\.svg$/i,
-      use: ['@svgr/webpack'],
-    });
-    return config;
   },
 };
 

@@ -1,0 +1,18 @@
+commit-msg:
+  parallel: true
+  commands:
+    convention-message:
+      run: echo "$COMMIT_MESSAGE" | pnpm commitlint --edit {1}
+pre-commit:
+  parallel: true
+  commands:
+    biome:
+      glob: "*.{js,ts,jsx,tsx,json}"
+      halt_on_partially_staged_files: true
+      run: pnpm exec biome check --write {staged_files} && git add {staged_files}
+    lint:
+      glob: "*.{js,ts,jsx,tsx}"
+      run: pnpm exec eslint --fix {staged_files} && git add {staged_files}
+    type-check:
+      glob: '*.{ts,tsx}'
+      run: pnpm run typecheck

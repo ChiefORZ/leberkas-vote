@@ -1,0 +1,63 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalDependencies": ["**/.env.*local"],
+  "tasks": {
+    "biome:check": {
+      "inputs": ["src/**/*.{js,jsx,ts,tsx}"]
+    },
+    "biome:write": {
+      "cache": false
+    },
+    "build": {
+      "dependsOn": ["generate"],
+      "inputs": ["prisma/schema.prisma", "src/**/*", "tsconfig.json"],
+      "outputs": [".next/**"]
+    },
+    "dev": {
+      "cache": false,
+      "dependsOn": ["generate"],
+      "persistent": true
+    },
+    "generate": {
+      "cache": true,
+      "dependsOn": ["generate:prisma", "generate:nexus"]
+    },
+    "generate:nexus": {
+      "cache": true
+    },
+    "generate:prisma": {
+      "cache": true
+    },
+    "lint": {
+      "inputs": ["src/**/*"]
+    },
+    "migrate:deploy": {
+      "inputs": ["prisma/migrations/**/*", "prisma/schema.prisma"],
+      "outputs": ["node_modules/.prisma/client/**"]
+    },
+    "migrate:dev": {
+      "inputs": ["prisma/migrations/**/*", "prisma/schema.prisma"],
+      "outputs": ["node_modules/.prisma/client/**"]
+    },
+    "migrate:status": {
+      "inputs": ["prisma/migrations/**/*", "prisma/schema.prisma"]
+    },
+    "start": {
+      "dependsOn": ["generate:prisma", "migrate:deploy"],
+      "inputs": [".next/**"]
+    },
+    "test": {
+      "dependsOn": ["test:unit", "test:knip"],
+      "inputs": ["src/**/*"]
+    },
+    "test:knip": {
+      "cache": false
+    },
+    "test:unit": {
+      "inputs": ["src/**/*"]
+    },
+    "typecheck": {
+      "cache": true
+    }
+  }
+}

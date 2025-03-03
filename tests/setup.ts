@@ -1,26 +1,25 @@
-import * as matchers from '@testing-library/jest-dom/matchers';
+import '@testing-library/jest-dom';
+
 import { cleanup } from '@testing-library/react';
 import * as ResizeObserverModule from 'resize-observer-polyfill';
-import { afterEach, expect, vi } from 'vitest';
+import { afterEach, vi } from 'vitest';
 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 (global as any).ResizeObserver = ResizeObserverModule.default;
 
 Object.defineProperty(window, 'matchMedia', {
-  writable: true,
   value: vi.fn().mockImplementation((query) => ({
+    addEventListener: vi.fn(),
+    addListener: vi.fn(),
+    dispatchEvent: vi.fn(),
     matches: false,
     media: query,
     onchange: null,
-    addListener: vi.fn(), // Deprecated
-    removeListener: vi.fn(), // Deprecated
-    addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
-    dispatchEvent: vi.fn(),
+    removeListener: vi.fn(),
   })),
+  writable: true,
 });
-
-// extends Vitest's expect method with methods from react-testing-library
-expect.extend(matchers);
 
 // runs a cleanup after each test case (e.g. clearing jsdom)
 afterEach(() => {
