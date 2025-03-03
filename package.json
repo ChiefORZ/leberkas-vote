@@ -96,14 +96,22 @@
   },
   "pnpm": {
     "onlyBuiltDependencies": [
+      "@apollo/protobufjs",
       "@biomejs/biome",
+      "@parcel/watcher",
       "@prisma/client",
       "@prisma/engines",
       "aws-crt",
       "aws-sdk",
+      "bufferutil",
+      "es5-ext",
+      "esbuild",
+      "keccak",
       "lefthook",
       "prisma",
-      "sharp"
+      "secp256k1",
+      "sharp",
+      "utf-8-validate"
     ]
   },
   "prisma": {
