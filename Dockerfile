@@ -2,6 +2,8 @@ FROM node:23-alpine AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
+# Install OpenSSL - required for Prisma
+RUN apk add --no-cache openssl
 
 # Set the working directory.
 WORKDIR /app
@@ -43,5 +45,5 @@ COPY --from=builder /app/package.json ./package.json
 EXPOSE 3000
 ENV PORT 3000
 
-# Run pnpm start to launch the app
-CMD ["pnpm", "run", "start"]
+# Generate Prisma client at runtime and then start the app
+CMD ["sh", "-c", "pnpm prisma generate && pnpm run start"]
