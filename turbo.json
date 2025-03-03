@@ -20,10 +20,11 @@
     },
     "generate": {
       "cache": true,
-      "dependsOn": ["generate:prisma", "generate:nexus"]
+      "dependsOn": ["generate:nexus"]
     },
     "generate:nexus": {
-      "cache": true
+      "cache": true,
+      "dependsOn": ["generate:prisma"]
     },
     "generate:prisma": {
       "cache": true
