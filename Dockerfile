@@ -27,7 +27,7 @@ COPY . .
 COPY --from=deps /app/node_modules ./node_modules
 
 # Build the Next.js app
-RUN pnpm run build
+RUN pnpm turbo build
 
 # Only copy over the Next.js pieces we need
 FROM base AS runner
@@ -44,4 +44,4 @@ EXPOSE 3000
 ENV PORT 3000
 
 # Run pnpm start to launch the app
-CMD ["pnpm", "start"]
+CMD ["pnpm", "turbo", "start"]

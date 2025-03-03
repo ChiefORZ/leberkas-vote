@@ -33,18 +33,16 @@
       "inputs": ["src/**/*"]
     },
     "migrate:deploy": {
-      "inputs": ["prisma/migrations/**/*", "prisma/schema.prisma"],
-      "outputs": ["node_modules/.prisma/client/**"]
+      "inputs": ["prisma/migrations/**/*", "prisma/schema.prisma"]
     },
     "migrate:dev": {
-      "inputs": ["prisma/migrations/**/*", "prisma/schema.prisma"],
-      "outputs": ["node_modules/.prisma/client/**"]
+      "inputs": ["prisma/migrations/**/*", "prisma/schema.prisma"]
     },
     "migrate:status": {
       "inputs": ["prisma/migrations/**/*", "prisma/schema.prisma"]
     },
     "start": {
-      "dependsOn": ["generate:prisma", "migrate:deploy"],
+      "dependsOn": ["migrate:deploy"],
       "inputs": [".next/**"]
     },
     "test": {
