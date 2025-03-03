@@ -75,7 +75,7 @@
     "encoding": "^0.1.13",
     "eslint": "^9.21.0",
     "eslint-plugin-react": "^7.37.4",
-    "eslint-plugin-react-compiler": "19.0.0-beta-e1e972c-20250221",
+    "eslint-plugin-react-compiler": "19.0.0-beta-e552027-20250112",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "globals": "^15.15.0",
