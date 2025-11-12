@@ -11,7 +11,20 @@
     "build": {
       "dependsOn": ["generate"],
       "inputs": ["prisma/schema.prisma", "src/**/*", "tsconfig.json"],
-      "outputs": [".next/**"]
+      "outputs": [".next/**"],
+      "passThroughEnv": [
+        "DATABASE_URL",
+        "GOOGLE_CLIENT_ID",
+        "GOOGLE_CLIENT_SECRET",
+        "MAGIC_SK",
+        "NEXT_PUBLIC_MAGIC_PK",
+        "NEXTAUTH_SECRET",
+        "NEXTAUTH_URL",
+        "S3_UPLOAD_BUCKET",
+        "S3_UPLOAD_KEY",
+        "S3_UPLOAD_REGION",
+        "S3_UPLOAD_SECRET"
+      ]
     },
     "dev": {
       "cache": false,
