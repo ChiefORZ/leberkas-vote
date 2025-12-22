@@ -44,6 +44,7 @@ COPY --from=builder /app/package.json ./package.json
 # Expose the listening port
 EXPOSE 3000
 ENV PORT 3000
+ENV HOSTNAME="0.0.0.0"
 
 # Generate Prisma client at runtime and then start the app
 CMD ["sh", "-c", "pnpm prisma generate && pnpm run start"]
