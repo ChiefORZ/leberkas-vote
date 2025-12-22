@@ -1,14 +1,14 @@
 import React from 'react';
 
 interface FromTo {
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: reasonable explanation
   from: any;
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: reasonable explanation
   to: any;
 }
 
 type Changes = Record<string, FromTo>;
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: reasonable explanation
 type GenericProps = Record<string, any>;
 
 // TypeScript adaptation of https://usehooks.com/useWhyDidYouUpdate/

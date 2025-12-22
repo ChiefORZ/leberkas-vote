@@ -19,7 +19,7 @@ function RatingOverlay(props: RatingOverlayProps) {
   const ratingItems = [];
   for (let i = 1; i <= 5; i++) {
     ratingItems.push(
-      // biome-ignore lint/a11y/useKeyWithClickEvents: <explanation>
+      // biome-ignore lint/a11y/useKeyWithClickEvents: reasonable explanation
       <div
         className="relative cursor-pointer"
         data-role="button"

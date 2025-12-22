@@ -27,7 +27,7 @@ function Input({
   label: string;
   type?: string;
   validation?: string;
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: reasonable explanation
   [key: string]: any;
 }) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -364,7 +364,7 @@ export function UploadItemGridItem({
   );
   return (
     <>
-      {/* biome-ignore lint/a11y/useKeyWithClickEvents: <explanation> */}
+      {/* biome-ignore lint/a11y/useKeyWithClickEvents: reasonable explanation */}
       <div
         className="relative flex cursor-pointer justify-center overflow-hidden rounded-md border-2 border-dashed border-gray-300 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2"
         key="upload-item"

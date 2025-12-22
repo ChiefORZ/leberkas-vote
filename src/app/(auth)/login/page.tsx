@@ -96,7 +96,7 @@ export default function LoginPage() {
               type="button"
             >
               <span className="sr-only">Login mit Google</span>
-              {/* biome-ignore lint/a11y/noSvgWithoutTitle: <explanation> */}
+              {/* biome-ignore lint/a11y/noSvgWithoutTitle: reasonable explanation */}
               <svg
                 className="mr-2"
                 fill="currentColor"

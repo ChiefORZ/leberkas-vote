@@ -4,7 +4,7 @@ import { cleanup } from '@testing-library/react';
 import * as ResizeObserverModule from 'resize-observer-polyfill';
 import { afterEach, vi } from 'vitest';
 
-// biome-ignore lint/suspicious/noExplicitAny: <explanation>
+// biome-ignore lint/suspicious/noExplicitAny: reasonable explanation
 (global as any).ResizeObserver = ResizeObserverModule.default;
 
 Object.defineProperty(window, 'matchMedia', {

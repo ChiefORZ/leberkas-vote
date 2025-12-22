@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
   // huh any! I know.
   // This is a temporary fix for prisma client.
   // @see https://github.com/prisma/prisma/issues/16117
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  // biome-ignore lint/suspicious/noExplicitAny: reasonable explanation
   adapter: PrismaAdapter(prisma as any),
   callbacks: {
     async jwt(payload) {
