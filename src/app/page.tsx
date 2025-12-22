@@ -19,7 +19,7 @@ const Page = async () => {
       where: { id: userSession?.id },
     });
   }
-  const items = await await prisma.item.findMany({
+  const items = await prisma.item.findMany({
     select: {
       id: true,
       imagePlaceholder: true,

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { type GetPlaiceholderReturn, getPlaiceholder } from 'plaiceholder';
+import { getPlaiceholder } from 'plaiceholder';
 
 const plaiceholderApiRoute = async (req: NextApiRequest, res: NextApiResponse) => {
   const {
@@ -16,7 +16,7 @@ const plaiceholderApiRoute = async (req: NextApiRequest, res: NextApiResponse) =
   const buffer = await fetch(_imageUrl).then(async (r) => Buffer.from(await r.arrayBuffer()));
 
   if (method === 'GET' && imageUrl && strategy && size) {
-    const result: GetPlaiceholderReturn = await getPlaiceholder(buffer, {
+    const result = await getPlaiceholder(buffer, {
       size: _size,
     });
 

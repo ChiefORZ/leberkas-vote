@@ -36,8 +36,9 @@ export const metadata: Metadata = {
     site: 'https://leberkas-vote.schaffernak.digital',
     title: 'Leberkas Vote',
   },
-  viewport: 'width=device-width',
 };
+
+export const viewport = 'width=device-width';
 
 export default async function RootLayout({
   children,
