@@ -1,21 +1,23 @@
 'use client';
 
 import autoAnimate from '@formkit/auto-animate';
-import { ArrowRightCircleIcon } from '@heroicons/react/24/outline';
-import { ArrowRightIcon } from '@heroicons/react/24/outline';
+import {
+  ArrowRightCircleIcon,
+  ArrowRightIcon,
+} from '@heroicons/react/24/outline';
+import clsx from 'clsx';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useEffect, useRef } from 'react';
 
 import RatingOverlay from '@/app/RatingOverlay.client';
-import { UploadItemGridItem } from '@/app/UploadItem.client';
 import styles from '@/app/styles.module.scss';
+import { UploadItemGridItem } from '@/app/UploadItem.client';
 import Overlay from '@/components/Overlay';
 import { Spinner } from '@/components/Spinner';
 import { useInteractionContext } from '@/providers/InteractionProvider';
 import { useRatingContext } from '@/providers/RatingProvider';
 import { useUserContext } from '@/providers/UserProvider';
-import clsx from 'clsx';
 
 interface GridViewProps {
   items: {
@@ -30,10 +32,16 @@ interface GridViewProps {
 function GridView(props: GridViewProps) {
   const { items } = props;
   const { user } = useUserContext();
-  const { displayLoginOverlay, handleAllowedToInteract } = useInteractionContext();
+  const { displayLoginOverlay, handleAllowedToInteract } =
+    useInteractionContext();
 
-  const { handleOnRatingChange, handleSubmitForm, isSubmitting, ratings, ratingsChanged } =
-    useRatingContext();
+  const {
+    handleOnRatingChange,
+    handleSubmitForm,
+    isSubmitting,
+    ratings,
+    ratingsChanged,
+  } = useRatingContext();
 
   const interceptedHandleOnRatingChange = React.useCallback(
     async ({ itemId, rating }: { itemId: string; rating: number }) => {
@@ -41,7 +49,7 @@ function GridView(props: GridViewProps) {
         handleOnRatingChange({ itemId, rating });
       }
     },
-    [handleOnRatingChange, handleAllowedToInteract],
+    [handleOnRatingChange, handleAllowedToInteract]
   );
 
   // always sort rated items to the top
@@ -74,14 +82,17 @@ function GridView(props: GridViewProps) {
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       <div className="relative h-full overflow-auto">
-        <div className="grid grid-cols-my-grid gap-4 overflow-y-auto p-4" ref={animationParent}>
+        <div
+          className="grid grid-cols-my-grid gap-4 overflow-y-auto p-4"
+          ref={animationParent}
+        >
           {sortedItems.map((item) => (
             <div
               className={clsx(
                 styles.gridItem,
-                'relative flex justify-center overflow-hidden rounded-md shadow-sm transition hover:shadow-md',
+                'relative flex justify-center overflow-hidden rounded-md shadow-sm transition hover:shadow-md'
               )}
               data-testid="grid-item"
               key={item.id}
@@ -91,7 +102,10 @@ function GridView(props: GridViewProps) {
               <Image
                 alt={item.name}
                 blurDataURL={item.imagePlaceholder}
-                className={clsx(styles.tile, 'block w-full select-none object-cover')}
+                className={clsx(
+                  styles.tile,
+                  'block w-full select-none object-cover'
+                )}
                 fill
                 placeholder="blur"
                 src={item.imageUrl}
@@ -116,7 +130,7 @@ function GridView(props: GridViewProps) {
           <button
             className={clsx(
               styles.button,
-              'z-90 fixed bottom-10 right-10 flex h-14 w-14 items-center justify-center rounded-full bg-brand-400 p-3 text-xl text-white drop-shadow-lg duration-300 hover:bg-brand-300 hover:drop-shadow-2xl',
+              'fixed right-10 bottom-10 z-90 flex h-14 w-14 items-center justify-center rounded-full bg-brand-400 p-3 text-white text-xl drop-shadow-lg duration-300 hover:bg-brand-300 hover:drop-shadow-2xl'
             )}
             onClick={handleSubmitForm}
             type="button"
@@ -129,7 +143,7 @@ function GridView(props: GridViewProps) {
         <Overlay>
           <div className="inline-flex rounded-md shadow">
             <Link
-              className="inline-flex items-center justify-center rounded-md border border-transparent bg-white px-5 py-3 text-base font-medium text-gray-900 hover:bg-gray-50"
+              className="inline-flex items-center justify-center rounded-md border border-transparent bg-white px-5 py-3 font-medium text-base text-gray-900 hover:bg-gray-50"
               href="/login"
             >
               Zum Abstimmen bitte mit E-Mail anmelden&nbsp;
@@ -138,7 +152,7 @@ function GridView(props: GridViewProps) {
           </div>
         </Overlay>
       ) : null}
-    </React.Fragment>
+    </>
   );
 }
 

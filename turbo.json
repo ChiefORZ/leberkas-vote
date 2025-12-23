@@ -2,12 +2,6 @@
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
   "tasks": {
-    "biome:check": {
-      "inputs": ["src/**/*.{js,jsx,ts,tsx}"]
-    },
-    "biome:write": {
-      "cache": false
-    },
     "build": {
       "dependsOn": ["generate"],
       "inputs": ["prisma/schema.prisma", "src/**/*", "tsconfig.json"],
@@ -30,6 +24,9 @@
       "cache": false,
       "dependsOn": ["generate"],
       "persistent": true
+    },
+    "format": {
+      "inputs": ["src/**/*"]
     },
     "generate": {
       "cache": true,

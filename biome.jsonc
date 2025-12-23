@@ -1,0 +1,71 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": {
+          "level": "on",
+          "options": {
+            "groups": [
+              {
+                "source": [":BUN:", ":NODE:"],
+                "type": true
+              },
+              [":BUN:", ":NODE:"],
+              ":BLANK_LINE:",
+              {
+                "source": [":PACKAGE:", ":PACKAGE_WITH_PROTOCOL:"],
+                "type": true
+              },
+              [":PACKAGE:", ":PACKAGE_WITH_PROTOCOL:"],
+              ":BLANK_LINE:",
+              {
+                "source": ":ALIAS:",
+                "type": true
+              },
+              ":ALIAS:",
+              ":BLANK_LINE:",
+              {
+                "source": ":URL:",
+                "type": true
+              },
+              ":URL:",
+              ":BLANK_LINE:",
+              {
+                "source": ":PATH:",
+                "type": true
+              },
+              ":PATH:"
+            ]
+          }
+        },
+        "useSortedAttributes": "on",
+        "useSortedKeys": "on",
+        "useSortedProperties": "on"
+      }
+    },
+    "includes": ["**", "!package.json"]
+  },
+  "extends": ["ultracite/core", "ultracite/react", "ultracite/next"],
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
+  },
+  "linter": {
+    "rules": {
+      "complexity": {
+        "noExcessiveLinesPerFunction": "off"
+      },
+      "style": {
+        "noMagicNumbers": "off",
+        "noNestedTernary": "off",
+        "noNonNullAssertion": "off",
+        "useFilenamingConvention": "off"
+      },
+      "suspicious": {
+        "noConsole": "off"
+      }
+    }
+  }
+}

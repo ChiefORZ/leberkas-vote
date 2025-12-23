@@ -1,12 +1,12 @@
+import type { Role } from '@prisma/client';
+import type { NextAuthOptions } from 'next-auth';
 import { Magic } from '@magic-sdk/admin';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import type { NextAuthOptions } from 'next-auth';
 // import { SessionProvider } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import GoogleProvider from 'next-auth/providers/google';
 
 import prisma from '@/lib/prisma';
-import type { Role } from '@prisma/client';
 
 const magic = new Magic(process.env.MAGIC_SK);
 
@@ -43,7 +43,7 @@ export const authOptions: NextAuthOptions = {
         console.error('err ', err);
       }
     },
-    async session(payload) {
+    session(payload) {
       const { token, session } = payload;
 
       if (token) {

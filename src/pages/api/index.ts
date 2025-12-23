@@ -1,12 +1,12 @@
 import path from 'node:path';
 
+import type { NextApiHandler } from 'next';
+import type { Session } from 'next-auth';
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import AWS from 'aws-sdk';
 import { DateTimeResolver } from 'graphql-scalars';
 import cors from 'micro-cors';
-import type { NextApiHandler } from 'next';
-import type { Session } from 'next-auth';
 import { getServerSession } from 'next-auth/next';
 import {
   asNexusMethod,
@@ -81,7 +81,8 @@ const Item = objectType({
           })
           .ratings();
 
-        const avg = ratings.reduce((acc, curr) => acc + curr.value, 0) / ratings.length;
+        const avg =
+          ratings.reduce((acc, curr) => acc + curr.value, 0) / ratings.length;
 
         return Math.round(avg);
       },
@@ -313,7 +314,7 @@ const Mutation = objectType({
                 },
               },
             });
-          }),
+          })
         );
       },
       type: list('Rating'),
@@ -338,7 +339,7 @@ interface IApolloContext {
   user: TUser | null;
 }
 
-async function getApolloServerHandler() {
+function getApolloServerHandler() {
   const apolloServer = new ApolloServer<IApolloContext>({
     schema,
   });

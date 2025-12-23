@@ -1,11 +1,15 @@
 'use client';
 
-import { Dialog, Transition } from '@headlessui/react';
-import { ExclamationCircleIcon, PhotoIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import type { NexusGenFieldTypes } from 'generated/nexus-typegen';
+import { Dialog, Transition } from '@headlessui/react';
+import {
+  ExclamationCircleIcon,
+  PhotoIcon,
+  XMarkIcon,
+} from '@heroicons/react/24/outline';
 import { gql, request } from 'graphql-request';
-import { useS3Upload } from 'next-s3-upload';
 import Image from 'next/image';
+import { useS3Upload } from 'next-s3-upload';
 import { Fragment, useCallback, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -31,17 +35,19 @@ function Input({
   [key: string]: any;
 }) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (props.onChange) props.onChange(e);
+    if (props.onChange) {
+      props.onChange(e);
+    }
   };
 
   return (
     <div
       className={classNames(
-        'rounded-md px-3 pb-1.5 pt-2.5 text-left shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-brand-400',
-        validation ? 'ring-red-300  focus-within:ring-red-500' : undefined,
+        'rounded-md px-3 pt-2.5 pb-1.5 text-left shadow-sm ring-1 ring-gray-300 ring-inset focus-within:ring-2 focus-within:ring-brand-400',
+        validation ? 'ring-red-300 focus-within:ring-red-500' : undefined
       )}
     >
-      <label className="block text-xs font-medium text-gray-900" htmlFor={name}>
+      <label className="block font-medium text-gray-900 text-xs" htmlFor={name}>
         {label}
       </label>
       <div className="relative">
@@ -51,7 +57,7 @@ function Input({
             validation
               ? 'pr-10 text-red-900 ring-red-300 placeholder:text-red-300 focus:ring-red-500'
               : undefined,
-            className,
+            className
           )}
           id={name}
           name={name}
@@ -61,7 +67,10 @@ function Input({
         />
         <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
           {validation ? (
-            <ExclamationCircleIcon aria-hidden="true" className="h-5 w-5 text-red-500" />
+            <ExclamationCircleIcon
+              aria-hidden="true"
+              className="h-5 w-5 text-red-500"
+            />
           ) : null}
         </div>
       </div>
@@ -146,11 +155,13 @@ function UploadItemDialog({
       }
       setIsUploading(false);
     },
-    [uploadToS3],
+    [uploadToS3]
   );
 
   const handleClose = useCallback(() => {
-    if (isUploading) return;
+    if (isUploading) {
+      return;
+    }
     setIsUploading(false);
     setTitle({ error: null, value: '' });
     setImageUrl({ error: null, value: '' });
@@ -174,7 +185,7 @@ function UploadItemDialog({
         error: 'Bitte ein Bild hochladen',
       }));
     }
-    if (!title.value || !imageUrl.value) {
+    if (!(title.value && imageUrl.value)) {
       return;
     }
     setIsUploading(true);
@@ -183,11 +194,15 @@ function UploadItemDialog({
         await fetch(`/api/plaiceholder?imageUrl=${imageUrl.value}`)
       ).json();
 
-      await request(new URL('/api', window.location.origin).toString(), UploadImageMutation, {
-        imagePlaceholder: placeholder.base64,
-        imageUrl: imageUrl.value,
-        title: title.value,
-      });
+      await request(
+        new URL('/api', window.location.origin).toString(),
+        UploadImageMutation,
+        {
+          imagePlaceholder: placeholder.base64,
+          imageUrl: imageUrl.value,
+          title: title.value,
+        }
+      );
       toast.success('Danke für den Input!');
     } catch (err) {
       toast.error('Oje, beim speichern is was schief glaufen!');
@@ -224,11 +239,11 @@ function UploadItemDialog({
             >
               <Dialog.Panel
                 className={classNames(
-                  'relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6',
+                  'relative transform overflow-hidden rounded-lg bg-white px-4 pt-5 pb-4 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6'
                 )}
               >
                 <div>
-                  <div className="absolute right-0 top-0 hidden pr-4 pt-4 sm:block">
+                  <div className="absolute top-0 right-0 hidden pt-4 pr-4 sm:block">
                     <button
                       className="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2"
                       onClick={handleClose}
@@ -240,20 +255,25 @@ function UploadItemDialog({
                   </div>
                   <div className="sm:flex sm:items-start">
                     <div className="mx-auto flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-brand-50 sm:mx-0 sm:h-10 sm:w-10">
-                      <PhotoIcon aria-hidden="true" className="h-6 w-6 text-brand-600" />
+                      <PhotoIcon
+                        aria-hidden="true"
+                        className="h-6 w-6 text-brand-600"
+                      />
                     </div>
-                    <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:min-w-[350px] sm:text-left">
+                    <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:min-w-[350px] sm:text-left">
                       <Dialog.Title
                         as="h3"
-                        className="text-base font-semibold leading-6 text-gray-900"
+                        className="font-semibold text-base text-gray-900 leading-6"
                       >
                         Lieblingsgericht hinzufügen
                       </Dialog.Title>
                       <div className="mt-4 grid grid-cols-my-grid gap-4 overflow-y-auto p-4">
                         <div
                           className={classNames(
-                            'relative flex justify-center overflow-hidden rounded-md border-2 border-dashed border-gray-300',
-                            imageUrl.error ? 'ring-2 ring-red-500 ring-offset-2' : undefined,
+                            'relative flex justify-center overflow-hidden rounded-md border-2 border-gray-300 border-dashed',
+                            imageUrl.error
+                              ? 'ring-2 ring-red-500 ring-offset-2'
+                              : undefined
                           )}
                           // @ts-expect-error - aspect-ratio is a custom variable
                           style={{ '--aspect-ratio': 4 / 3 }}
@@ -311,17 +331,20 @@ function UploadItemDialog({
                           type="text"
                           value={imageUrl.value}
                         />
-                        <FileInput onChange={handleFileChange} style={{ display: 'none' }} />
+                        <FileInput
+                          onChange={handleFileChange}
+                          style={{ display: 'none' }}
+                        />
                       </div>
                     </div>
                   </div>
                   <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
                     <button
                       className={classNames(
-                        'inline-flex w-full justify-center rounded-md bg-brand-400 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-brand-300 sm:ml-3 sm:w-auto',
+                        'inline-flex w-full justify-center rounded-md bg-brand-400 px-3 py-2 font-semibold text-sm text-white shadow-sm hover:bg-brand-300 sm:ml-3 sm:w-auto',
                         isUploading || imageUrl.error || title.error
                           ? 'cursor-not-allowed opacity-50'
-                          : undefined,
+                          : undefined
                       )}
                       onClick={handleSubmitForm}
                       type="submit"
@@ -329,7 +352,7 @@ function UploadItemDialog({
                       Abschicken
                     </button>
                     <button
-                      className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                      className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 font-semibold text-gray-900 text-sm shadow-sm ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
                       onClick={handleClose}
                       type="button"
                     >
@@ -351,33 +374,44 @@ export function UploadItemGridItem({
   onClick,
 }: {
   user?: TUser;
-  onClick?: () => Promise<boolean>;
+  onClick?: () => boolean;
 }) {
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
   const handleToggleDialog = useCallback(
-    async (nextIsOpen) => {
-      if (onClick && (await onClick()) === false) return;
+    (nextIsOpen) => {
+      if (onClick && onClick() === false) {
+        return;
+      }
       setDialogIsOpen(nextIsOpen);
     },
-    [onClick],
+    [onClick]
   );
   return (
     <>
       {/* biome-ignore lint/a11y/useKeyWithClickEvents: reasonable explanation */}
+      {/** biome-ignore lint/a11y/noNoninteractiveElementInteractions: reasonable explanation */}
+      {/** biome-ignore lint/a11y/noStaticElementInteractions: reasonable explanation */}
       <div
-        className="relative flex cursor-pointer justify-center overflow-hidden rounded-md border-2 border-dashed border-gray-300 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2"
+        className="relative flex cursor-pointer justify-center overflow-hidden rounded-md border-2 border-gray-300 border-dashed hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2"
         key="upload-item"
         onClick={() => handleToggleDialog(true)}
         // @ts-expect-error - aspect-ratio is a custom variable
         style={{ '--aspect-ratio': 4 / 3 }}
       >
         <div className="flex w-full select-none flex-col items-center justify-center">
-          <PhotoIcon aria-hidden="true" className="mx-auto h-14 w-14 text-gray-400" />
+          <PhotoIcon
+            aria-hidden="true"
+            className="mx-auto h-14 w-14 text-gray-400"
+          />
           <div>Heast, des hast vergessen!</div>
         </div>
       </div>
-      <UploadItemDialog isOpen={dialogIsOpen} setIsOpen={handleToggleDialog} user={user} />
+      <UploadItemDialog
+        isOpen={dialogIsOpen}
+        setIsOpen={handleToggleDialog}
+        user={user}
+      />
       <Toaster />
     </>
   );

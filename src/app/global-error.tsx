@@ -24,7 +24,7 @@ export default function GlobalError({
     <html
       className={classNames(
         'h-screen max-h-screen min-h-screen bg-white font-sans text-slate-900 antialiased',
-        fontSans.variable,
+        fontSans.variable
       )}
       lang="en"
     >
@@ -50,7 +50,7 @@ export default function GlobalError({
                     <div className="flex">
                       <Link
                         className={clsx(
-                          'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
+                          'm-4 inline-flex items-center border-transparent border-b-2 px-1 pt-1 font-medium text-gray-500 text-sm hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none'
                         )}
                         href="/"
                       >
@@ -60,7 +60,7 @@ export default function GlobalError({
                   </div>
 
                   <Link
-                    className="inline-flex w-full items-center rounded-md border border-white bg-brand-400 px-4 py-2 text-sm font-medium text-white hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
+                    className="inline-flex w-full items-center rounded-md border border-white bg-brand-400 px-4 py-2 font-medium text-sm text-white hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
                     href="/login"
                   >
                     {/* <a className="inline-flex items-center rounded-md border border-transparent bg-brand-400 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2"> */}
@@ -77,16 +77,18 @@ export default function GlobalError({
               <div className="border-styria bg-white px-8 py-12 sm:rounded-lg sm:px-10">
                 <div className="grid place-content-center bg-white px-4">
                   <div className="text-center">
-                    <h1 className="text-8xl font-black text-gray-200">500</h1>
+                    <h1 className="font-black text-8xl text-gray-200">500</h1>
 
-                    <p className="font-sans-alt text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+                    <p className="font-bold font-sans-alt text-2xl text-gray-900 tracking-tight sm:text-4xl">
                       Hoppla!
                     </p>
 
-                    <p className="mt-4 text-gray-500">Irgendwas lauft ned rund.</p>
+                    <p className="mt-4 text-gray-500">
+                      Irgendwas lauft ned rund.
+                    </p>
 
                     <button
-                      className="inline-flex items-center rounded-md border border-white bg-brand-400 px-4 py-2 text-sm font-medium text-white hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
+                      className="inline-flex items-center rounded-md border border-white bg-brand-400 px-4 py-2 font-medium text-sm text-white hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
                       onClick={() => reset()}
                       type="button"
                     >

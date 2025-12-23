@@ -2,10 +2,10 @@
 
 import { Menu, Transition } from '@headlessui/react';
 import clsx from 'clsx';
-import { signOut } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { signOut } from 'next-auth/react';
 import { Fragment } from 'react';
 
 const RootLayoutClient = ({
@@ -40,8 +40,8 @@ const RootLayoutClient = ({
             <div className="flex">
               <Link
                 className={clsx(
-                  'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
-                  { '!border-brand-400 text-gray-900': pathname === '/' },
+                  'm-4 inline-flex items-center border-transparent border-b-2 px-1 pt-1 font-medium text-gray-500 text-sm hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
+                  { '!border-brand-400 text-gray-900': pathname === '/' }
                 )}
                 href="/"
               >
@@ -49,10 +49,10 @@ const RootLayoutClient = ({
               </Link>
               <Link
                 className={clsx(
-                  'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
+                  'm-4 inline-flex items-center border-transparent border-b-2 px-1 pt-1 font-medium text-gray-500 text-sm hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
                   {
                     '!border-brand-400 text-gray-900': pathname === '/results',
-                  },
+                  }
                 )}
                 href="/results"
               >
@@ -61,10 +61,10 @@ const RootLayoutClient = ({
               {user?.role === 'ADMIN' ? (
                 <Link
                   className={clsx(
-                    'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
+                    'm-4 inline-flex items-center border-transparent border-b-2 px-1 pt-1 font-medium text-gray-500 text-sm hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
                     {
                       '!border-brand-400 text-gray-900': pathname === '/admin',
-                    },
+                    }
                   )}
                   href="/admin"
                 >
@@ -90,7 +90,7 @@ const RootLayoutClient = ({
                   ) : (
                     // display a Avatar with the first letter of the name if no image is provided
                     <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-300">
-                      <span className="select-none text-sm font-medium text-white">
+                      <span className="select-none font-medium text-sm text-white">
                         {user.email?.charAt(0).toUpperCase()}
                       </span>
                     </div>
@@ -111,7 +111,7 @@ const RootLayoutClient = ({
                   <Menu.Item>
                     <Link
                       aria-label="Ergebnis"
-                      className="inline-flex w-full  px-4 py-2 text-left text-sm text-gray-700 lg:hidden"
+                      className="inline-flex w-full px-4 py-2 text-left text-gray-700 text-sm lg:hidden"
                       href="/results"
                     >
                       Ergebnis
@@ -121,7 +121,7 @@ const RootLayoutClient = ({
                     <Menu.Item>
                       <Link
                         aria-label="Admin"
-                        className="inline-flex w-full  px-4 py-2 text-left text-sm text-gray-700 lg:hidden"
+                        className="inline-flex w-full px-4 py-2 text-left text-gray-700 text-sm lg:hidden"
                         href="/admin"
                       >
                         Admin
@@ -131,7 +131,7 @@ const RootLayoutClient = ({
                   <Menu.Item>
                     <button
                       aria-label="Logout"
-                      className="inline-flex w-full px-4 py-2 text-left text-sm text-gray-700"
+                      className="inline-flex w-full px-4 py-2 text-left text-gray-700 text-sm"
                       onClick={() => signOut({ callbackUrl: '/' })}
                       type="button"
                     >
@@ -143,7 +143,7 @@ const RootLayoutClient = ({
             </Menu>
           ) : (
             <Link
-              className="inline-flex w-full items-center rounded-md border border-white bg-brand-400 px-4 py-2 text-sm font-medium text-white hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
+              className="inline-flex w-full items-center rounded-md border border-white bg-brand-400 px-4 py-2 font-medium text-sm text-white hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
               href="/login"
             >
               {/* <a className="inline-flex items-center rounded-md border border-transparent bg-brand-400 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2"> */}

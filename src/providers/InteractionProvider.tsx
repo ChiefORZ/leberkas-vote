@@ -1,6 +1,12 @@
 'use client';
 
-import { createContext, useCallback, useContext, useMemo, useState } from 'react';
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
 
 import { useUserContext } from '@/providers/UserProvider';
 
@@ -12,17 +18,19 @@ interface IInteractionContext {
   displayLoginOverlay: boolean;
   hasInteracted: boolean;
   setHasInteracted: React.Dispatch<React.SetStateAction<boolean>>;
-  handleAllowedToInteract: () => Promise<boolean>;
+  handleAllowedToInteract: () => boolean;
 }
 
 const InteractionContext = createContext<IInteractionContext | null>(null);
 
-const InteractionContextProvider = ({ children }: IInteractionContextProviderProps) => {
+const InteractionContextProvider = ({
+  children,
+}: IInteractionContextProviderProps) => {
   const { user } = useUserContext();
   const [hasInteracted, setHasInteracted] = useState(false);
 
-  const handleAllowedToInteract = useCallback(async () => {
-    if (!hasInteracted && (!user || !user.id)) {
+  const handleAllowedToInteract = useCallback(() => {
+    if (!(hasInteracted || user?.id)) {
       setHasInteracted(true);
       return false;
     }
@@ -31,8 +39,8 @@ const InteractionContextProvider = ({ children }: IInteractionContextProviderPro
   }, [hasInteracted, user]);
 
   const displayLoginOverlay = useMemo(
-    () => hasInteracted && (!user || !user.id),
-    [hasInteracted, user],
+    () => hasInteracted && !user?.id,
+    [hasInteracted, user]
   );
 
   const interactionContextValue = useMemo(
@@ -42,7 +50,7 @@ const InteractionContextProvider = ({ children }: IInteractionContextProviderPro
       hasInteracted,
       setHasInteracted,
     }),
-    [displayLoginOverlay, handleAllowedToInteract, hasInteracted],
+    [displayLoginOverlay, handleAllowedToInteract, hasInteracted]
   );
   return (
     <InteractionContext.Provider value={interactionContextValue}>
@@ -54,9 +62,15 @@ const InteractionContextProvider = ({ children }: IInteractionContextProviderPro
 const useInteractionContext = () => {
   const context = useContext(InteractionContext);
   if (!context) {
-    throw new Error('useInteractionContext must be used within a InteractionContextProvider');
+    throw new Error(
+      'useInteractionContext must be used within a InteractionContextProvider'
+    );
   }
   return context;
 };
 
-export { InteractionContext, InteractionContextProvider, useInteractionContext };
+export {
+  InteractionContext,
+  InteractionContextProvider,
+  useInteractionContext,
+};

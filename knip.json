@@ -2,11 +2,10 @@
   "$schema": "https://unpkg.com/knip@3/schema.json",
   "entry": [
     "**/__mocks__/**/*",
-    "next.config.js",
+    "next.config.ts",
     "src/middleware.ts",
     "src/app/error.tsx",
     "src/app/global-error.tsx",
-    "src/app/head.tsx",
     "src/app/**/layout*.tsx",
     "src/app/**/not-found*.tsx",
     "src/app/**/page.tsx",
@@ -23,6 +22,7 @@
   "ignoreDependencies": [
     "@aws-sdk/client-s3",
     "@aws-sdk/signature-v4-crt",
+    "@biomejs/biome",
     "aws-crt",
     "dotenv",
     "encoding"

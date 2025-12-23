@@ -25,7 +25,7 @@ export default function GlobalError({
     <html
       className={classNames(
         'h-screen max-h-screen min-h-screen bg-white font-sans text-slate-900 antialiased',
-        fontSans.variable,
+        fontSans.variable
       )}
       lang="en"
     >
@@ -51,7 +51,7 @@ export default function GlobalError({
                     <div className="flex">
                       <Link
                         className={clsx(
-                          'm-4 inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none',
+                          'm-4 inline-flex items-center border-transparent border-b-2 px-1 pt-1 font-medium text-gray-500 text-sm hover:border-gray-300 hover:text-gray-700 focus:border-gray-300 focus:text-gray-700 focus:outline-none'
                         )}
                         href="/"
                       >
@@ -61,7 +61,7 @@ export default function GlobalError({
                   </div>
 
                   <Link
-                    className="inline-flex w-full items-center rounded-md border border-white bg-brand-400 px-4 py-2 text-sm font-medium text-white hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
+                    className="inline-flex w-full items-center rounded-md border border-white bg-brand-400 px-4 py-2 font-medium text-sm text-white hover:bg-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
                     href="/login"
                   >
                     {/* <a className="inline-flex items-center rounded-md border border-transparent bg-brand-400 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2"> */}
@@ -76,17 +76,19 @@ export default function GlobalError({
           <main className="z-10 mt-2">
             <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
               <div className="lg:text-center">
-                <h2 className="text-base font-semibold uppercase tracking-wide text-brand-400">
+                <h2 className="font-semibold text-base text-brand-400 uppercase tracking-wide">
                   Error
                 </h2>
-                <p className="mt-2 text-3xl font-extrabold leading-8 tracking-tight text-gray-900 sm:text-4xl">
+                <p className="mt-2 font-extrabold text-3xl text-gray-900 leading-8 tracking-tight sm:text-4xl">
                   Something went wrong!
                 </p>
-                <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">{error?.message}</p>
+                <p className="mt-4 max-w-2xl text-gray-500 text-xl lg:mx-auto">
+                  {error?.message}
+                </p>
                 <div className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
                   <div className="rounded-md shadow">
                     <button
-                      className="flex w-full items-center justify-center rounded-md border border-transparent bg-brand-400 px-8 py-3 text-base font-medium text-white hover:bg-brand-500 md:px-10 md:py-4 md:text-lg"
+                      className="flex w-full items-center justify-center rounded-md border border-transparent bg-brand-400 px-8 py-3 font-medium text-base text-white hover:bg-brand-500 md:px-10 md:py-4 md:text-lg"
                       onClick={
                         // Attempt to recover by trying to re-render the segment
                         () => reset()

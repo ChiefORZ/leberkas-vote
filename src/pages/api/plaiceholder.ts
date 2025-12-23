@@ -1,7 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { getPlaiceholder } from 'plaiceholder';
 
-const plaiceholderApiRoute = async (req: NextApiRequest, res: NextApiResponse) => {
+const plaiceholderApiRoute = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   const {
     query: { imageUrl, strategy = 'base64', size = 10 },
     method,
@@ -13,7 +16,9 @@ const plaiceholderApiRoute = async (req: NextApiRequest, res: NextApiResponse) =
     ? Number.parseInt(size[0], 10)
     : Number.parseInt(size as string, 10);
 
-  const buffer = await fetch(_imageUrl).then(async (r) => Buffer.from(await r.arrayBuffer()));
+  const buffer = await fetch(_imageUrl).then(async (r) =>
+    Buffer.from(await r.arrayBuffer())
+  );
 
   if (method === 'GET' && imageUrl && strategy && size) {
     const result = await getPlaiceholder(buffer, {

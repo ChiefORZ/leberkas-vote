@@ -51,7 +51,9 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
   const { user } = useUserContext();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const defaultValue = useRef(
-    JSON.stringify((user?.ratings || []).sort((a, b) => a.itemId.localeCompare(b.itemId))),
+    JSON.stringify(
+      (user?.ratings || []).sort((a, b) => a.itemId.localeCompare(b.itemId))
+    )
   );
   const [ratings, setRatings] = useState<Rating[]>(user?.ratings || []);
 
@@ -64,16 +66,21 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
     return numVotes - sum;
   }, []);
 
-  const restStars = useMemo(() => calcRestStars(ratings), [calcRestStars, ratings]);
+  const restStars = useMemo(
+    () => calcRestStars(ratings),
+    [calcRestStars, ratings]
+  );
 
-  const handleOnRatingChange = async ({
+  const handleOnRatingChange = ({
     itemId,
     rating,
   }: {
     itemId: string;
     rating: number;
   }) => {
-    if (!user || !user.id) return;
+    if (!user?.id) {
+      return;
+    }
     setRatings((prevRatings) => {
       const newRatings = [...prevRatings];
       if (
@@ -83,31 +90,40 @@ const RatingContextProvider = ({ children }: IRatingContextProviderProps) => {
         // delete rating
         newRatings.splice(
           newRatings.findIndex((r) => r.itemId === itemId),
-          1,
+          1
         );
       } else if (
         newRatings.find((r) => r.itemId === itemId) &&
         newRatings.find((r) => r.itemId === itemId)?.value !== rating
       ) {
         // update rating immutable
-        newRatings[newRatings.findIndex((r) => r.itemId === itemId)].value = rating;
+        newRatings[newRatings.findIndex((r) => r.itemId === itemId)].value =
+          rating;
       } else {
         newRatings.push({ itemId, userId: user.id, value: rating });
       }
-      if (calcRestStars(newRatings) < 0) return prevRatings;
+      if (calcRestStars(newRatings) < 0) {
+        return prevRatings;
+      }
       return newRatings;
     });
   };
 
   const handleSubmitForm = useCallback(async () => {
     try {
-      if (!user || !user.id) return;
+      if (!user?.id) {
+        return;
+      }
       // set loading state
       setIsSubmitting(true);
       // make a graphql mutation to create a rating with window.fetch
-      await request(new URL('/api', window.location.origin).toString(), SetRatingsMutation, {
-        ratings,
-      });
+      await request(
+        new URL('/api', window.location.origin).toString(),
+        SetRatingsMutation,
+        {
+          ratings,
+        }
+      );
       // redirect to /results
       // eslint-disable-next-line react-compiler/react-compiler
       window.location.href = '/results';

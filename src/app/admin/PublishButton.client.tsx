@@ -20,9 +20,13 @@ export const PublishButton = ({ item }) => {
 
   const handlePublishItem = async () => {
     setPublishing(true);
-    await request(new URL('/api', window.location.origin).toString(), PublishItemMutation, {
-      id: item.id,
-    });
+    await request(
+      new URL('/api', window.location.origin).toString(),
+      PublishItemMutation,
+      {
+        id: item.id,
+      }
+    );
     setPublished(true);
     setPublishing(false);
   };

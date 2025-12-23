@@ -3,7 +3,10 @@ import userEvent from '@testing-library/user-event';
 import { request } from 'graphql-request';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { PublishButton, PublishItemMutation } from '@/app/admin/PublishButton.client';
+import {
+  PublishButton,
+  PublishItemMutation,
+} from '@/app/admin/PublishButton.client';
 
 vi.mock('graphql-request', async (importOriginal) => {
   const orig = await importOriginal();
@@ -28,7 +31,7 @@ describe('PublishButton', () => {
     expect(screen.getByRole('button')).not.toHaveAttribute('disabled', '');
     expect(screen.getByRole('button')).toContainElement(
       // get the svg element inside the button
-      screen.getByTestId('check-icon'),
+      screen.getByTestId('check-icon')
     );
   });
 
@@ -39,8 +42,12 @@ describe('PublishButton', () => {
     await user.click(screen.getByRole('button'));
 
     expect(screen.getByRole('button')).toBeDisabled();
-    expect(request).toHaveBeenCalledWith('http://localhost:3000/api', PublishItemMutation, {
-      id: item.id,
-    });
+    expect(request).toHaveBeenCalledWith(
+      'http://localhost:3000/api',
+      PublishItemMutation,
+      {
+        id: item.id,
+      }
+    );
   });
 });

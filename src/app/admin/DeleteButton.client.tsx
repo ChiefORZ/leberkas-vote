@@ -20,9 +20,13 @@ export const DeleteButton = ({ item }) => {
 
   const handleDeleteItem = async () => {
     setDeleting(true);
-    await request(new URL('/api', window.location.origin).toString(), DeleteItemMutation, {
-      id: item.id,
-    });
+    await request(
+      new URL('/api', window.location.origin).toString(),
+      DeleteItemMutation,
+      {
+        id: item.id,
+      }
+    );
     setDeleted(true);
     setDeleting(false);
   };

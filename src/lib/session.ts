@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth/next';
 
 import { authOptions } from '@/lib/auth';
 
-export async function getSession(): Promise<Session> {
+export function getSession(): Promise<Session> {
   return getServerSession(authOptions);
 }
 

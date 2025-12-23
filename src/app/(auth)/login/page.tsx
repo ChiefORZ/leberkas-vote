@@ -5,7 +5,9 @@ import { signIn } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
 import toast, { Toaster } from 'react-hot-toast';
 
-const magic = typeof window !== 'undefined' && new Magic(process.env.NEXT_PUBLIC_MAGIC_PK || 'a');
+const magic =
+  typeof window !== 'undefined' &&
+  new Magic(process.env.NEXT_PUBLIC_MAGIC_PK || 'a');
 
 export default function LoginPage() {
   const { register, handleSubmit } = useForm();
@@ -16,7 +18,9 @@ export default function LoginPage() {
 
   const handleLoginWithMagic = async ({ email }) => {
     try {
-      if (!magic) throw new Error('magic not defined');
+      if (!magic) {
+        throw new Error('magic not defined');
+      }
       // login with Magic
       const didToken = await magic.auth.loginWithMagicLink({ email });
 
@@ -51,7 +55,10 @@ export default function LoginPage() {
     <>
       <form className="space-y-6" onSubmit={handleSubmit(handleLoginWithMagic)}>
         <div>
-          <label className="block text-sm font-medium text-gray-700" htmlFor="email">
+          <label
+            className="block font-medium text-gray-700 text-sm"
+            htmlFor="email"
+          >
             E-Mail
           </label>
           <div className="mt-1">
@@ -69,7 +76,7 @@ export default function LoginPage() {
 
         <div>
           <button
-            className="inline-flex w-full justify-center rounded-md border border-brand-300 bg-white px-4 py-2 text-sm font-medium text-brand-500 shadow-sm hover:bg-gray-50 focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
+            className="inline-flex w-full justify-center rounded-md border border-brand-300 bg-white px-4 py-2 font-medium text-brand-500 text-sm shadow-sm hover:bg-gray-50 focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
             type="submit"
           >
             Anmelden
@@ -80,7 +87,7 @@ export default function LoginPage() {
       <div className="mt-6">
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-gray-300" />
+            <div className="w-full border-gray-300 border-t" />
           </div>
           <div className="relative flex justify-center text-sm">
             <span className="bg-white px-2 text-gray-500">oder weiter mit</span>
@@ -91,7 +98,7 @@ export default function LoginPage() {
         <div className="mt-6">
           <div>
             <button
-              className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-500 shadow-sm hover:bg-gray-50 focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
+              className="inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 font-medium text-gray-500 text-sm shadow-sm hover:bg-gray-50 focus:border-brand-300 focus:outline-none focus:ring-2 focus:ring-brand-300 focus:ring-offset-2"
               onClick={handleLoginWithGoogle}
               type="button"
             >

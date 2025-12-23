@@ -32,7 +32,7 @@ describe('Button', () => {
     render(
       <Button loading onClick={handleClick}>
         Click me
-      </Button>,
+      </Button>
     );
     const buttonRef = screen.getByRole('button');
     expect(buttonRef).toBeInTheDocument();

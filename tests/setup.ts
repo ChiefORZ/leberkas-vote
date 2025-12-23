@@ -1,6 +1,7 @@
 import '@testing-library/jest-dom';
 
 import { cleanup } from '@testing-library/react';
+// biome-ignore lint/performance/noNamespaceImport: reasonable explanation
 import * as ResizeObserverModule from 'resize-observer-polyfill';
 import { afterEach, vi } from 'vitest';
 

@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noUnknownAtRules: false positive */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -20,9 +21,9 @@
     position: relative;
   }
   [style*="--aspect-ratio"]::before {
-    content: "";
     display: block;
     padding-bottom: calc(100% / (var(--aspect-ratio)));
+    content: "";
   }
   [style*="--aspect-ratio"] > :first-child {
     position: absolute;

@@ -21,9 +21,9 @@ const Page = async () => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-      <div className="border-styria flex h-[85vh] flex-col rounded-lg bg-white px-5 py-6 sm:px-6">
+      <div className="flex h-[85vh] flex-col rounded-lg border-styria bg-white px-5 py-6 sm:px-6">
         <div>
-          <h1 className="mt-10 scroll-m-20 font-sans-alt text-xl font-normal transition-colors first:mt-0 dark:border-b-slate-700 lg:text-2xl">
+          <h1 className="mt-10 scroll-m-20 font-normal font-sans-alt text-xl transition-colors first:mt-0 lg:text-2xl dark:border-b-slate-700">
             Neue Eintr&auml;ge
           </h1>
         </div>
@@ -45,7 +45,7 @@ const Page = async () => {
                     placeholder="blur"
                     src={item.imageUrl}
                   />
-                  <div className="absolute right-0 top-0">
+                  <div className="absolute top-0 right-0">
                     <DeleteButton item={item} />
                     <PublishButton item={item} />
                   </div>

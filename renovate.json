@@ -1,14 +1,9 @@
 {
-  "extends": [
-    "github>chieforz/renovate-config"
-  ],
+  "extends": ["github>chieforz/renovate-config"],
   "packageRules": [
     {
       "enabled": false,
-      "matchPackageNames": [
-        "next",
-        "next-auth"
-      ]
+      "matchPackageNames": ["next", "next-auth"]
     }
   ]
 }

@@ -45,9 +45,9 @@ const Page = async () => {
 
   return (
     <div className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
-      <div className="border-styria flex h-[85vh] flex-col rounded-lg bg-white px-5 py-6 sm:px-6">
+      <div className="flex h-[85vh] flex-col rounded-lg border-styria bg-white px-5 py-6 sm:px-6">
         <div>
-          <h1 className="mt-10 scroll-m-20 font-sans-alt text-xl font-normal transition-colors first:mt-0 dark:border-b-slate-700 lg:text-2xl">
+          <h1 className="mt-10 scroll-m-20 font-normal font-sans-alt text-xl transition-colors first:mt-0 lg:text-2xl dark:border-b-slate-700">
             So schau ma aus...
           </h1>
         </div>
@@ -59,7 +59,7 @@ const Page = async () => {
                   className="relative flex h-16 w-full items-end overflow-hidden rounded-2xl"
                   key={item.id}
                 >
-                  <div className="absolute left-0 top-0 h-full w-full">
+                  <div className="absolute top-0 left-0 h-full w-full">
                     <Image
                       alt={item.name}
                       fill
