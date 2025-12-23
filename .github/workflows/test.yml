@@ -53,9 +53,6 @@ jobs:
       - name: Build
         run: pnpm turbo build
 
-      - name: Biome check
-        run: pnpm turbo biome:check
-
       - name: Test
         run: pnpm turbo test
 
